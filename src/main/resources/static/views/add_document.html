@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="slider-container">
+        <div class="intro-text">
+
+            <form id="form" class="topBefore" ng-submit="createDocument()">
+                <h1>Dodwanie WZ</h1>
+
+                <input name="numberWZ" type="text" ng-model="form.numberWZ" placeholder="Numer WZ">
+                <input name="subProcess" required type="number" ng-model="form.subProcess" placeholder="Podproces"
+                       min="1"
+                       max="100"/>
+                <input name="nameClient" type="text" ng-model="form.nameClient" placeholder="Nazwa klienta">
+                <input name="numberClient" type="text" ng-model="form.numberClient" placeholder="Numer klienta">
+                <input name="nameTrader" type="text" ng-model="form.nameTrader" placeholder="Handlowiec">
+                <input type=date step=2 min=2014-W30 ng-model="form.date">
+                <input id="submit" type="submit" value="Dodaj">
+                <div ng-repeat="response in responseFromServer">
+                    {{response}}
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

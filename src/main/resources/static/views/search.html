@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="slider-container">
+        <div class="intro-text">
+
+            <form div="form" class="topBefore">
+                <h1>Wyszukaj po:</h1>
+
+                <select ng-model="myVar">
+                    <option value="numberWZ">Numer WZ</option>
+                    <option value="nameClient">Nazwa klienta</option>
+                    <option value="numberClient">Numer klienta</option>
+                    <option value="nameTrader">Opiekun</option>
+                </select>
+
+
+                <hr>
+                <div ng-switch="myVar">
+                    <div ng-switch-when="numberWZ">
+
+                        <input id="numberDocument" type="text" ng-model="form.numberDocument" placeholder="Numer WZ">
+                        <input id="subPro" required type="number" ng-model="form.subProcess" placeholder="Podproces"
+                               min="1"
+                               max="4999"/>
+                        <input class="submit" type="submit" value="Szukaj" ng-click="findByNumber()">
+
+                    </div>
+                    <div ng-switch-when="nameClient">
+
+
+                        <input class="inputDocument" type="text" ng-model="form.nameClient" placeholder="Nazwa klienta">
+                        <input class="submit" type="submit" value="Szukaj" ng-click="findByClient()">
+
+
+                    </div>
+                    <div ng-switch-when="numberClient">
+
+
+                        <input class="inputDocument" type="text" ng-model="form.numberClient"
+                               placeholder="Numer klienta">
+                        <input class="submit" type="submit" value="Szukaj" ng-click="findByClientNumber()">
+
+
+                    </div>
+                    <div ng-switch-when="nameTrader">
+
+                        <input class="inputDocument" type="text" ng-model="form.nameTrader" placeholder="Handlowiec">
+                        <input class="submit" type="submit" value="Szukaj" ng-click="findByTrader()">
+
+                    </div>
+                </div>
+                {{info}}
+            </form>
+
+
+            <div id="showDocument">
+                <table class="table" ts-wrapper>
+                    <thead>
+                    <tr>
+
+                        <th ts-criteria="NumberWZ|parseInt" ts-default>Numer WZ</th>
+                        <th ts-criteria="subProcess|parseInt">Podproces</th>
+                        <th ts-criteria="client|lowercase">Klient</th>
+                        <th ts-criteria="clientNumber|parseInt">Numer klienta</th>
+                        <th ts-criteria="traderName|lowercase">Handlowiec</th>
+                        <th ts-criteria="date|parseInt">Data zatwierdzenia</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="document in documents" ts-repeat>
+
+                        <td>{{document.numberWZ}}</td>
+                        <td>{{document.subProcess}}</td>
+                        <td>{{document.client}}</td>
+                        <td>{{document.clientNumber}}</td>
+                        <td>{{document.traderName}}</td>
+                        <td>{{document.date}}</td>
+                        <td id="delete"><input class="adminSubmit" type="submit" value="Usuń" ng-click="deleteWZ()">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--</div>-->
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,25 @@
+package pl.lenda.marcin.wzb.service.document_wz;
+
+import pl.lenda.marcin.wzb.entity.DocumentWz;
+
+import java.util.List;
+
+/**
+ * Created by Promar on 28.10.2016.
+ */
+public interface DocumentWzService {
+
+    DocumentWz createDocumentWz(DocumentWz documentWz);
+
+    DocumentWz findByNumberWz(Integer numberWZ);
+
+    List<DocumentWz> findByNumberClient(Integer numberClient);
+
+    List<DocumentWz> findByNameClient(String nameClient);
+
+    List<DocumentWz> findByNameTrader(String nameTrader);
+
+    List<DocumentWz> showAllDocument();
+
+    void removeDocumentWz(DocumentWz documentWz);
+}
