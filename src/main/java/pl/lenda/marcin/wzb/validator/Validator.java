@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import pl.lenda.marcin.wzb.dto.DocumentWzDto;
 import pl.lenda.marcin.wzb.entity.DocumentWz;
 import pl.lenda.marcin.wzb.service.document_wz.DocumentWzService;
 
@@ -25,13 +26,12 @@ public class Validator {
     private JSONObject success = new JSONObject();
 
 
-    public ResponseEntity<?> checkAndSaveDocument(DocumentWz documentWz) {
+    public ResponseEntity<?> checkAndSaveDocument(DocumentWzDto documentWzDto) {
 
-        String lengthNumberDocument = String.valueOf(documentWz.getNumberWZ());
-        String lengthSubProDocument = String.valueOf(documentWz.getSubProcess());
+        String lengthNumberDocument = String.valueOf(documentWzDto.getNumberWZ());
+        String lengthSubProDocument = String.valueOf(documentWzDto.getSubProcess());
 
-        if (documentWzService.findByNumberWz(documentWz.getNumberWZ()) != null &&
-                documentWzService.findByNumberWz(documentWz.getNumberWZ()).getSubProcess().equals(documentWz.getSubProcess())){
+        if (documentWzService.findByNumberWZAndSubProcess(documentWzDto.getNumberWZ(), documentWzDto.getSubProcess()) != null ){
 
             response.clear();
             response.add("Podana WZ istnieje w bazie danych.");
@@ -56,6 +56,14 @@ public class Validator {
             errors.put("Error", response);
             return new ResponseEntity<Object>(errors, HttpStatus.CONFLICT);
         }
+
+        DocumentWz documentWz = new DocumentWz();
+        documentWz.setClient(documentWzDto.getClient());
+        documentWz.setClientNumber(documentWzDto.getClientNumber());
+        documentWz.setDate(documentWzDto.getDate());
+        documentWz.setNumberWZ(documentWzDto.getNumberWZ());
+        documentWz.setSubProcess(documentWzDto.getSubProcess());
+        documentWz.setTraderName(documentWzDto.getTraderName());
 
         documentWzService.createDocumentWz(documentWz);
         response.clear();

@@ -11,7 +11,8 @@ app.controller('findDocument', function($scope, $http, documentWZ) {
     $scope.findByNumber = function () {
 
         var numberWZ = $scope.form.numberDocument;
-        documentWZ.findDocumentByNumberWZ(numberWZ);
+        var subPro = $scope.form.subProcess;
+        documentWZ.findDocumentByNumberWZ(numberWZ, subPro);
     };
 
     $scope.findByClient = function () {

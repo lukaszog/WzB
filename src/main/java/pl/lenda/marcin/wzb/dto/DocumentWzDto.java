@@ -1,37 +1,25 @@
-package pl.lenda.marcin.wzb.entity;
+package pl.lenda.marcin.wzb.dto;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * Created by Promar on 09.10.2016.
+ * Created by Promar on 30.10.2016.
  */
-@Document
-public class DocumentWz {
+public class DocumentWzDto {
 
-    @Id
-    private String id;
-    @NotNull
     private String numberWZ;
-    @NotNull
+
     private String subProcess;
-    @NotNull
+
     private String client;
-    @NotNull
+
     private String clientNumber;
-    @NotNull
+
     private String traderName;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+
     private Date date;
 
-    public DocumentWz(){
-    }
-
-    public DocumentWz(String numberWZ, String subProcess, String client, String clientNumber, String traderName, Date date) {
+    public DocumentWzDto(String numberWZ, String subProcess, String client, String clientNumber, String traderName, Date date) {
         this.numberWZ = numberWZ;
         this.subProcess = subProcess;
         this.client = client;
@@ -40,12 +28,15 @@ public class DocumentWz {
         this.date = date;
     }
 
-    public String getId() {
-        return id;
+    public DocumentWzDto() {
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public DocumentWzDto(String numberWZ, String subProcess, String client, String traderName, Date date) {
+        this.numberWZ = numberWZ;
+        this.subProcess = subProcess;
+        this.client = client;
+        this.traderName = traderName;
+        this.date = date;
     }
 
     public String getNumberWZ() {
@@ -72,14 +63,6 @@ public class DocumentWz {
         this.client = client;
     }
 
-    public String getClientNumber() {
-        return clientNumber;
-    }
-
-    public void setClientNumber(String clientNumber) {
-        this.clientNumber = clientNumber;
-    }
-
     public String getTraderName() {
         return traderName;
     }
@@ -94,5 +77,13 @@ public class DocumentWz {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getClientNumber() {
+        return clientNumber;
+    }
+
+    public void setClientNumber(String clientNumber) {
+        this.clientNumber = clientNumber;
     }
 }

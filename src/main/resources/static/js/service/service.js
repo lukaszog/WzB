@@ -57,23 +57,28 @@ app.service('documentWZ', function ($rootScope, $http) {
         });
     };
 
-    this.findDocumentByNumberWZ = function (numberWZ) {
+    this.findDocumentByNumberWZ = function (numberWZ, subPro) {
         $rootScope.documents = [];
         $http({
             method: 'POST',
             url: 'http://localhost:8080/findByNumber',
-            data: numberWZ,
-            headers: {'Content-type': 'application/json'},
+            data: {
+                "numberWZ": numberWZ,
+                "subPro": subPro
+            },
+            headers: {'Content-type': 'application/json'}
         }).success(function (data) {
             if (data.length == 0) {
                 $rootScope.info = "Dokument nie istnieje w bazie danych.";
             }
             console.log(data);
             $rootScope.documents.push(data);
-
+            console.log(numberWZ+"1");
+            console.log(subPro+"2");
         }).error(function (data) {
             console.log('Nie udało się pobrać WZ');
-
+            console.log(numberWZ+"1");
+            console.log(subPro+"2");
         });
     };
 

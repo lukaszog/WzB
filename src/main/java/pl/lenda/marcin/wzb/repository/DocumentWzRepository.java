@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface DocumentWzRepository extends MongoRepository<DocumentWz, String> {
 
-    DocumentWz findByNumberWZ(Integer numberWZ);
+    DocumentWz findByNumberWZAndSubProcess(String numberWZ, String subProcess);
 
     List<DocumentWz> findByClient(String client);
 

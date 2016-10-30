@@ -11,7 +11,7 @@ public interface DocumentWzService {
 
     DocumentWz createDocumentWz(DocumentWz documentWz);
 
-    DocumentWz findByNumberWz(Integer numberWZ);
+    DocumentWz findByNumberWZAndSubProcess(String numberWZ, String subProcess);
 
     List<DocumentWz> findByNumberClient(Integer numberClient);
 

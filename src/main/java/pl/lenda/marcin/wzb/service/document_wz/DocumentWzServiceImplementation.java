@@ -27,8 +27,8 @@ public class DocumentWzServiceImplementation implements DocumentWzService {
     }
 
     @Override
-    public DocumentWz findByNumberWz(Integer numberWZ) {
-        return documentWzRepository.findByNumberWZ(numberWZ);
+    public DocumentWz findByNumberWZAndSubProcess(String numberWZ, String subProcess) {
+        return documentWzRepository.findByNumberWZAndSubProcess(numberWZ, subProcess);
     }
 
     @Override
