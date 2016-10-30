@@ -207,7 +207,7 @@ section ul li:before {
 @media (min-width: 768px) {
 	#wrapper .intro-text {
 		padding-top: 155px;
-		padding-bottom: 300px;
+		padding-bottom: 150px;
     }
 }
 
@@ -246,7 +246,7 @@ section ul li:before {
 @media (min-width: 768px) {
 	#wrapper .intro-text .intro-heading {
 		line-height: 95px;
-		font-size: 77px;
+		font-size: 55px;
 		margin-bottom: 50px;
 	}
 }
@@ -666,4 +666,11 @@ Option Admin
 {
 	width: 80px;
 
+}
+
+#adminPanel
+{
+	width: 400px;
+	height: 400px;
+	background-color: #5D5D5F;
 }
