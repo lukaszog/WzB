@@ -14,9 +14,10 @@
                 <input name="nameTrader" type="text" ng-model="form.nameTrader" placeholder="Handlowiec">
                 <input type=date step=2 min=2014-W30 ng-model="form.date">
                 <input id="submit" type="submit" value="Dodaj">
-                <div ng-repeat="response in responseFromServer">
-                    {{response}}
-                </div>
+                <!--<div ng-repeat="response in responseFromServer">-->
+                    <!--{{response}}-->
+                <!--</div>-->
+                {{responseFromServer}}
             </form>
 
         </div>

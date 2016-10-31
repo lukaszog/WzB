@@ -11,7 +11,7 @@ app.service('userAccount', function ($rootScope, $http, $location) {
 app.service('documentWZ', function ($rootScope, $http) {
 
     var self = this;
-    $rootScope.responseFromServer = {};
+    $rootScope.responseFromServer = '';
 
 
     this.addWZ = function (numberWZ, subProcess, client, clientNumber, traderName,
@@ -30,10 +30,10 @@ app.service('documentWZ', function ($rootScope, $http) {
             headers: {'Content-type': 'application/json'}
         })
             .success(function (data) {
-                $rootScope.responseFromServer = data.Succes;
+                $rootScope.responseFromServer = "Dodałeś dokument WZ o numerze:"+data.numberWZ+" do bazy danych.";
 
             }).error(function (data) {
-            $rootScope.responseFromServer = data.Error;
+            $rootScope.responseFromServer = data.message;
 
         });
     };

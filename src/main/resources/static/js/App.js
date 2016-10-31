@@ -5,7 +5,7 @@
 
 // Declare app level module which depends on views, and components
 var app = angular.module('myApp', [
-    'ngRoute', 'ngResource', 'ngMaterial', 'ngMessages','tableSort'
+    'ngRoute', 'ngResource', 'ngMaterial', 'ngMessages','tableSort', 'timer'
 
 ]).config(function($routeProvider, $httpProvider) {
 

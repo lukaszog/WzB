@@ -15,7 +15,7 @@ public class DocumentWz {
 
     @Id
     private String id;
-    @NotNull
+
     private String numberWZ;
     @NotNull
     private String subProcess;

@@ -63,6 +63,7 @@
                         <th ts-criteria="clientNumber|parseInt">Numer klienta</th>
                         <th ts-criteria="traderName|lowercase">Handlowiec</th>
                         <th ts-criteria="date|parseInt">Data zatwierdzenia</th>
+                        <th ts-criteria="">Zwłoka</th>
 
                     </tr>
                     </thead>
@@ -74,7 +75,8 @@
                         <td>{{document.client}}</td>
                         <td>{{document.clientNumber}}</td>
                         <td>{{document.traderName}}</td>
-                        <td>{{document.date}}</td>
+                        <td>{{document.date | date:'MM/dd/yyyy - h:mma'}}</td>
+                        <td><timer start-time="document.date">{{days}} days </timer></td>
                         <td id="delete"><input class="adminSubmit" type="submit" value="Usuń" ng-click="deleteWZ()">
                         </td>
                     </tr>

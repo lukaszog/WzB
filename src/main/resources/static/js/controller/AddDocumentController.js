@@ -16,6 +16,10 @@ app.controller('DocumentOperation', ['$scope', '$http','documentWZ',  function (
         documentWZ.addWZ(numberWZ, subProcess, client, clientNumber, nameTrader, date);
     };
 
+    $scope.clearInput = function () {
+        $scope.form.numberWZ = '';
+    };
+
 
     $scope.deleteWZ = function () {
        var numberWZ = $scope.form.numberWZ;

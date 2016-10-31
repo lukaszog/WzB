@@ -1,20 +1,23 @@
 package pl.lenda.marcin.wzb.dto;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * Created by Promar on 30.10.2016.
  */
+
 public class DocumentWzDto {
 
+    @NotNull(message = "error.wz.number.notnull")
     private String numberWZ;
-
+    @NotNull(message = "error.wz.sub.notnull")
     private String subProcess;
-
+    @NotNull(message = "error.wz.client.notnull")
     private String client;
-
+    @NotNull(message = "error.wz.client.notnull")
     private String clientNumber;
-
+    @NotNull(message = "error.wz.trader.notnull")
     private String traderName;
 
     private Date date;

@@ -1,15 +1,13 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.DocumentWzDto;
 import pl.lenda.marcin.wzb.dto.FindByNumberWzDto;
 import pl.lenda.marcin.wzb.entity.DocumentWz;
 import pl.lenda.marcin.wzb.service.document_wz.DocumentWzServiceImplementation;
-import pl.lenda.marcin.wzb.validator.Validator;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,8 +17,7 @@ import java.util.List;
 public class ControllerDocumentWz {
 
     private final DocumentWzServiceImplementation documentWzServiceImplementation;
-    @Resource
-    private Validator validator;
+
     private FindByNumberWzDto findByNumberWzDto;
     private DocumentWzDto documentWzDto;
 
@@ -33,8 +30,18 @@ public class ControllerDocumentWz {
     @RequestMapping(value = "/saveDocument")
     public
     @ResponseBody
-    ResponseEntity<?> createDocumentWz(@RequestBody DocumentWzDto documentWzDto) {
-        return validator.checkAndSaveDocument(documentWzDto);
+    DocumentWzDto createDocumentWz(@Validated @RequestBody DocumentWzDto documentWzDto) {
+        DocumentWz documentWz = new DocumentWz();
+
+        documentWz.setTraderName(documentWzDto.getTraderName());
+        documentWz.setSubProcess(documentWzDto.getSubProcess());
+        documentWz.setNumberWZ(documentWzDto.getNumberWZ());
+        documentWz.setDate(documentWzDto.getDate());
+        documentWz.setClient(documentWzDto.getClient());
+        documentWz.setClientNumber(documentWzDto.getClientNumber());
+        documentWzServiceImplementation.createDocumentWz(documentWz);
+
+        return documentWzDto;
     }
 
     @RequestMapping(value = "/deleteDocument", method = RequestMethod.DELETE)
