@@ -32,7 +32,7 @@ public class DocumentWzServiceImplementation implements DocumentWzService {
     }
 
     @Override
-    public List<DocumentWz> findByNumberClient(Integer numberClient) {
+    public List<DocumentWz> findByNumberClient(String numberClient) {
         return documentWzRepository.findByClientNumber(numberClient);
     }
 
@@ -55,4 +55,6 @@ public class DocumentWzServiceImplementation implements DocumentWzService {
     public void removeDocumentWz(DocumentWz documentWz) {
         documentWzRepository.delete(documentWz);
     }
+
+
 }

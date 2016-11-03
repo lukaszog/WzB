@@ -1,6 +1,5 @@
 package pl.lenda.marcin.wzb.dto;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -9,26 +8,33 @@ import java.util.Date;
 
 public class DocumentWzDto {
 
-    @NotNull(message = "error.wz.number.notnull")
+
     private String numberWZ;
-    @NotNull(message = "error.wz.sub.notnull")
+
     private String subProcess;
-    @NotNull(message = "error.wz.client.notnull")
+
     private String client;
-    @NotNull(message = "error.wz.client.notnull")
+
     private String clientNumber;
-    @NotNull(message = "error.wz.trader.notnull")
+
+    private String nameTeam;
+
     private String traderName;
 
     private Date date;
 
-    public DocumentWzDto(String numberWZ, String subProcess, String client, String clientNumber, String traderName, Date date) {
+    private boolean beCorrects;
+
+    public DocumentWzDto(String numberWZ, String subProcess, String client, String clientNumber, String nameTeam,
+                         String traderName, Date date, boolean beCorrects) {
         this.numberWZ = numberWZ;
         this.subProcess = subProcess;
         this.client = client;
         this.clientNumber = clientNumber;
+        this.nameTeam = nameTeam;
         this.traderName = traderName;
         this.date = date;
+        this.beCorrects = beCorrects;
     }
 
     public DocumentWzDto() {
@@ -66,6 +72,22 @@ public class DocumentWzDto {
         this.client = client;
     }
 
+    public String getClientNumber() {
+        return clientNumber;
+    }
+
+    public void setClientNumber(String clientNumber) {
+        this.clientNumber = clientNumber;
+    }
+
+    public String getNameTeam() {
+        return nameTeam;
+    }
+
+    public void setNameTeam(String nameTeam) {
+        this.nameTeam = nameTeam;
+    }
+
     public String getTraderName() {
         return traderName;
     }
@@ -82,11 +104,11 @@ public class DocumentWzDto {
         this.date = date;
     }
 
-    public String getClientNumber() {
-        return clientNumber;
+    public boolean isBeCorrects() {
+        return beCorrects;
     }
 
-    public void setClientNumber(String clientNumber) {
-        this.clientNumber = clientNumber;
+    public void setBeCorrects(boolean beCorrects) {
+        this.beCorrects = beCorrects;
     }
 }

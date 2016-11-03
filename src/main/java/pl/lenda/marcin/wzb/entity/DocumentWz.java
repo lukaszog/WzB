@@ -23,21 +23,29 @@ public class DocumentWz {
     private String client;
     @NotNull
     private String clientNumber;
+
+    private String nameTeam;
     @NotNull
     private String traderName;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date date;
 
-    public DocumentWz(){
+    private boolean beCorrects;
+
+    public DocumentWz() {
     }
 
-    public DocumentWz(String numberWZ, String subProcess, String client, String clientNumber, String traderName, Date date) {
+    public DocumentWz(String id, String numberWZ, String subProcess, String client, String clientNumber, String nameTeam,
+                      String traderName, Date date, boolean beCorrects) {
+        this.id = id;
         this.numberWZ = numberWZ;
         this.subProcess = subProcess;
         this.client = client;
         this.clientNumber = clientNumber;
+        this.nameTeam = nameTeam;
         this.traderName = traderName;
         this.date = date;
+        this.beCorrects = beCorrects;
     }
 
     public String getId() {
@@ -80,6 +88,14 @@ public class DocumentWz {
         this.clientNumber = clientNumber;
     }
 
+    public String getNameTeam() {
+        return nameTeam;
+    }
+
+    public void setNameTeam(String nameTeam) {
+        this.nameTeam = nameTeam;
+    }
+
     public String getTraderName() {
         return traderName;
     }
@@ -94,5 +110,13 @@ public class DocumentWz {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public boolean isBeCorrects() {
+        return beCorrects;
+    }
+
+    public void setBeCorrects(boolean beCorrects) {
+        this.beCorrects = beCorrects;
     }
 }

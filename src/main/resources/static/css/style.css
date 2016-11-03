@@ -628,11 +628,13 @@ FindDocument
 
 #showDocument {
     margin-top: 70px;
-    font-size: 25px;
+    font-size: 17px;
+    background-color: #445878;
+
 }
 
 #showDocument tr:first-child {
-    background-color: #b3aca7;
+    background-color: #31353D;
 
 }
 
@@ -662,7 +664,12 @@ Option Admin
 
 #delete .adminSubmit {
     width: 80px;
+    background-color: #e74c3c;
+}
 
+#delete .adminSubmit:hover {
+    width: 80px;
+    background-color: #5D5D5F;
 }
 
 #adminPanel {
@@ -696,4 +703,49 @@ Option Admin
 .submitAdmin:hover {
     color: #e2dedb;
     background: #fec503;
+}
+
+.submitConfirmDialog
+{
+    width: 200px;
+    padding: 0;
+    background-color: #00465c;
+    margin-top: 0px;
+    margin-right: 3px;
+    font-weight: 800;
+    border-radius: 0;
+    letter-spacing: 2px;
+    font-size: 16px;
+    padding: 17px 45px;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    border: solid 1px #b3aca7;
+
+}
+
+.submitDelete
+{
+    width: 200px;
+    padding: 0;
+    background-color: #e74c3c;
+    margin-top: 0px;
+    font-weight: 800;
+    border-radius: 0;
+    letter-spacing: 2px;
+    font-size: 16px;
+    padding: 17px 45px;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    border: solid 1px #b3aca7;
+
 }

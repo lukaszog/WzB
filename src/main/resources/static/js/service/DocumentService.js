@@ -1,20 +1,14 @@
 /**
  * Created by Promar on 28.10.2016.
  */
-app.service('userAccount', function ($rootScope, $http, $location) {
 
-    var self = this;
-
-
-});
-
-app.service('documentWZ', function ($rootScope, $http) {
+app.service('documentWZ', function ($rootScope, $http, ngDialog) {
 
     var self = this;
     $rootScope.responseFromServer = '';
 
 
-    this.addWZ = function (numberWZ, subProcess, client, clientNumber, traderName,
+    this.addWZ = function (numberWZ, subProcess, client, traderName,
                            date) {
         $http({
             method: 'POST',
@@ -23,14 +17,20 @@ app.service('documentWZ', function ($rootScope, $http) {
                 "numberWZ": numberWZ,
                 "subProcess": subProcess,
                 "client": client,
-                "clientNumber": clientNumber,
                 "traderName": traderName,
                 "date": date
             },
             headers: {'Content-type': 'application/json'}
         })
             .success(function (data) {
-                $rootScope.responseFromServer = "Dodałeś dokument WZ o numerze:"+data.numberWZ+" do bazy danych.";
+                $rootScope.responseFromServer = "Dodałeś dokument WZ o numerze:" + data.numberWZ + " / " + data.subProcess +
+                    " do bazy danych.";
+
+                ngDialog.open({
+                    template: 'addDocument',
+                    controller: 'DocumentOperation',
+                    className: 'ngdialog-theme-default'
+                });
 
             }).error(function (data) {
             $rootScope.responseFromServer = data.message;
@@ -73,12 +73,12 @@ app.service('documentWZ', function ($rootScope, $http) {
             }
             console.log(data);
             $rootScope.documents.push(data);
-            console.log(numberWZ+"1");
-            console.log(subPro+"2");
+            console.log(numberWZ + "1");
+            console.log(subPro + "2");
         }).error(function (data) {
             console.log('Nie udało się pobrać WZ');
-            console.log(numberWZ+"1");
-            console.log(subPro+"2");
+            console.log(numberWZ + "1");
+            console.log(subPro + "2");
         });
     };
 
@@ -134,5 +134,33 @@ app.service('documentWZ', function ($rootScope, $http) {
 
         });
     };
+
+
+    this.deleteDocument = function (numberWZ, subProcess) {
+        $http({
+            method: 'DELETE',
+            url: 'http://localhost:8080/deleteDocument',
+            data: {
+                "numberWZ": numberWZ,
+                "subPro": subProcess
+            },
+            headers: {'Content-type': 'application/json'},
+        }).success(function (data) {
+            console.log('Usunieto dokument');
+            ngDialog.open({
+                template: 'succes',
+                controller: 'findDocument',
+                className: 'ngdialog-theme-default'
+            });
+
+        }).error(function (data) {
+            ngDialog.open({
+                template: 'error',
+                controller: 'findDocument',
+                className: 'ngdialog-theme-default'
+            });
+
+        });
+    }
 
 });

@@ -13,7 +13,7 @@ public interface DocumentWzService {
 
     DocumentWz findByNumberWZAndSubProcess(String numberWZ, String subProcess);
 
-    List<DocumentWz> findByNumberClient(Integer numberClient);
+    List<DocumentWz> findByNumberClient(String numberClient);
 
     List<DocumentWz> findByNameClient(String nameClient);
 
@@ -22,4 +22,5 @@ public interface DocumentWzService {
     List<DocumentWz> showAllDocument();
 
     void removeDocumentWz(DocumentWz documentWz);
+
 }

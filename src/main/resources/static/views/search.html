@@ -4,6 +4,11 @@
 
             <form div="form" class="topBefore">
                 <h1>Wyszukaj po:</h1>
+                <body>
+
+                <p onclick="onclickHandler();">Kliknij ten akapit,
+
+                    a pojawi się okno dialogowe.</p>
 
                 <select ng-model="myVar">
                     <option value="numberWZ">Numer WZ</option>
@@ -22,7 +27,6 @@
                                min="1"
                                max="4999"/>
                         <input class="submit" type="submit" value="Szukaj" ng-click="findByNumber()">
-
                     </div>
                     <div ng-switch-when="nameClient">
 
@@ -53,18 +57,18 @@
 
 
             <div id="showDocument">
-                <table class="table" ts-wrapper>
+                <table class="table" ts-wrapper ng-init="showModal=false">
                     <thead>
                     <tr>
 
-                        <th ts-criteria="NumberWZ|parseInt" ts-default>Numer WZ</th>
-                        <th ts-criteria="subProcess|parseInt">Podproces</th>
-                        <th ts-criteria="client|lowercase">Klient</th>
-                        <th ts-criteria="clientNumber|parseInt">Numer klienta</th>
-                        <th ts-criteria="traderName|lowercase">Handlowiec</th>
-                        <th ts-criteria="date|parseInt">Data zatwierdzenia</th>
-                        <th ts-criteria="">Zwłoka</th>
-
+                        <th style="background-color: #1C1D21" ts-criteria="NumberWZ|parseInt" ts-default>Numer WZ</th>
+                        <th style="background-color: #1C1D21" ts-criteria="subProcess|parseInt">Podproces</th>
+                        <th style="background-color: #1C1D21" ts-criteria="client|lowercase">Klient</th>
+                        <th style="background-color: #1C1D21" ts-criteria="clientNumber|parseInt">Numer klienta</th>
+                        <th style="background-color: #1C1D21" ts-criteria="traderName|lowercase">Handlowiec</th>
+                        <th style="background-color: #1C1D21" ts-criteria="date|parseInt">Data zatwierdzenia</th>
+                        <th style="background-color: #1C1D21" ts-criteria="">Zwłoka</th>
+                        <th style="background-color: #1C1D21" ts-criteria="">ADMIN</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -76,16 +80,38 @@
                         <td>{{document.clientNumber}}</td>
                         <td>{{document.traderName}}</td>
                         <td>{{document.date | date:'MM/dd/yyyy - h:mma'}}</td>
-                        <td><timer start-time="document.date">{{days}} days </timer></td>
-                        <td id="delete"><input class="adminSubmit" type="submit" value="Usuń" ng-click="deleteWZ()">
+                        <td>
+                            <timer start-time="document.date">{{days}} dni</timer>
+                        </td>
+                        <td id="delete"><input class="adminSubmit" type="submit" value="Usuń"
+                                               ng-click="editData.documents = document; clickToDelete();">
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <!--</div>-->
 
+            {{subProDelete}}
+
+            <script type="text/ng-template" id="templateId">
+                <h1>Czy na pewno chcesz usunąć dokument?</h1>
+                <input class="submitConfirmDialog" type="submit" value="Tak"
+                       ng-click="closeThisDialog(0); deleteDocument();">
+                <input class="submitDelete" type="submit" value="Nie" ng-click="closeThisDialog(0)">
+            </script>
+            <script type="text/ng-template" id="succes">
+                <h1>Dokument został usunięty pomyślnie!</h1>
+                <input style="margin-left: 100px; margin-top: 5px;" class="submitConfirmDialog" type="submit" value="Ok"
+                       ng-click="reloadRoute(); closeThisDialog(0);">
+            </script>
+            <script type="text/ng-template" id="error">
+                <h1>Wystąpił błąd</h1>
+                <input style="margin-left: 100px; margin-top: 5px;" class="submitDelete" type="submit" value="Ok"
+                       ng-click="closeThisDialog(0);">
+            </script>
+            <!--</div>-->
         </div>
     </div>
+
 </div>
 

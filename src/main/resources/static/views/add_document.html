@@ -9,17 +9,27 @@
                 <input name="subProcess" required type="number" ng-model="form.subProcess" placeholder="Podproces"
                        min="1"
                        max="100"/>
-                <input name="nameClient" type="text" ng-model="form.nameClient" placeholder="Nazwa klienta">
-                <input name="numberClient" type="text" ng-model="form.numberClient" placeholder="Numer klienta">
-                <input name="nameTrader" type="text" ng-model="form.nameTrader" placeholder="Handlowiec">
+
+                <select ng-model="nameClients" data-ng-options="x for x in resultListClient">
+
+                </select>
+
+                <select ng-model="myTrader"  ng-options="x for x in resultListTrader">
+
+                </select>
+
                 <input type=date step=2 min=2014-W30 ng-model="form.date">
                 <input id="submit" type="submit" value="Dodaj">
                 <!--<div ng-repeat="response in responseFromServer">-->
                     <!--{{response}}-->
                 <!--</div>-->
-                {{responseFromServer}}
+
             </form>
 
         </div>
     </div>
+    <script type="text/ng-template" id="addDocument">
+        <h1>{{responseFromServer}}</h1>
+        <input style="margin-left: 100px; margin-top: 5px;" class="submitDelete" type="submit" value="Ok" ng-click="reloadRoute(); closeThisDialog(0);">
+    </script>
 </div>

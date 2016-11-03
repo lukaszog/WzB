@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.DocumentWzDto;
+import pl.lenda.marcin.wzb.dto.DocumentWzToDeleteDto;
 import pl.lenda.marcin.wzb.dto.FindByNumberWzDto;
 import pl.lenda.marcin.wzb.entity.DocumentWz;
+import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
 import pl.lenda.marcin.wzb.service.document_wz.DocumentWzServiceImplementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +24,10 @@ public class ControllerDocumentWz {
     private FindByNumberWzDto findByNumberWzDto;
     private DocumentWzDto documentWzDto;
 
+
+    @Autowired
+    private ConvertTo convertTo;
+
     @Autowired
     public ControllerDocumentWz(DocumentWzServiceImplementation documentWzServiceImplementation) {
         this.documentWzServiceImplementation = documentWzServiceImplementation;
@@ -31,45 +38,72 @@ public class ControllerDocumentWz {
     public
     @ResponseBody
     DocumentWzDto createDocumentWz(@Validated @RequestBody DocumentWzDto documentWzDto) {
-        DocumentWz documentWz = new DocumentWz();
-
-        documentWz.setTraderName(documentWzDto.getTraderName());
-        documentWz.setSubProcess(documentWzDto.getSubProcess());
-        documentWz.setNumberWZ(documentWzDto.getNumberWZ());
-        documentWz.setDate(documentWzDto.getDate());
-        documentWz.setClient(documentWzDto.getClient());
-        documentWz.setClientNumber(documentWzDto.getClientNumber());
-        documentWzServiceImplementation.createDocumentWz(documentWz);
-
+        documentWzServiceImplementation.createDocumentWz(convertTo.convertDocumentToEntity(documentWzDto));
         return documentWzDto;
     }
 
     @RequestMapping(value = "/deleteDocument", method = RequestMethod.DELETE)
-    public void deleteDocument(String numberWZ, String subPro) {
-        DocumentWz documentWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(numberWZ, subPro);
+    public void deleteDocument(@RequestBody DocumentWzToDeleteDto documentWzToDeleteDto) {
+        DocumentWz documentWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(
+                documentWzToDeleteDto.getNumberWZ(), documentWzToDeleteDto.getSubPro());
         documentWzServiceImplementation.removeDocumentWz(documentWz);
-
     }
 
     @RequestMapping(value = "/findByNumber", method = RequestMethod.POST)
     public
-    DocumentWz findDocumentWz(@RequestBody FindByNumberWzDto findByNumberWzDto) {
-        DocumentWz byNumberWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(findByNumberWzDto.getNumberWZ(), findByNumberWzDto.getSubPro());
-        return byNumberWz;
+    @ResponseBody
+    DocumentWzDto findDocumentWz(@RequestBody FindByNumberWzDto findByNumberWzDto) {
+        DocumentWz byNumberWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(
+                findByNumberWzDto.getNumberWZ(), findByNumberWzDto.getSubPro());
+
+        return convertTo.convertDocumentToDto(byNumberWz);
     }
 
     @RequestMapping(value = "/findByClient", method = RequestMethod.POST)
-    public List<DocumentWz> findByClient(@RequestBody String client) {
-        return documentWzServiceImplementation.findByNameClient(client);
+    public List<DocumentWzDto> findByClient(@RequestBody String client) {
+        List<DocumentWz> listDocumentWZ;
+        List<DocumentWzDto> listDocumentWzDto = new ArrayList<>();
+        listDocumentWZ = documentWzServiceImplementation.findByNameClient(client);
+
+        for (DocumentWz documentWz : listDocumentWZ) {
+            listDocumentWzDto.add(convertTo.convertDocumentToDto(documentWz));
+        }
+        return listDocumentWzDto;
     }
 
     @RequestMapping(value = "/findByClientNumber", method = RequestMethod.POST)
-    public List<DocumentWz> findByClientNumber(@RequestBody Integer clientNumber) {
-        return documentWzServiceImplementation.findByNumberClient(clientNumber);
+    public List<DocumentWzDto> findByClientNumber(@RequestBody String clientNumber) {
+        List<DocumentWz> listDocumentWZ;
+        List<DocumentWzDto> listDocumentWzDto = new ArrayList<>();
+        listDocumentWZ = documentWzServiceImplementation.findByNumberClient(clientNumber);
+
+        for (DocumentWz documentWz : listDocumentWZ) {
+            listDocumentWzDto.add(convertTo.convertDocumentToDto(documentWz));
+        }
+        return listDocumentWzDto;
     }
 
     @RequestMapping(value = "/findByTraderName", method = RequestMethod.POST)
-    public List<DocumentWz> findByTraderName(@RequestBody String traderName) {
-        return documentWzServiceImplementation.findByNameTrader(traderName);
+    public List<DocumentWzDto> findByTraderName(@RequestBody String traderName) {
+        List<DocumentWz> listDocumentWZ;
+        List<DocumentWzDto> listDocumentWzDto = new ArrayList<>();
+        listDocumentWZ = documentWzServiceImplementation.findByNameTrader(traderName);
+
+        for (DocumentWz documentWz : listDocumentWZ) {
+            listDocumentWzDto.add(convertTo.convertDocumentToDto(documentWz));
+        }
+        return listDocumentWzDto;
+    }
+
+    @RequestMapping(value = "/showAllDocuments", method = RequestMethod.GET)
+    public List<DocumentWzDto> findAll() {
+        List<DocumentWzDto> listDocumentWzDto = new ArrayList<>();
+        List<DocumentWz> listDocumentWZ = documentWzServiceImplementation.showAllDocument();
+
+        for (DocumentWz documentWz : listDocumentWZ) {
+            DocumentWzDto documentWzDto = new DocumentWzDto();
+            listDocumentWzDto.add(convertTo.convertDocumentToDto(documentWz));
+        }
+        return listDocumentWzDto;
     }
 }

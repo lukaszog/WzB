@@ -5,7 +5,7 @@
 
 // Declare app level module which depends on views, and components
 var app = angular.module('myApp', [
-    'ngRoute', 'ngResource', 'ngMaterial', 'ngMessages','tableSort', 'timer'
+    'ngRoute', 'ngResource', 'ngMaterial','ngDialog', 'ngMessages','tableSort', 'timer'
 
 ]).config(function($routeProvider, $httpProvider) {
 
@@ -33,6 +33,18 @@ var app = angular.module('myApp', [
         .when('/account', {
             templateUrl: 'views/account.html',
             controller: ''
+        })
+        .when('/show_documents', {
+            templateUrl: 'views/show_documents.html',
+            controller: 'ShowAllDocuments'
+        })
+        .when('/add_client', {
+            templateUrl: 'views/add_client.html',
+            controller: 'ClientOperation'
+        })
+        .when('/add_trader', {
+            templateUrl: 'views/add_trader.html',
+            controller: 'TraderOperation'
         })
         .otherwise({redirectTo: '/'});
         

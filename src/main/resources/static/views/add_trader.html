@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="slider-container">
+        <div class="intro-text">
+
+            <form id="form" class="topBefore" ng-submit="createTrader()">
+                <h1>Dodwanie handlowca</h1>
+
+                <input name="nameTrader" type="text"    ng-model="form.nameTrader" placeholder="Imię">
+                <input name="surnameTrader" type="text" ng-model="form.surnameTrader" placeholder="Nazwisko" />
+                <select ng-model="nameTeam" ng-options="x for x in names"></select>
+                <!--
+                -->
+                <input id="submit" type="submit" value="Dodaj">
+
+            </form>
+
+        </div>
+    </div>
+    <script type="text/ng-template" id="addTrader">
+        <h1>{{responseFromServer}}</h1>
+        <input style="margin-left: 100px; margin-top: 5px;" class="submitDelete" type="submit" value="Ok" ng-click="clearInput(); closeThisDialog(0);">
+    </script>
+</div>
