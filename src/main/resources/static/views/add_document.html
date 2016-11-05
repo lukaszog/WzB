@@ -10,11 +10,11 @@
                        min="1"
                        max="100"/>
 
-                <select ng-model="nameClients" data-ng-options="x for x in resultListClient">
+                <select ng-model="nameClients" data-ng-options="x for x in resultListClient | orderBy">
 
                 </select>
 
-                <select ng-model="myTrader" ng-options="x for x in resultListTrader">
+                <select ng-model="myTrader" ng-options="x for x in resultListTrader | orderBy">
 
                 </select>
 

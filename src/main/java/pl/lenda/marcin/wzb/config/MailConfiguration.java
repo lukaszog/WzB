@@ -37,12 +37,13 @@
 //    public JavaMailSender javaMailSender() {
 //        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 //        Properties mailProperties = new Properties();
+//        mailProperties.put("mail.transport.protocol", protocol);
 //        mailProperties.put("mail.smtp.auth", auth);
-//        mailProperties.put("mail.smtp.starttls.enable", "true");
+//        mailProperties.put("mail.smtp.starttls.enable", starttls);
+//        mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 //        mailSender.setJavaMailProperties(mailProperties);
 //        mailSender.setHost(host);
 //        mailSender.setPort(port);
-//        mailSender.setProtocol(protocol);
 //        mailSender.setUsername(username);
 //        mailSender.setPassword(password);
 //        return mailSender;

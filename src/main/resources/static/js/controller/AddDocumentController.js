@@ -26,7 +26,7 @@ app.controller('DocumentOperation', ['$scope', '$http', '$window', '$route', 'do
             angular.forEach($scope.listTrader, function (value, key) {
                 $scope.resultListTrader.push(value.surname);
             });
-            $scope.resultListTrader.sorter()
+
         }).error(function (data) {
         $scope.listClient = 'Nie udało się pobrać listy handlowców.'
     });

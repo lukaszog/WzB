@@ -7,7 +7,7 @@
 
                 <input name="nameClient" type="text" ng-model="form.nameClient" placeholder="Nazwa klienta">
                 <input name="numberClient" required type="text" ng-model="form.numberClient" placeholder="Numer klienta" />
-                <select ng-model="nameTeam" ng-options="x for x in names"></select>
+                <select ng-model="nameTeam" ng-options="x for x in names | orderBy"></select>
                 <!--
                 -->
                 <input id="submit" type="submit" value="Dodaj">

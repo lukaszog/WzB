@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="slider-container">
+        <div class="intro-text">
+
+
+
+           <div id="login">
+               <div id="Header">
+               <h1>Zaloguj</h1>
+               </div>
+                <md-content layout="column" md-theme="docs-dark"  layout-padding="">
+               <div>
+                   <md-input-container class="md-block" flex-gt-sm="">
+                       <label>Nazwa użytkownika</label>
+                       <input ng-model="user.login">
+                   </md-input-container>
+                   <md-input-container class="md-block" flex-gt-sm="">
+                       <label>Hasło</label>
+                       <input type="password" ng-model="user.password">
+                   </md-input-container>
+               </div>
+                    <input class="page-scroll btn btn-xl" type="submit" value="Zaloguj">
+                    <a href="#/register"  >Rejestracja</a>
+                </md-content>
+
+           </div>
+
+        </div>
+    </div>
+</div>
