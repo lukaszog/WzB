@@ -30,10 +30,10 @@ app.service('ClientService', function ($rootScope, $http, ngDialog) {
 
             }).error(function (data) {
 
-                ngDialog.open({
-                    template: 'error',
-                    controller: 'ClientOperation',
-                    className: 'ngdialog-theme-default'
+            ngDialog.open({
+                template: 'error',
+                controller: 'ClientOperation',
+                className: 'ngdialog-theme-default'
             });
 
         });

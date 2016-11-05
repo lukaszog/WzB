@@ -9,19 +9,17 @@ app.controller('TraderOperation', ['$scope', '$http', 'TraderService', function 
         "STE"];
 
     $scope.createTrader = function () {
-       var name = $scope.form.nameTrader;
-       var surname = $scope.form.surnameTrader;
-
-
+        var name = $scope.form.nameTrader;
+        var surname = $scope.form.surnameTrader;
         var nameTeam;
 
-        if($scope.nameTeam=='STA'){
+        if ($scope.nameTeam == 'STA') {
             nameTeam = 'STA';
-        }else if($scope.nameTeam=='STB'){
+        } else if ($scope.nameTeam == 'STB') {
             nameTeam = 'STB';
-        }else if($scope.nameTeam=='STC'){
+        } else if ($scope.nameTeam == 'STC') {
             nameTeam = 'STC';
-        }else{
+        } else {
             nameTeam = 'STE';
         }
 

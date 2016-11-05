@@ -23,6 +23,7 @@ public class ControllerDocumentWz {
 
     private FindByNumberWzDto findByNumberWzDto;
     private DocumentWzDto documentWzDto;
+    private DocumentWz documentWz;
 
 
     @Autowired
@@ -105,5 +106,23 @@ public class ControllerDocumentWz {
             listDocumentWzDto.add(convertTo.convertDocumentToDto(documentWz));
         }
         return listDocumentWzDto;
+    }
+
+    @RequestMapping(value = "/by_correct", method = RequestMethod.PATCH)
+    public void correctBy(@RequestBody FindByNumberWzDto findByNumberWzDto){
+        DocumentWz byNumberWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(
+                findByNumberWzDto.getNumberWZ(), findByNumberWzDto.getSubPro());
+        byNumberWz.setBeCorrects(true);
+        documentWzServiceImplementation.createDocumentWz(byNumberWz);
+    }
+
+    @RequestMapping(value = "/find_correct", method = RequestMethod.GET)
+    public List<DocumentWz> findCorrectionDocument(){
+        return documentWzServiceImplementation.listByCorrectionDocuments();
+    }
+
+    @RequestMapping(value = "/find_nameteam", method = RequestMethod.POST)
+    public @ResponseBody List<DocumentWz> findByNameTeam(@RequestBody String nameTeam){
+        return documentWzServiceImplementation.findByNameTeam(nameTeam);
     }
 }

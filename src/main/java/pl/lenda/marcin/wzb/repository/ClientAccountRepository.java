@@ -8,7 +8,7 @@ import pl.lenda.marcin.wzb.entity.ClientAccount;
  */
 public interface ClientAccountRepository extends MongoRepository<ClientAccount, String> {
 
-    ClientAccount findByName(String name);
+    ClientAccount findByNameIgnoreCase(String name);
 
     ClientAccount findByNumberClient(String numberClient);
 

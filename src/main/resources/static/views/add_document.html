@@ -14,15 +14,12 @@
 
                 </select>
 
-                <select ng-model="myTrader"  ng-options="x for x in resultListTrader">
+                <select ng-model="myTrader" ng-options="x for x in resultListTrader">
 
                 </select>
 
                 <input type=date step=2 min=2014-W30 ng-model="form.date">
                 <input id="submit" type="submit" value="Dodaj">
-                <!--<div ng-repeat="response in responseFromServer">-->
-                    <!--{{response}}-->
-                <!--</div>-->
 
             </form>
 
@@ -30,6 +27,7 @@
     </div>
     <script type="text/ng-template" id="addDocument">
         <h1>{{responseFromServer}}</h1>
-        <input style="margin-left: 100px; margin-top: 5px;" class="submitDelete" type="submit" value="Ok" ng-click="reloadRoute(); closeThisDialog(0);">
+        <input style="margin-left: 100px; margin-top: 5px;" class="submitDelete" type="submit" value="Ok"
+               ng-click="reloadRoute(); closeThisDialog(0);">
     </script>
 </div>

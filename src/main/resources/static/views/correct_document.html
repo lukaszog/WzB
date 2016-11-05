@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="slider-container">
+        <div class="intro-text">
+
+            <div class="intro-heading">Korekty</div>
+            <div id="showDocument">
+                <table class="table" ts-wrapper ng-init="showModal=false">
+                    <thead>
+                    <tr>
+
+                        <th style="background-color: #1C1D21" ts-criteria="NumberWZ|parseInt" ts-default>Numer WZ</th>
+                        <th style="background-color: #1C1D21" ts-criteria="subProcess|parseInt">Podproces</th>
+                        <th style="background-color: #1C1D21" ts-criteria="client|lowercase">Klient</th>
+                        <th style="background-color: #1C1D21" ts-criteria="clientNumber|parseInt">Numer klienta</th>
+                        <th style="background-color: #1C1D21" ts-criteria="traderName|lowercase">Handlowiec</th>
+                        <th style="background-color: #1C1D21" ts-criteria="date|parseInt">Data zatwierdzenia</th>
+                        <th style="background-color: #1C1D21" ts-criteria="">Zwłoka</th>
+                        <th style="background-color: #1C1D21" ts-criteria="">Korekta</th>
+                        <th style="background-color: #1C1D21" ts-criteria="">ADMIN</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="document in documents" ts-repeat>
+
+                        <td>{{document.numberWZ}}</td>
+                        <td>{{document.subProcess}}</td>
+                        <td>{{document.client}}</td>
+                        <td>{{document.clientNumber}}</td>
+                        <td>{{document.traderName}}</td>
+                        <td>{{document.date | date:'MM/dd/yyyy - h:mma'}}</td>
+                        <td>
+                            <timer start-time="document.date">{{days}} dni</timer>
+                        </td>
+
+                        <td  ng-show="document.beCorrects==false">
+
+                            <input id="corectBy" type="checkbox" value="Koryguj"
+                                   ng-click="editData.documents = document; correctBy();">
+                        </td>
+                        <td  ng-show="document.beCorrects==true">
+                            K
+                        </td>
+
+                        <td id="delete"><input class="adminSubmit" type="submit" value="Usuń"
+                                               ng-click="editData.documents = document; clickToDelete();">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -30,7 +30,7 @@ public class TraderServiceImplementation implements TraderService {
     @Override
     public TraderAccount findByTraderSurname(String surname) {
 
-        return traderAccountRepository.findBySurname(surname);
+        return traderAccountRepository.findBySurnameIgnoreCase(surname);
     }
 
     @Override

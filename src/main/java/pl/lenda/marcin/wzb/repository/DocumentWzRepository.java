@@ -14,10 +14,14 @@ public interface DocumentWzRepository extends MongoRepository<DocumentWz, String
 
     DocumentWz findByNumberWZAndSubProcess(String numberWZ, String subProcess);
 
-    List<DocumentWz> findByClient(String client);
+    List<DocumentWz> findByClientIgnoreCase(String client);
 
     List<DocumentWz> findByClientNumber(String clientNumber);
 
-    List<DocumentWz> findByTraderName(String traderName);
+    List<DocumentWz> findByTraderNameIgnoreCase(String traderName);
+
+    List<DocumentWz> findByNameTeam(String nameTeam);
+
+    List<DocumentWz> findByBeCorrectsTrue();
 
 }

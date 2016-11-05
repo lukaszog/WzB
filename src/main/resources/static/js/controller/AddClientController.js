@@ -14,17 +14,17 @@ app.controller('ClientOperation', ['$scope', '$http', 'ClientService', function 
         var numberClient = $scope.form.numberClient;
         var nameTeam;
 
-        if($scope.nameTeam=='STA'){
+        if ($scope.nameTeam == 'STA') {
             nameTeam = 'STA';
-        }else if($scope.nameTeam=='STB'){
+        } else if ($scope.nameTeam == 'STB') {
             nameTeam = 'STB';
-        }else if($scope.nameTeam=='STC'){
+        } else if ($scope.nameTeam == 'STC') {
             nameTeam = 'STC';
-        }else{
+        } else {
             nameTeam = 'STE';
         }
 
         ClientService.addClient(nameClient, numberClient, nameTeam);
-};
+    };
 
 }]);

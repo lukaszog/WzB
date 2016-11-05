@@ -18,7 +18,7 @@ app.service('TraderService', function ($rootScope, $http, ngDialog) {
         })
             .success(function (data) {
 
-                $rootScope.responseFromServer = 'Dodałeś pomyślnie handlowca: ' + data.name+" "+data.surname;
+                $rootScope.responseFromServer = 'Dodałeś pomyślnie handlowca: ' + data.name + " " + data.surname;
 
                 ngDialog.open({
                     template: 'addTrader',

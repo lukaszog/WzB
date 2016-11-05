@@ -23,7 +23,9 @@
 		<script type="text/javascript">
 			function onclickHandler()
 			{
-				alert('Akapit został kliknięty!');
+				alert('Wyszukiwanie dokumentu WZ:' +
+						'-wielkość liter nie ma znaczenia na wynik wyszukiwania,' +
+						'-polskie znaki mają wpływ na rezultat zapytania,');
 			}
 		</script>
 	</head>
@@ -89,7 +91,7 @@
 					</div>
 					<div class="col-md-3 mb-sm-30">
 						<div class="counter-item">
-							<h2 class="stat-number" data-n="0">0</h2>
+							<h2 class="stat-number" data-n={{howManyClient}}>0</h2>
 							<h6>Klientów</h6>
 						</div>
 					</div>
@@ -156,6 +158,7 @@
 		<script src="js/controller/ShowAllDocumentsController.js"></script>
 		<script src="js/controller/AddClientController.js"></script>
 		<script src="js/controller/AddTraderController.js"></script>
+		<script src="js/controller/AdminController.js"></script>
 		<script src="js/service/ClientService.js"></script>
 		<script src="js/service/TraderService.js"></script>
 		<script src="js/service/UserService.js"></script>

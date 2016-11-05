@@ -135,6 +135,23 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog) {
         });
     };
 
+    this.findByNameTeam = function (nameTeam) {
+        $rootScope.documents = [];
+
+        $http({
+            method: 'POST',
+            url: 'http://localhost:8080/find_nameteam',
+            data: nameTeam,
+            headers: {'Content-type': 'application/json'},
+        }).success(function (data) {
+            $rootScope.documents = data;
+
+        }).error(function (data) {
+            console.log('Nie udało się pobrać WZ');
+
+        });
+    };
+
 
     this.deleteDocument = function (numberWZ, subProcess) {
         $http({
@@ -162,5 +179,45 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog) {
 
         });
     }
+
+    this.correctWZ = function (numberWZ, subPro) {
+        $rootScope.documents = [];
+        $http({
+            method: 'PATCH',
+            url: 'http://localhost:8080/by_correct',
+            data: {
+                "numberWZ": numberWZ,
+                "subPro": subPro
+            },
+            headers: {'Content-type': 'application/json'}
+        }).success(function (data) {
+            if (data.length == 0) {
+                $rootScope.info = "Dokument nie istnieje w bazie danych.";
+            }
+
+        }).error(function (data) {
+
+        });
+    };
+
+    this.correctWZAll = function () {
+        $rootScope.documents = [];
+
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8080/find_correct',
+
+            headers: {'Content-type': 'application/json'},
+        }).success(function (data) {
+            $rootScope.documents = data;
+
+        }).error(function (data) {
+            console.log('Nie udało się pobrać WZ');
+
+        });
+
+    };
+
+
 
 });

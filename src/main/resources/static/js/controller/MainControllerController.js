@@ -6,6 +6,7 @@ app.controller('MainController', function ($scope, $http) {
 
     $scope.howManyDocument = '0';
     $scope.howManyTraders = '0';
+    $scope.howManyClient = '0';
 
     $http({
         method: 'GET',
@@ -28,6 +29,19 @@ app.controller('MainController', function ($scope, $http) {
         .success(function (data) {
 
             $scope.howManyTraders = data;
+
+        }).error(function (data) {
+        console.log('Nie udało się ');
+    });
+
+    $http({
+        method: 'GET',
+        url: 'http://localhost:8080/howManyClient',
+        headers: {'Content-type': 'application/json'}
+    })
+        .success(function (data) {
+
+            $scope.howManyClient = data;
 
         }).error(function (data) {
         console.log('Nie udało się ');

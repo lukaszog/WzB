@@ -2,20 +2,16 @@
  * Created by Promar on 11.10.2016.
  */
 
-app.controller('DocumentOperation', ['$scope', '$http','$window','$route', 'documentWZ', function ($scope, $http, $window, $route , documentWZ) {
+app.controller('DocumentOperation', ['$scope', '$http', '$window', '$route', 'documentWZ', function ($scope, $http, $window, $route, documentWZ) {
 
     $scope.form = {};
-    $scope.listTrader ='';
-    $scope.listClient ='';
+    $scope.listTrader = '';
+    $scope.listClient = '';
     $scope.resultListClient = [];
     $scope.resultListTrader = [];
 
 
-    $scope.redirect = function () {
-        $window.location.href = '#/addDocument';
-    };
-
-    $scope.reloadRoute = function() {
+    $scope.reloadRoute = function () {
         $route.reload();
     };
 
@@ -30,6 +26,7 @@ app.controller('DocumentOperation', ['$scope', '$http','$window','$route', 'docu
             angular.forEach($scope.listTrader, function (value, key) {
                 $scope.resultListTrader.push(value.surname);
             });
+            $scope.resultListTrader.sorter()
         }).error(function (data) {
         $scope.listClient = 'Nie udało się pobrać listy handlowców.'
     });
@@ -48,7 +45,7 @@ app.controller('DocumentOperation', ['$scope', '$http','$window','$route', 'docu
 
 
         }).error(function (data) {
-            $scope.listClient = 'Nie udało się pobrać listy klientów.'
+        $scope.listClient = 'Nie udało się pobrać listy klientów.'
     });
 
 
@@ -61,11 +58,12 @@ app.controller('DocumentOperation', ['$scope', '$http','$window','$route', 'docu
         $scope.form.nameTrader = '';
         $scope.form.date = '';
     };
+
     $scope.createDocument = function () {
 
         var numberWZ = $scope.form.numberWZ;
         var subProcess = $scope.form.subProcess;
-        var client =  $scope.nameClients;
+        var client = $scope.nameClients;
         var nameTrader = $scope.myTrader;
         var date = $scope.form.date;
 

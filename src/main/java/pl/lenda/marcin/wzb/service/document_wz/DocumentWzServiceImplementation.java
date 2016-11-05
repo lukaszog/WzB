@@ -38,12 +38,17 @@ public class DocumentWzServiceImplementation implements DocumentWzService {
 
     @Override
     public List<DocumentWz> findByNameClient(String nameClient) {
-        return documentWzRepository.findByClient(nameClient);
+        return documentWzRepository.findByClientIgnoreCase(nameClient);
     }
 
     @Override
     public List<DocumentWz> findByNameTrader(String nameTrader) {
-        return documentWzRepository.findByTraderName(nameTrader);
+        return documentWzRepository.findByTraderNameIgnoreCase(nameTrader);
+    }
+
+    @Override
+    public List<DocumentWz> findByNameTeam(String nameTeam) {
+        return documentWzRepository.findByNameTeam(nameTeam);
     }
 
     @Override
@@ -54,6 +59,11 @@ public class DocumentWzServiceImplementation implements DocumentWzService {
     @Override
     public void removeDocumentWz(DocumentWz documentWz) {
         documentWzRepository.delete(documentWz);
+    }
+
+    @Override
+    public List<DocumentWz> listByCorrectionDocuments() {
+        return documentWzRepository.findByBeCorrectsTrue();
     }
 
 

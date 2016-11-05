@@ -2,27 +2,34 @@
  * Created by Promar on 12.10.2016.
  */
 
-app.controller('findDocument', function ($scope, $http, $rootScope,$route, documentWZ, ngDialog) {
+app.controller('findDocument', function ($scope, $http, $rootScope, $route, documentWZ, ngDialog) {
 
     $scope.form = {};
     $scope.empty = [];
     $scope.info = '';
     $scope.editData = {};
 
-    $scope.reloadRoute = function() {
+    $scope.reloadRoute = function () {
         $route.reload();
+
     };
 
-    $scope.editData = {};
+    $scope.correctBy = function () {
+        $rootScope.numberWZtoByCorrect = $scope.editData.documents.numberWZ;
+        $rootScope.subProByCorrect = $scope.editData.documents.subProcess;
 
-    // $scope.Edit = function() {
-    //     var id = $scope.editData.documents.numberWZ;
-    //     console.log(id);
-    // };
+
+        ngDialog.open({
+            template: 'ByCorrect',
+            controller: 'findDocument',
+            className: 'ngdialog-theme-default'
+        });
+    };
 
     $scope.clickToDelete = function () {
         $rootScope.numberWZtoDelete = $scope.editData.documents.numberWZ;
         $rootScope.subProDelete = $scope.editData.documents.subProcess;
+
 
         ngDialog.open({
             template: 'templateId',
@@ -32,9 +39,16 @@ app.controller('findDocument', function ($scope, $http, $rootScope,$route, docum
 
     };
 
+    $scope.correctDone = function () {
+
+        console.log('jestem tutaj');
+
+        documentWZ.correctWZ($scope.numberWZtoByCorrect, $scope.subProByCorrect);
+
+    };
+
     $scope.deleteDocument = function () {
-        console.log($scope.numberWZtoDelete);
-        console.log($scope.subProDelete);
+
         documentWZ.deleteDocument($scope.numberWZtoDelete, $scope.subProDelete);
     };
 
@@ -62,5 +76,12 @@ app.controller('findDocument', function ($scope, $http, $rootScope,$route, docum
         var traderName = $scope.form.nameTrader;
         documentWZ.findByTrader(traderName);
     }
+
+    $scope.findByNameTeam = function () {
+
+        var nameTeam = $scope.form.nameTeam;
+        documentWZ.findByNameTeam(nameTeam);
+
+    };
 
 });

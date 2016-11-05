@@ -28,7 +28,7 @@ public class ClientAccountImplementation implements ClientAccountService {
 
     @Override
     public ClientAccount findByClientName(String name) {
-        return clientAccountRepository.findByName(name);
+        return clientAccountRepository.findByNameIgnoreCase(name);
     }
 
     @Override

@@ -498,7 +498,7 @@ input {
     height: 50px;
     padding: 0px 15px 0px 15px;
 
-    background: transparent;
+    background: #4F6560;
     outline: none;
     color: white;
 
@@ -748,4 +748,9 @@ Option Admin
     cursor: pointer;
     border: solid 1px #b3aca7;
 
+}
+
+#corectBy
+{
+    width: 100px;
 }

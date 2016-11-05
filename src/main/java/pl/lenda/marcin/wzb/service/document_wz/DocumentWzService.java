@@ -19,8 +19,12 @@ public interface DocumentWzService {
 
     List<DocumentWz> findByNameTrader(String nameTrader);
 
+    List<DocumentWz> findByNameTeam(String nameTeam);
+
     List<DocumentWz> showAllDocument();
 
     void removeDocumentWz(DocumentWz documentWz);
+
+    List<DocumentWz> listByCorrectionDocuments();
 
 }
