@@ -14,32 +14,41 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import pl.lenda.marcin.wzb.dto.MessageDTO;
 import pl.lenda.marcin.wzb.dto.MessageType;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 @ControllerAdvice
 public class ControllerValidationHandler {
   @Autowired
   private MessageSource msgSource;
+  private List<MessageDTO> list = new LinkedList<>();
+
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
-  public MessageDTO processValidationError(MethodArgumentNotValidException ex) {
+  public List<MessageDTO> processValidationError(MethodArgumentNotValidException ex) {
 
 
     BindingResult result = ex.getBindingResult();
     FieldError error = result.getFieldError();
 
-    return processFieldError(error);
+    return processFieldError(result);
   }
 
-  private MessageDTO processFieldError(FieldError error) {
+  private List<MessageDTO> processFieldError(BindingResult error) {
+
     MessageDTO message = null;
-    if (error != null) {
-      Locale currentLocale = LocaleContextHolder.getLocale();
-      String msg = msgSource.getMessage(error.getDefaultMessage(), null, currentLocale);
-      message = new MessageDTO(MessageType.ERROR, msg);
+
+
+    List<FieldError> errors = error.getFieldErrors();
+    for (FieldError err : errors ) {
+        System.out.println (err.getDefaultMessage());
+        message = new MessageDTO(MessageType.ERROR, err.getDefaultMessage());
+        list.add(message);
     }
-    return message;
+    return list;
   }
 }
