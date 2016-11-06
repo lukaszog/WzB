@@ -12,11 +12,11 @@ var app = angular.module('myApp', [
     $routeProvider
         .when('/', {
             templateUrl: 'views/main.html',
-            controller: ''
+            controller: 'LoginCtrl'
         })
         .when('/main', {
             templateUrl: 'views/main.html',
-            controller: ''
+            controller: 'LoginCtrl'
         })
         .when('/search', {
             templateUrl: 'views/search.html',

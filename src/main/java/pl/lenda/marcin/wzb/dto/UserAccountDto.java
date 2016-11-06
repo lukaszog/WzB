@@ -1,12 +1,19 @@
 package pl.lenda.marcin.wzb.dto;
 
+import org.springframework.data.mongodb.core.index.Indexed;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by Promar on 30.10.2016.
  */
 public class UserAccountDto {
 
-    private String email;
+    @NotNull(message = "Podaj login.")
+    @Indexed(unique = true)
+    private String username;
 
+    @NotNull(message = "Podaj hasło.")
     private String password;
 
     private String confirmPassword;
@@ -16,19 +23,19 @@ public class UserAccountDto {
     public UserAccountDto(){
     }
 
-    public UserAccountDto(String email, String password, String confirmPassword, String role) {
-        this.email = email;
+    public UserAccountDto(String username, String password, String confirmPassword, String role) {
+        this.username = username;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.role = role;
     }
 
     public String getEmail() {
-        return email;
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

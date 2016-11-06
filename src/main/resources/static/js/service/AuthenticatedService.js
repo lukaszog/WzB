@@ -16,22 +16,22 @@ app.service('AuthenticatedService', function ($rootScope, $http, $location ) {
         return "Jesteś zalogowany jako: "+_username;
     };
 
-    $http({
-        method: 'GET',
-        url: 'http://localhost:8080/myAccount/user'
-    }).then(function successCallback(response) {
-        var data = response.data;
-        $rootScope.authenticated = true;
-        setUsername(data.name);
-        if(data.name=='ADMIN'){
-            $rootScope.userRoles = true;
-            console.log("Zmieniam");
-        }
-
-    }, function errorCallback(response) {
-        $rootScope.authenticated = false;
-
-    });
+    // $http({
+    //     method: 'GET',
+    //     url: 'http://localhost:8080/myAccount/user'
+    // }).then(function successCallback(response) {
+    //     var data = response.data;
+    //     $rootScope.authenticated = true;
+    //     setUsername(data.name);
+    //     if(data.name=='ADMIN'){
+    //         $rootScope.userRoles = true;
+    //         console.log("Zmieniam");
+    //     }
+    //
+    // }, function errorCallback(response) {
+    //     $rootScope.authenticated = false;
+    //
+    // });
 
     this.authenticated = function(credentials, callback) {
 

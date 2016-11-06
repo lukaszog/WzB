@@ -47,25 +47,25 @@
 					<a class="navbar-brand page-scroll" href="#page-top"><img src="images/wzb25.png" alt="Sanza theme logo"></a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LoginCtrl">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="hidden">
 							<a href="#page-top"></a>
 						</li>
-						<li>
+						<li ng-show="authenticated">
 							<a class="page-scroll"  href="#/main">O WzB</a>
 						</li>
-						<li>
+						<li ng-show="authenticated">
 							<a class="page-scroll" href="#/search">Szukaj WZ</a>
 						</li>
-						<li>
+						<li ng-show="authenticated">
 							<a class="page-scroll" href="#/account">Twoje konto</a>
 						</li>
-						<li>
+						<li ng-show="authenticated">
 							<a class="page-scroll" href="#/admin">Administracja</a>
 						</li>
 						<li  ng-show="authenticated">
-							<a class="page-scroll" href="#team">Wyloguj</a>
+							<a class="page-scroll" href="" ng-click="logout()">Wyloguj</a>
 						</li>
 						<!--<li>-->
 							<!--<a class="page-scroll" href="#contact">Contact</a>-->
@@ -82,7 +82,7 @@
 		</div>
 
 
-		<section class="dark-bg short-section stats-bar" ng-submit="info()">
+		<section class="dark-bg short-section stats-bar" ng-submit="info()" ng-show="authenticated">
 			<div class="container text-center">
 				<div class="row">
 					<div class="col-md-3 mb-sm-30">

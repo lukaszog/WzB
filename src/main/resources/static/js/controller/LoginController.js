@@ -13,6 +13,10 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
             return $route.current && route === $route.current.controller;
         };
 
+        $scope.taram = function () {
+            console.log('taram');
+        };
+
         var authenticated = function (credentials, callback) {
             AuthenticatedService.authenticated(credentials, callback);
         };
