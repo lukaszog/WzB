@@ -1,5 +1,6 @@
 package pl.lenda.marcin.wzb.dto;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -9,10 +10,13 @@ import java.util.Date;
 public class DocumentWzDto {
 
 
+    @NotNull(message = "nie moze byc puste")
     private String numberWZ;
 
+    @NotNull(message = "nie moze byc subprocess")
     private String subProcess;
 
+    @NotNull(message = "nie moze byc client")
     private String client;
 
     private String clientNumber;
