@@ -52,11 +52,12 @@ var app = angular.module('myApp', [
         })
         .when('/login', {
             templateUrl: 'views/login.html',
-            controller: 'DemoCtrl'
+            controller: 'LoginCtrl',
+            controllerAs: 'controller'
         })
         .when('/register', {
             templateUrl: 'views/register.html',
-            controller: 'DemoCtrl'
+            controller: 'RegisterCtrl'
         })
         .otherwise({redirectTo: '/'});
 

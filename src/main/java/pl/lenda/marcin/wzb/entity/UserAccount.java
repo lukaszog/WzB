@@ -1,29 +1,31 @@
 package pl.lenda.marcin.wzb.entity;
 
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by Promar on 10.10.2016.
  */
+@Document
 public class UserAccount {
 
     @Id
     private String id;
-    @NotNull
-    private String surnameTrader;
-    @NotNull
-    private String password;
-    @NotNull
-    private String email;
 
-    public UserAccount() {
+    private String username;
+
+    private String password;
+
+    private String role;
+
+    public UserAccount(){
     }
 
-    public UserAccount(String surnameTrader, String password, String email) {
-        this.surnameTrader = surnameTrader;
+    public UserAccount(String id, String username, String password, String role) {
+        this.id = id;
+        this.username = username;
         this.password = password;
-        this.email = email;
+        this.role = role;
     }
 
     public String getId() {
@@ -34,12 +36,12 @@ public class UserAccount {
         this.id = id;
     }
 
-    public String getSurnameTrader() {
-        return surnameTrader;
+    public String getUsername() {
+        return username;
     }
 
-    public void setSurnameTrader(String surnameTrader) {
-        this.surnameTrader = surnameTrader;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -50,11 +52,11 @@ public class UserAccount {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getRole() {
+        return role;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

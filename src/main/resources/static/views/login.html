@@ -12,17 +12,17 @@
                <div>
                    <md-input-container class="md-block" flex-gt-sm="">
                        <label>Nazwa użytkownika</label>
-                       <input ng-model="user.login">
+                       <input ng-model="controller.credentials.login">
                    </md-input-container>
                    <md-input-container class="md-block" flex-gt-sm="">
                        <label>Hasło</label>
-                       <input type="password" ng-model="user.password">
+                       <input type="password" ng-model="controller.credentials.password">
                    </md-input-container>
                </div>
-                    <input class="page-scroll btn btn-xl" type="submit" value="Zaloguj">
+                    <input class="page-scroll btn btn-xl" type="submit" value="Zaloguj" ng-click="controller.login()">
                     <a href="#/register"  >Rejestracja</a>
                 </md-content>
-
+                {{controller}}
            </div>
 
         </div>

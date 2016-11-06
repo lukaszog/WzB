@@ -64,7 +64,7 @@
 						<li>
 							<a class="page-scroll" href="#/admin">Administracja</a>
 						</li>
-						<li>
+						<li  ng-show="authenticated">
 							<a class="page-scroll" href="#team">Wyloguj</a>
 						</li>
 						<!--<li>-->
@@ -162,11 +162,13 @@
 		<script src="js/controller/AddClientController.js"></script>
 		<script src="js/controller/AddTraderController.js"></script>
 		<script src="js/controller/AdminController.js"></script>
-		<script src="js/controller/LoginRegisterController.js"></script>
-		<script src="js/controller/testt.js"></script>
+		<script src="js/controller/LoginController.js"></script>
+		<script src="js/controller/LoginController.js"></script>
+		<script src="js/controller/RegisterController.js"></script>
 		<script src="js/service/ClientService.js"></script>
 		<script src="js/service/TraderService.js"></script>
 		<script src="js/service/UserService.js"></script>
+		<script src="js/service/AuthenticatedService.js"></script>
 		<script src="js/directive/ConfirmDelete.js"></script>
 		<script src="js/service/DocumentService.js"></script>
 
