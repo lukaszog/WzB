@@ -38,16 +38,22 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
 
         $scope.logout = function () {
 
-            $http.post('/logout', {}).success(function () {
-                $location.url('/login');
+            console.log("Jestem");
+            $http.post('/logout', {})
+
+                .success(function () {
+                $location.path('/login');
                 $rootScope.authenticated = false;
                 $rootScope.userRoles = false;
+                console.log('zostales wyglowowany1');
 
 
             }).error(function (data) {
+                $location.path('/login');
                 $rootScope.authenticated = false;
                 $rootScope.userRoles = false;
                 $rootScope.userInfo = false;
+                console.log('zostales wyglowowany2');
             });
         }
 

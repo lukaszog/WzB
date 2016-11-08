@@ -39,6 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/myAccount/create_account").permitAll()
                 .antMatchers("/myAccount/user").permitAll()
                 .antMatchers("/myAccount/user","/myAccount/find_by_email").permitAll()
+                .antMatchers("http://localhost:8080/login?logout").permitAll()
                 .antMatchers("/views/admin.html").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
