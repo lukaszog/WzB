@@ -15,7 +15,9 @@ app.controller('RegisterCtrl', function ($scope, $http, $location) {
             url: 'http://localhost:8080/myAccount/create_account',
             data: {
                 "username": $scope.register.email,
-                "password": $scope.register.password
+                "password": $scope.register.password,
+                "name": $scope.register.name,
+                "surname": $scope.register.surname
 
             },
             headers: {'Content-type': 'application/json'}

@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.lenda.marcin.wzb.dto.ClientAccountDto;
 import pl.lenda.marcin.wzb.dto.DocumentWzDto;
+import pl.lenda.marcin.wzb.dto.UserAccountDto;
 import pl.lenda.marcin.wzb.entity.ClientAccount;
 import pl.lenda.marcin.wzb.entity.DocumentWz;
 import pl.lenda.marcin.wzb.entity.TraderAccount;
+import pl.lenda.marcin.wzb.entity.UserAccount;
 import pl.lenda.marcin.wzb.service.client_account.ClientAccountImplementation;
 import pl.lenda.marcin.wzb.service.trader.TraderServiceImplementation;
 
@@ -58,5 +60,13 @@ public class ConvertTo {
         return clientAccount;
     }
 
+    public UserAccount converToUserAcountEntity(UserAccountDto userAccountDto){
+        UserAccount userAccount = new UserAccount();
+        userAccount.setName(userAccountDto.getName());
+        userAccount.setSurname(userAccountDto.getSurname());
+        userAccount.setUsername(userAccountDto.getUsername());
+        userAccount.setPassword(userAccountDto.getPassword());
+        return userAccount;
+    }
 
 }

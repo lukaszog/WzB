@@ -7,6 +7,7 @@ app.service('AuthenticatedService', function ($rootScope, $http, $location ) {
     var _username = '';
     $rootScope.userRoles = false;
     $rootScope.logout = false;
+    self.credentials = {};
 
     var setUsername = function (username) {
         _username = username;
@@ -33,7 +34,7 @@ app.service('AuthenticatedService', function ($rootScope, $http, $location ) {
     //
     // });
 
-    this.authenticated = function(credentials, callback) {
+    this.authenticatedUser = function(credentials, callback) {
 
         var headers = credentials ? {
             authorization : "Basic "
@@ -49,24 +50,20 @@ app.service('AuthenticatedService', function ($rootScope, $http, $location ) {
             if (data.name) {
                 $rootScope.authenticated = true;
                 setUsername(data.name);
+
                 $rootScope.admin = data && data.roles && data.roles.indexOf("ROLE_ADMIN")>-1;
+                console.log($rootScope.admin);
 
-                if(data.name=='ADMIN'){
-                    $rootScope.userRoles = true;
-                }
-
-            } else {
-                self.authenticated = false;
-                self.admin = false;
-            }
+        } else {
+            self.authenticated = false;
+            self.admin = false;
+                console.log('tutaj');
+        }
             callback && callback(true);
-        }, function() {
+        }, function(err) {
             self.authenticated = false;
             callback && callback(false);
+            console.log('albo tu' + err.statusText);
         });
     };
-
-    self.credentials = {};
-
-
 });

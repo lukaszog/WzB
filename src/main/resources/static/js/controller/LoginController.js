@@ -3,8 +3,8 @@
  */
 
 
-app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$scope','AuthenticatedService',
-    function ($rootScope, $http, $location, $route, $scope, AuthenticatedService) {
+app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$scope','AuthenticatedService', '$window',
+    function ($rootScope, $http, $location, $route, $scope, AuthenticatedService, $window) {
 
         var self = this;
         this.credentials = {};
@@ -13,12 +13,9 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
             return $route.current && route === $route.current.controller;
         };
 
-        $scope.taram = function () {
-            console.log('taram');
-        };
 
         var authenticated = function (credentials, callback) {
-            AuthenticatedService.authenticated(credentials, callback);
+            AuthenticatedService.authenticatedUser(credentials, callback);
         };
 
 
@@ -29,7 +26,7 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
                     $location.path('/#login')
                     self.error = false;
                     $rootScope.authenticated = true;
-                    // $scope.userInfo = self.user.username;
+
                 } else {
                     $scope.errorForm = "Błędne dane!";
                     $location.path("/login");
@@ -42,11 +39,10 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
         $scope.logout = function () {
 
             $http.post('/logout', {}).success(function () {
-                $location.path("/login");
+                $location.url('/login');
                 $rootScope.authenticated = false;
                 $rootScope.userRoles = false;
 
-                $rootScope.info = "Zostałeś porawnie wylogowany!";
 
             }).error(function (data) {
                 $rootScope.authenticated = false;

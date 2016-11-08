@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="slider-container">
+        <div class="intro-text">
+
+            <div class="intro-lead-in">Nieaktywne konta:</div>
+            <div id="showDocument">
+                <table class="table" ts-wrapper>
+                    <thead>
+                    <tr>
+
+                        <th ts-criteria="" ts-default>E-mail</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="account in accounts" ts-repeat>
+                        <td>{{account.username}}</td>
+                        <td id="active_account"><input class="adminSubmit" type="submit" value="Aktywuj konto"
+                                                       ng-click="editData.accounts = account; activeAccount();">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            {{editData}}
+            <!--</div>-->
+
+        </div>
+        <script type="text/ng-template" id="Active">
+            <h1>Zatwierdzić korekte?</h1>
+            <input class="submitConfirmDialog" type="submit" value="Tak"
+                   ng-click="closeThisDialog(0); activeThisAccount(); ">
+            <input class="submitDelete" type="submit" value="Nie" ng-click="closeThisDialog(0)">
+        </script>
+        <script type="text/ng-template" id="success">
+            <h1>Zatwierdzić korekte?</h1>
+            <input class="submitConfirmDialog" type="submit" value="Aktywowano konto!"
+                   ng-click="closeThisDialog(0);">
+
+        </script>
+
+    </div>
+</div>
+</div>

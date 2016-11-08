@@ -13,4 +13,8 @@ public interface UserAccountRepository extends MongoRepository<UserAccount, Stri
     List<UserAccount> findByRole(String role);
 
     UserAccount findByUsername(String username);
+
+    UserAccount findByUsernameAndActiveTrue(String username);
+
+    List<UserAccount> findAllByActiveFalse();
 }

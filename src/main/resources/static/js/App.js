@@ -59,6 +59,10 @@ var app = angular.module('myApp', [
             templateUrl: 'views/register.html',
             controller: 'RegisterCtrl'
         })
+        .when('/accept_account', {
+            templateUrl: 'views/accept_account.html',
+            controller: 'MainAccountCtrl'
+        })
         .otherwise({redirectTo: '/'});
 
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

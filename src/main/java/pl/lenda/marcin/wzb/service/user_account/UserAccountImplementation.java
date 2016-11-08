@@ -36,6 +36,11 @@ public class UserAccountImplementation implements UserAccountService{
         return userAccountRepository.findByUsername(username);
     }
 
+    @Override
+    public List<UserAccount> findNotActiveAccount() {
+        return userAccountRepository.findAllByActiveFalse();
+    }
+
 
     private boolean checkIfAdminExists() {
         List<UserAccount> userEntityList = userAccountRepository.findByRole("ADMIN");

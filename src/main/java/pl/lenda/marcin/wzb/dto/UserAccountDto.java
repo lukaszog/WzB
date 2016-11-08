@@ -1,19 +1,16 @@
 package pl.lenda.marcin.wzb.dto;
 
-import org.springframework.data.mongodb.core.index.Indexed;
-
-import javax.validation.constraints.NotNull;
-
 /**
  * Created by Promar on 30.10.2016.
  */
 public class UserAccountDto {
 
-    @NotNull(message = "Podaj login.")
-    @Indexed(unique = true)
     private String username;
 
-    @NotNull(message = "Podaj hasło.")
+    private String name;
+
+    private String surname;
+
     private String password;
 
     private String confirmPassword;
@@ -23,20 +20,15 @@ public class UserAccountDto {
     public UserAccountDto(){
     }
 
-    public UserAccountDto(String username, String password, String confirmPassword, String role) {
+    public UserAccountDto(String username, String name, String surname, String password, String confirmPassword, String role) {
         this.username = username;
+        this.name = name;
+        this.surname = surname;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.role = role;
     }
 
-    public String getEmail() {
-        return username;
-    }
-
-    public void setEmail(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;
@@ -60,5 +52,29 @@ public class UserAccountDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

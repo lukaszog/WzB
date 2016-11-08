@@ -14,18 +14,27 @@ public class UserAccount {
 
     private String username;
 
+    private String name;
+
+    private String surname;
+
     private String password;
 
     private String role;
 
-    public UserAccount(){
+    private boolean active;
+
+    public UserAccount() {
     }
 
-    public UserAccount(String id, String username, String password, String role) {
+    public UserAccount(String id, String username, String name, String surname, String password, String role, boolean active) {
         this.id = id;
         this.username = username;
+        this.name = name;
+        this.surname = surname;
         this.password = password;
         this.role = role;
+        this.active = active;
     }
 
     public String getId() {
@@ -58,5 +67,29 @@ public class UserAccount {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }
