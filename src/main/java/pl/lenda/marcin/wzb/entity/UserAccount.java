@@ -20,6 +20,8 @@ public class UserAccount {
 
     private String password;
 
+    private String numberUser;
+
     private String role;
 
     private boolean active;
@@ -27,12 +29,13 @@ public class UserAccount {
     public UserAccount() {
     }
 
-    public UserAccount(String id, String username, String name, String surname, String password, String role, boolean active) {
+    public UserAccount(String id, String username, String name, String surname, String password, String numberUser, String role, boolean active) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.surname = surname;
         this.password = password;
+        this.numberUser = numberUser;
         this.role = role;
         this.active = active;
     }
@@ -91,5 +94,13 @@ public class UserAccount {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getNumberUser() {
+        return numberUser;
+    }
+
+    public void setNumberUser(String numberUser) {
+        this.numberUser = numberUser;
     }
 }

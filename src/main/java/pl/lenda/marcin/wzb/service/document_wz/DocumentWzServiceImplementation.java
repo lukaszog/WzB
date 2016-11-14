@@ -48,7 +48,7 @@ public class DocumentWzServiceImplementation implements DocumentWzService {
 
     @Override
     public List<DocumentWz> findByNameTeam(String nameTeam) {
-        return documentWzRepository.findByNameTeam(nameTeam);
+        return documentWzRepository.findByNameTeamIgnoreCase(nameTeam);
     }
 
     @Override

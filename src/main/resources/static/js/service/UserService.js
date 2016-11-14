@@ -2,7 +2,7 @@
  * Created by Promar on 03.11.2016.
  */
 
-app.service('UserAccountService', function ($rootScope, $http, ngDialog) {
+app.service('UserAccountService', function ($rootScope, $http, ngDialog, HOST) {
 
 
 
@@ -10,14 +10,35 @@ app.service('UserAccountService', function ($rootScope, $http, ngDialog) {
         $rootScope.documents = [];
         $http({
             method: 'PATCH',
-            url: 'http://localhost:8080/myAccount/make_active_account',
+            url: HOST + '/myAccount/make_active_account',
             data: {
                 "username": username
             },
             headers: {'Content-type': 'application/json'}
         }).success(function (data) {
             ngDialog.open({
-                template: 'success',
+                template: 'successActiveAccount',
+                controller: 'MainAccountCtrl',
+                className: 'ngdialog-theme-default'
+            });
+
+        }).error(function (data) {
+
+        });
+    };
+
+    this.doneBlockAccount = function (username) {
+        $rootScope.documents = [];
+        $http({
+            method: 'PATCH',
+            url: HOST + '/myAccount/block_account',
+            data: {
+                "username": username
+            },
+            headers: {'Content-type': 'application/json'}
+        }).success(function (data) {
+            ngDialog.open({
+                template: 'successBlock',
                 controller: 'MainAccountCtrl',
                 className: 'ngdialog-theme-default'
             });

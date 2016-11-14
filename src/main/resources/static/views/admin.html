@@ -8,12 +8,21 @@
             <div id="adminPanel">
 
             <a href="#/addDocument"><input  type="submit" class="submitAdmin" value="Dodaj dokument WZ"></a>
+
             <a href="#/add_client"><input  type="submit" class="submitAdmin" value="Załóż klienta"></a>
+
             <a href="#/add_trader"><input  type="submit" class="submitAdmin" value="Dodaj handlowca"></a>
+
             <a href="#/correct_document" ng-show="correct==0"><input  type="submit" class="submitAdmin" value="Korekty"></a>
+
             <a href="#/correct_document" ng-show="correct>0"><input ng-click="findAllCorrect()" style="background-color: #FF0000" type="submit" class="submitAdmin" value="Korekty"></a>
-            <a href="#/accept_account"><input ng-click="ShowAllNotActiveAccount()"  type="submit" class="submitAdmin" value="Aktywuj konto"></a>
-            <a href="#/btn"><input  type="submit" class="submitAdmin" value="Zablokuj konto"></a>
+
+            <a href="#/accept_account"><input ng-show="accountToActive==0" ng-click="ShowAllNotActiveAccount()"  type="submit" class="submitAdmin" value="Aktywuj konto"></a>
+
+            <a href="#/accept_account"><input ng-show="accountToActive>0" ng-click="ShowAllNotActiveAccount()" style="background-color: #FF0000"  type="submit" class="submitAdmin" value="Aktywuj konto"></a>
+
+            <a href="#/block_account"><input  type="submit" class="submitAdmin" value="Zablokuj konto"></a>
+
             <a href="#/show_documents"><input  type="submit" class="submitAdmin" value="Podgląd dokumentów"></a>
 
             </div>

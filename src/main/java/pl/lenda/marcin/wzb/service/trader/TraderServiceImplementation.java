@@ -28,10 +28,20 @@ public class TraderServiceImplementation implements TraderService {
     }
 
     @Override
-    public TraderAccount findByTraderSurname(String surname) {
-
-        return traderAccountRepository.findBySurnameIgnoreCase(surname);
+    public TraderAccount findByTraderSurnameAndNumber(String surname, String numberTrader) {
+        return traderAccountRepository.findBySurnameAndNumberTrader(surname, numberTrader);
     }
+
+    @Override
+    public TraderAccount findBySurname(String surname) {
+        return traderAccountRepository.findBySurname(surname);
+    }
+
+    @Override
+    public TraderAccount findByNumberTrader(String numberTrader) {
+        return traderAccountRepository.findByNumberTrader(numberTrader);
+    }
+
 
     @Override
     public List<TraderAccount> findAllTrader() {

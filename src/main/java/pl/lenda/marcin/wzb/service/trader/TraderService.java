@@ -13,7 +13,11 @@ public interface TraderService {
 
     void deleteTrader(TraderAccount traderAccount);
 
-    TraderAccount findByTraderSurname(String surname);
+    TraderAccount findByTraderSurnameAndNumber(String surname , String numberTrader);
+
+    TraderAccount findBySurname(String surname);
+
+    TraderAccount findByNumberTrader(String numberTrader);
 
     List<TraderAccount> findAllTrader();
 }

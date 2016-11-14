@@ -1,7 +1,32 @@
 <div class="container">
     <div class="slider-container">
         <div class="intro-text">
-            <div class="intro-lead-in">W budowie</div>
+
+            <div class="intro-heading" style="font-size: 30px; letter-spacing: 1px;">{{_username}}</div>
+            <div id="infoUser" style="margin: 0 auto">
+                <table class="table" ts-wrapper>
+                    <thead>
+                    <tr>
+
+                        <th style="background-color: #445878;">E-mail</th>
+                        <th style="background-color: #445878;">Imię</th>
+                        <th style="background-color: #445878;">Nazwisko</th>
+                        <th style="background-color: #445878;">Team</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{infoUsers.username}}</td>
+                        <td>{{infoUsers.name}}</td>
+                        <td>{{infoUsers.surname}}</td>
+                        <td>{{infoUsers.nameTeam}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <a href="#/change_password"><input style="width: 298px;" type="submit" class="submitAdmin" value="Zmiana hasła"></a>
+            <a href="#/user_document"><input ng-click="findMyDocument()" style="width: 298px;" type="submit" class="submitAdmin" value="Moje dokumenty"></a>
         </div>
     </div>
 </div>

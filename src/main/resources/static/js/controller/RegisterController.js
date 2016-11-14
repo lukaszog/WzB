@@ -2,34 +2,76 @@
  * Created by Promar on 06.11.2016.
  */
 
-app.controller('RegisterCtrl', function ($scope, $http, $location) {
+app.controller('RegisterCtrl', function ($scope, $http, $location, HOST) {
 
     $scope.registerResponse = {};
 
+    $scope.error = [];
+    $scope.showError = [];
+    $scope.reponseError = false;
+    $scope.userAlreadyExists = false;
+    $scope.numberAlreadyExists = false;
+    $scope.wrongPass = false;
 
-    $scope.error = "";
     $scope.registerUser = function () {
-        console.log('insta');
+
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/myAccount/create_account',
+            url: HOST + '/myAccount/create_account',
             data: {
                 "username": $scope.register.email,
                 "password": $scope.register.password,
+                "confirmPassword": $scope.register.passwordConfirm,
                 "name": $scope.register.name,
-                "surname": $scope.register.surname
+                "surname": $scope.register.surname,
+                "numberUser": $scope.register.number
 
             },
             headers: {'Content-type': 'application/json'}
         })
             .success(function (data) {
-                // $location.path("/info");
-                console.log('udało się');
+                $scope.success = data.Success;
+                $scope.error = data.Error;
+                $scope.listError = data;
+
+
+
+                if ($scope.error == 'ExistsUser') {
+
+                    angular.forEach($scope.listError, function (value, key) {
+                        $scope.userAlreadyExists = false;
+                        $scope.numberAlreadyExisits = false;
+                        $scope.wrongPass = false;
+                        $scope.reponseError = false;
+                        if (value == 'ExistsUser') {
+                            $scope.userAlreadyExists = true;
+                            $scope.reponseError = true;
+                        }
+
+                    });
+               }
+                if ($scope.error == 'WrongPass') {
+                    $scope.wrongPass = true;
+                    $scope.reponseError = true;
+                    $scope.numberAlreadyExists = false;
+                    $scope.userAlreadyExists = false;
+                    console.log('jestem tu');
+                }
+
+                if ($scope.error == 'ExistsNumber') {
+                    $scope.numberAlreadyExists = true;
+                    $scope.userAlreadyExisits = false;
+                    $scope.wrongPass = false;
+                    $scope.reponseError = true;
+                }
+
+                if ($scope.success == 'Create') {
+                    $location.path("/after_register");
+
+                }
 
             }).error(function (data) {
-            // $scope.registerResponse = data.Error;
-            // console.log($scope.registerResponse);
-            console.log('Nie udało się');
+            $scope.showError.push("Problem połączenia z serwerem.");
 
         });
     }

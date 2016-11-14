@@ -20,7 +20,7 @@ public interface DocumentWzRepository extends MongoRepository<DocumentWz, String
 
     List<DocumentWz> findByTraderNameIgnoreCase(String traderName);
 
-    List<DocumentWz> findByNameTeam(String nameTeam);
+    List<DocumentWz> findByNameTeamIgnoreCase(String nameTeam);
 
     List<DocumentWz> findByBeCorrectsTrue();
 

@@ -8,6 +8,7 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
 
         var self = this;
         this.credentials = {};
+        $rootScope.loginError = false;
 
         self.tab = function (route) {
             return $route.current && route === $route.current.controller;
@@ -23,7 +24,7 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
 
             authenticated(self.credentials, function (authenticated) {
                 if (authenticated) {
-                    $location.path('/#login')
+                    $location.path('/home');
                     self.error = false;
                     $rootScope.authenticated = true;
 
@@ -38,14 +39,14 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
 
         $scope.logout = function () {
 
-            console.log("Jestem");
+
             $http.post('/logout', {})
 
                 .success(function () {
                 $location.path('/login');
                 $rootScope.authenticated = false;
                 $rootScope.userRoles = false;
-                console.log('zostales wyglowowany1');
+                    $rootScope._username = '';
 
 
             }).error(function (data) {
@@ -53,7 +54,7 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
                 $rootScope.authenticated = false;
                 $rootScope.userRoles = false;
                 $rootScope.userInfo = false;
-                console.log('zostales wyglowowany2');
+                $rootScope._username = '';
             });
         }
 

@@ -2,7 +2,7 @@
  * Created by Promar on 11.10.2016.
  */
 
-app.controller('MainController', function ($scope, $http) {
+app.controller('MainController', function ($scope, $http, $interval, HOST) {
 
     $scope.howManyDocument = '0';
     $scope.howManyTraders = '0';
@@ -10,7 +10,7 @@ app.controller('MainController', function ($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:8080/howManyDocument',
+        url: HOST + '/howManyDocument',
         headers: {'Content-type': 'application/json'}
     })
         .success(function (data) {
@@ -23,7 +23,7 @@ app.controller('MainController', function ($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:8080/howManyTraders',
+        url: HOST + '/howManyTraders',
         headers: {'Content-type': 'application/json'}
     })
         .success(function (data) {
@@ -36,7 +36,7 @@ app.controller('MainController', function ($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'http://localhost:8080/howManyClient',
+        url: HOST + '/howManyClient',
         headers: {'Content-type': 'application/json'}
     })
         .success(function (data) {
@@ -46,5 +46,53 @@ app.controller('MainController', function ($scope, $http) {
         }).error(function (data) {
         console.log('Nie udało się ');
     });
+
+
+
+    $interval(function () {
+        $http({
+            method: 'GET',
+            url: HOST + '/howManyDocument',
+            headers: {'Content-type': 'application/json'}
+        })
+            .success(function (data) {
+
+                $scope.howManyDocument = data;
+
+            }).error(function (data) {
+            console.log('Nie udało się ');
+        });
+
+        $http({
+            method: 'GET',
+            url: HOST + '/howManyTraders',
+            headers: {'Content-type': 'application/json'}
+        })
+            .success(function (data) {
+
+                $scope.howManyTraders = data;
+
+            }).error(function (data) {
+            console.log('Nie udało się ');
+        });
+
+        $http({
+            method: 'GET',
+            url: HOST + '/howManyClient',
+            headers: {'Content-type': 'application/json'}
+        })
+            .success(function (data) {
+
+                $scope.howManyClient = data;
+
+            }).error(function (data) {
+            console.log('Nie udało się ');
+        });
+
+
+
+
+    }, 10000);
+
 
 });

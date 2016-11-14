@@ -6,18 +6,21 @@ import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.DocumentWzDto;
 import pl.lenda.marcin.wzb.dto.DocumentWzToDeleteDto;
 import pl.lenda.marcin.wzb.dto.FindByNumberWzDto;
+import pl.lenda.marcin.wzb.dto.FindClientNumber;
 import pl.lenda.marcin.wzb.entity.DocumentWz;
 import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
 import pl.lenda.marcin.wzb.service.document_wz.DocumentWzServiceImplementation;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Promar on 09.10.2016.
  */
 @RestController
-public class ControllerDocumentWz {
+public class DocumentWZController {
 
     private final DocumentWzServiceImplementation documentWzServiceImplementation;
 
@@ -25,22 +28,31 @@ public class ControllerDocumentWz {
     private DocumentWzDto documentWzDto;
     private DocumentWz documentWz;
 
-
     @Autowired
     private ConvertTo convertTo;
+    private final Map<String, Object> response = new LinkedHashMap<>();
 
     @Autowired
-    public ControllerDocumentWz(DocumentWzServiceImplementation documentWzServiceImplementation) {
+    public DocumentWZController(DocumentWzServiceImplementation documentWzServiceImplementation) {
         this.documentWzServiceImplementation = documentWzServiceImplementation;
     }
 
-    @CrossOrigin(origins = "*")
+
     @RequestMapping(value = "/saveDocument")
     public
     @ResponseBody
-    DocumentWzDto createDocumentWz(@Validated @RequestBody DocumentWzDto documentWzDto) {
-        documentWzServiceImplementation.createDocumentWz(convertTo.convertDocumentToEntity(documentWzDto));
-        return documentWzDto;
+    Map<String, Object> createDocumentWz(@Validated @RequestBody DocumentWzDto documentWzDto) {
+        response.clear();
+        if(documentWzServiceImplementation.
+                findByNumberWZAndSubProcess(documentWzDto.getNumberWZ(), documentWzDto.getSubProcess())!= null){
+            response.put("Error", "ExistsDocument");
+            return response;
+        }else{
+            documentWzServiceImplementation.createDocumentWz(convertTo.convertDocumentToEntity(documentWzDto));
+            response.put("Success", documentWzDto);
+            return response;
+        }
+
     }
 
     @RequestMapping(value = "/deleteDocument", method = RequestMethod.DELETE)
@@ -73,10 +85,10 @@ public class ControllerDocumentWz {
     }
 
     @RequestMapping(value = "/findByClientNumber", method = RequestMethod.POST)
-    public List<DocumentWzDto> findByClientNumber(@RequestBody String clientNumber) {
+    public List<DocumentWzDto> findByClientNumber(@RequestBody FindClientNumber findClientNumber) {
         List<DocumentWz> listDocumentWZ;
         List<DocumentWzDto> listDocumentWzDto = new ArrayList<>();
-        listDocumentWZ = documentWzServiceImplementation.findByNumberClient(clientNumber);
+        listDocumentWZ = documentWzServiceImplementation.findByNumberClient(findClientNumber.getFindClientNumber());
 
         for (DocumentWz documentWz : listDocumentWZ) {
             listDocumentWzDto.add(convertTo.convertDocumentToDto(documentWz));

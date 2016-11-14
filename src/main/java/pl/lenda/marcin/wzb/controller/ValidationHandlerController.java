@@ -2,7 +2,6 @@ package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -14,13 +13,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import pl.lenda.marcin.wzb.dto.MessageDTO;
 import pl.lenda.marcin.wzb.dto.MessageType;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 @ControllerAdvice
-public class ControllerValidationHandler {
+public class ValidationHandlerController {
   @Autowired
   private MessageSource msgSource;
   private List<MessageDTO> list = new LinkedList<>();

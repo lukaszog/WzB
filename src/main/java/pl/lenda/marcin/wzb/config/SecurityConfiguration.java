@@ -1,16 +1,17 @@
 package pl.lenda.marcin.wzb.config;
 
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.context.annotation.Bean;
-        import org.springframework.context.annotation.Configuration;
-        import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-        import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-        import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-        import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-        import org.springframework.security.core.userdetails.UserDetailsService;
-        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-        import org.springframework.security.web.csrf.CsrfTokenRepository;
-        import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 /**
  * Created by Promar on 06.11.2016.
@@ -28,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/views/**").permitAll()
+                .antMatchers("/", "/index.html", "/views/main.html", "/views/login.html", "/views/register.html", "/views/after_register.html").permitAll()
                 .antMatchers("/howManyDocument","/howManyTraders","/howManyClient").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/bower_components/**").permitAll()
@@ -39,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/myAccount/create_account").permitAll()
                 .antMatchers("/myAccount/user").permitAll()
                 .antMatchers("/myAccount/user","/myAccount/find_by_email").permitAll()
-                .antMatchers("http://localhost:8080/login?logout").permitAll()
+                .antMatchers("/login?logout").permitAll()
                 .antMatchers("/views/admin.html").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -62,4 +63,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
+
+    PlaintextPasswordEncoder plaintextPasswordEncoder = new PlaintextPasswordEncoder();
+
+//    public PlaintextPasswordEncoder passwordEncoder(String ra, Object salt){
+//        return plaintextPasswordEncoder.encodePassword(ra,salt);
+//    }
 }

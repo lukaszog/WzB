@@ -1,31 +1,37 @@
 package pl.lenda.marcin.wzb.dto;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by Promar on 30.10.2016.
  */
 public class UserAccountDto {
 
+    @NotNull()
     private String username;
-
+    @NotNull()
     private String name;
-
+    @NotNull()
     private String surname;
-
+    @NotNull()
     private String password;
-
+    @NotNull()
     private String confirmPassword;
+    @NotNull
+    private String numberUser;
 
     private String role;
 
     public UserAccountDto(){
     }
 
-    public UserAccountDto(String username, String name, String surname, String password, String confirmPassword, String role) {
+    public UserAccountDto(String username, String name, String surname, String password, String confirmPassword, String numberUser, String role) {
         this.username = username;
         this.name = name;
         this.surname = surname;
         this.password = password;
         this.confirmPassword = confirmPassword;
+        this.numberUser = numberUser;
         this.role = role;
     }
 
@@ -76,5 +82,13 @@ public class UserAccountDto {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getNumberUser() {
+        return numberUser;
+    }
+
+    public void setNumberUser(String numberUser) {
+        this.numberUser = numberUser;
     }
 }

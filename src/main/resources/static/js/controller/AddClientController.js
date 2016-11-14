@@ -2,11 +2,15 @@
  * Created by Promar on 03.11.2016.
  */
 
-app.controller('ClientOperation', ['$scope', '$http', 'ClientService', function ($scope, $http, ClientService) {
+app.controller('ClientOperation', ['$scope', '$http','$route', 'ClientService', function ($scope, $http, $route, ClientService) {
 
     $scope.form = {};
     $scope.names = ["STA", "STB", "STC",
         "STE"];
+
+    $scope.reloadRoute = function () {
+        $route.reload();
+    };
 
     $scope.createAccountClient = function () {
 

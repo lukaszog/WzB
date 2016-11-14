@@ -2,41 +2,55 @@
     <div class="slider-container">
         <div class="intro-text">
 
-            <div class="intro-lead-in">Nieaktywne konta:</div>
+            <div class="intro-heading">Nieaktywne konta :</div>
             <div id="showDocument">
                 <table class="table" ts-wrapper>
                     <thead>
                     <tr>
 
-                        <th ts-criteria="" ts-default>E-mail</th>
-
+                        <th ts-criteria="">E-mail</th>
+                        <th ts-criteria="">Imię</th>
+                        <th ts-criteria="">Nazwisko</th>
+                        <th>Numer</th>
+                        <th ts-criteria="">Zatwierdź</th>
+                        <th>Uprawnienia</th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="account in accounts" ts-repeat>
+                    <tr ng-repeat="account in notActiveAccounts" ts-repeat>
                         <td>{{account.username}}</td>
-                        <td id="active_account"><input class="adminSubmit" type="submit" value="Aktywuj konto"
+                        <td>{{account.name}}</td>
+                        <td>{{account.surname}}</td>
+                        <td>{{account.numberUser}}</td>
+                        <td class="active_account"><input class="adminSubmit" type="submit" value="Aktywuj konto"
                                                        ng-click="editData.accounts = account; activeAccount();">
+                        <td ng-show="account.role=='USER'" class="active_account"><input class="adminSubmit" type="submit" value="Podnieś"
+                                                       ng-click="editData.accounts = account; giveRoleAdmin();">
                         </td>
+                        <td style="color:rgb(221,44,0);" ng-show="account.role=='ADMIN'"><b>ADMIN</b></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            {{editData}}
-            <!--</div>-->
 
         </div>
         <script type="text/ng-template" id="Active">
-            <h1>Zatwierdzić korekte?</h1>
+            <h1>Aktywować konto?</h1>
             <input class="submitConfirmDialog" type="submit" value="Tak"
                    ng-click="closeThisDialog(0); activeThisAccount(); ">
             <input class="submitDelete" type="submit" value="Nie" ng-click="closeThisDialog(0)">
         </script>
-        <script type="text/ng-template" id="success">
-            <h1>Zatwierdzić korekte?</h1>
-            <input class="submitConfirmDialog" type="submit" value="Aktywowano konto!"
-                   ng-click="closeThisDialog(0);">
+        <script type="text/ng-template" id="Admin">
+            <h1>Czy nadać uprawnienia administratora?</h1>
+            <input class="submitConfirmDialog" type="submit" value="Tak"
+                   ng-click="closeThisDialog(0); doneGiveRoleAdmin();">
+            <input class="submitDelete" type="submit" value="Nie" ng-click="closeThisDialog(0)">
+        </script>
+        <script type="text/ng-template" id="successActiveAccount">
+            <h1>Aktywacja zakończona sukcesem!</h1>
+            <input style="background-color: #23AD21;" class="submitSuccess" type="submit" value="Aktywowano konto!"
+                   ng-click="ShowAllNotActiveAccount(); closeThisDialog(0);">
 
         </script>
 

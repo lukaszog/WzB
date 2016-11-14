@@ -2,15 +2,15 @@
     <div class="slider-container">
         <div class="intro-text">
 
-            <form id="form" class="topBefore" ng-submit="createDocument()">
+            <form id="form" name="projectForm" class="topBefore" ng-submit="createDocument()" style="font-size:20px;">
                 <h1>Dodwanie WZ</h1>
 
-                <input name="numberWZ" type="text" ng-model="form.numberWZ" placeholder="Numer WZ">
+                <input required name="numberWZ" type="text" name="numberWZ" ng-model="form.numberWZ" placeholder="Numer WZ">
                 <input name="subProcess" required type="number" ng-model="form.subProcess" placeholder="Podproces"
                        min="1"
                        max="100"/>
 
-                <select ng-model="nameClients" data-ng-options="x for x in resultListClient | orderBy">
+                <select required ng-model="nameClients" data-ng-options="x for x in resultListClient | orderBy" >
 
                 </select>
 
@@ -27,7 +27,19 @@
     </div>
     <script type="text/ng-template" id="addDocument">
         <h1>{{responseFromServer}}</h1>
-        <input style="margin-left: 100px; margin-top: 5px;" class="submitDelete" type="submit" value="Ok"
+        <input style="background-color: #23AD21;" class="submitSuccess" type="submit" value="Ok"
                ng-click="reloadRoute(); closeThisDialog(0);">
+    </script>
+    <script type="text/ng-template" id="errorAdd">
+        <h1>Doukemnt istnieje w bazie danych.</h1>
+        <p>Podany dokument jest już zapisany w bazie danych.</p>
+        <input style="background-color:rgb(221,44,0);" class="submitSuccess" type="submit" value="Ok"
+               ng-click="closeThisDialog(0);">
+    </script>
+    <script type="text/ng-template" id="errorAddDocument">
+        <h1>Wystąpił błąd.</h1>
+        <p>Brak połączenia z serwerem.</p>
+        <input style="background-color:rgb(221,44,0);" class="submitSuccess" type="submit" value="Ok"
+               ng-click="closeThisDialog(0);">
     </script>
 </div>

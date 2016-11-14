@@ -12,6 +12,7 @@
 
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Kreon|Roboto+Condensed" rel="stylesheet">
 		<!-- Custom styles for this template -->
 		<link href="css/owl.carousel.css" rel="stylesheet">
 		<link href="css/owl.theme.default.min.css"  rel="stylesheet">
@@ -20,7 +21,7 @@
 		<link href="bower_components/ng-dialog/css/ngDialog.css" rel="stylesheet">
 		<link href="bower_components/ng-dialog/css/ngDialog-theme-default.css" rel="stylesheet">
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-
+		<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
 
 		<script type="text/javascript">
 			function onclickHandler()
@@ -44,7 +45,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand page-scroll" href="#page-top"><img src="images/wzb25.png" alt="Sanza theme logo"></a>
+					<a class="navbar-brand page-scroll" href="#/home"><img src="images/wzb25.png" alt="Sanza theme logo"></a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LoginCtrl">
@@ -53,15 +54,15 @@
 							<a href="#page-top"></a>
 						</li>
 						<li ng-show="authenticated">
-							<a class="page-scroll"  href="#/main">O WzB</a>
+							<a class="page-scroll"  href="#/home">O WzB</a>
 						</li>
 						<li ng-show="authenticated">
 							<a class="page-scroll" href="#/search">Szukaj WZ</a>
 						</li>
 						<li ng-show="authenticated">
-							<a class="page-scroll" href="#/account">Twoje konto</a>
+							<a class="page-scroll" href="#/account">Moje konto</a>
 						</li>
-						<li ng-show="authenticated">
+						<li ng-show="userRoles">
 							<a class="page-scroll" href="#/admin">Administracja</a>
 						</li>
 						<li  ng-show="authenticated">
@@ -147,7 +148,7 @@
         <script src="bower_components/angular-animate/angular-animate.js"></script>
         <script src="bower_components/angular-material/angular-material.js"></script>
 		<script src="bower_components/angular-messages/angular-messages.js"></script>
-		<!--<script src="bower_components/angular-timer/dist/angular-timer.js"></script>-->
+		<script src="bower_components/angular-timer/dist/angular-timer.js"></script>
 		<script src="bower_components/moment/min/moment.min.js"></script>
 		<script src="bower_components/moment/min/locales.js"></script>
 		<script src="bower_components/humanize-duration/humanize-duration.js"></script>
@@ -164,6 +165,7 @@
 		<script src="js/controller/AdminController.js"></script>
 		<script src="js/controller/LoginController.js"></script>
 		<script src="js/controller/Main_Account_Controller.js"></script>
+		<script src="js/controller/UserAccount.js"></script>
 
 		<script src="js/controller/LoginController.js"></script>
 		<script src="js/controller/RegisterController.js"></script>
@@ -173,6 +175,7 @@
 		<script src="js/service/AuthenticatedService.js"></script>
 		<script src="js/directive/ConfirmDelete.js"></script>
 		<script src="js/service/DocumentService.js"></script>
+		<script src="js/config.js"></script>
 
 
 	</body>

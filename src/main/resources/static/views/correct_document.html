@@ -32,23 +32,39 @@
                             <timer start-time="document.date">{{days}} dni</timer>
                         </td>
 
-                        <td  ng-show="document.beCorrects==false">
+                        <td ng-show="document.beCorrects==false">
 
                             <input id="corectBy" type="checkbox" value="Koryguj"
                                    ng-click="editData.documents = document; correctBy();">
                         </td>
-                        <td  ng-show="document.beCorrects==true">
+                        <td ng-show="document.beCorrects==true">
                             K
                         </td>
 
-                        <td id="delete"><input class="adminSubmit" type="submit" value="Usuń"
-                                               ng-click="editData.documents = document; clickToDelete();">
+                        <td class="delete"><input class="adminSubmit" type="submit" value="Usuń"
+                                                  ng-click="editData.documents = document; clickToDelete();">
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
+            <script type="text/ng-template" id="templateDelete">
+                <h1>Czy na pewno chcesz usunąć dokument?</h1>
+                <input class="submitConfirmDialog" type="submit" value="Tak"
+                       ng-click="closeThisDialog(0); deleteDocument();">
+                <input class="submitDelete" type="submit" value="Nie" ng-click="closeThisDialog(0)">
+            </script>
+            <script type="text/ng-template" id="success">
+                <h1>Dokument został usunięty pomyślnie!</h1>
+                <input style="margin-left: 100px; margin-top: 5px;" class="submitConfirmDialog" type="submit" value="Ok"
+                       ng-click="reloadRoute(); closeThisDialog(0);">
+            </script>
+            <script type="text/ng-template" id="error">
+                <h1>Wystąpił błąd</h1>
+                <input style="margin-left: 100px; margin-top: 5px;" class="submitSuccess" type="submit" value="Ok"
+                       ng-click="closeThisDialog(0);">
+            </script>
 
         </div>
     </div>

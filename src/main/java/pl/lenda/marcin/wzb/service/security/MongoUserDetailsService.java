@@ -29,7 +29,7 @@ public class MongoUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserAccount userAccount = getUserDetail(username);
         UserDetails userDetails = new User(userAccount.getUsername(), userAccount.getPassword(), getAuthorities(userAccount.getRole()));
-        //zwraca dobrze usera
+
         return userDetails;
     }
 
@@ -44,14 +44,14 @@ public class MongoUserDetailsService implements UserDetailsService {
         return authList;
     }
 
-    //Wyszukuja usera
+
     public UserAccount getUserDetail(String username) {
         UserAccount userAccount = userAccountRepository.findByUsername(username);
         if(userAccount.getRole().equals("ADMIN")){
             userAccount.setActive(true);
             userAccountRepository.save(userAccount);
         }
-        // sprawdzam czy konto jest aktywne jeżeli tak to zwracam usera
+
         UserAccount userAccountBeActive = userAccountRepository.findByUsernameAndActiveTrue(userAccount.getUsername());
         return userAccountBeActive;
     }

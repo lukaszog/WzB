@@ -8,5 +8,9 @@ import pl.lenda.marcin.wzb.entity.TraderAccount;
  */
 public interface TraderAccountRepository extends MongoRepository<TraderAccount, String> {
 
-    TraderAccount findBySurnameIgnoreCase(String surname);
+    TraderAccount findBySurnameAndNumberTrader(String surname, String numberTrader);
+
+    TraderAccount findBySurname(String surname);
+
+    TraderAccount findByNumberTrader(String numberTrader);
 }

@@ -5,7 +5,7 @@
 
 // Declare app level module which depends on views, and components
 var app = angular.module('myApp', [
-    'ngRoute', 'ngResource','ngDialog', 'tableSort', 'ngMaterial', 'ngMessages'
+    'ngRoute', 'ngResource','ngDialog', 'tableSort', 'ngMaterial', 'ngMessages', 'timer', 'config'
 
 ]).config(function ($routeProvider, $httpProvider) {
 
@@ -18,8 +18,12 @@ var app = angular.module('myApp', [
             templateUrl: 'views/main.html',
             controller: 'LoginCtrl'
         })
+        .when('/home', {
+            templateUrl: 'views/home.html',
+            controller: 'UserAccount'
+        })
         .when('/search', {
-            templateUrl: 'views/search.html',
+            templateUrl: 'views/find_document.html',
             controller: 'findDocument'
         })
         .when('/addDocument', {
@@ -32,7 +36,7 @@ var app = angular.module('myApp', [
         })
         .when('/account', {
             templateUrl: 'views/account.html',
-            controller: ''
+            controller: 'UserAccount'
         })
         .when('/show_documents', {
             templateUrl: 'views/show_documents.html',
@@ -62,6 +66,22 @@ var app = angular.module('myApp', [
         .when('/accept_account', {
             templateUrl: 'views/accept_account.html',
             controller: 'MainAccountCtrl'
+        })
+        .when('/block_account', {
+            templateUrl: 'views/block_account.html',
+            controller: 'MainAccountCtrl'
+        })
+        .when('/user_document', {
+            templateUrl: 'views/user_info/all_user_document.html',
+            controller: 'UserAccount'
+        })
+        .when('/change_password', {
+            templateUrl: 'views/user_info/change_password.html',
+            controller: 'UserAccount'
+        })
+        .when('/after_register', {
+            templateUrl: 'views/after_register.html',
+            controller: 'UserAccount'
         })
         .otherwise({redirectTo: '/'});
 

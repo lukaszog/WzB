@@ -2,9 +2,9 @@
     <div class="slider-container">
         <div class="intro-text">
 
-            <form div="form" class="topBefore">
+            <form div="form" class="topBefore" style="font-size:20px;">
                 <h1>Wyszukaj po:</h1>
-                <body>
+
 
                 <p onclick="onclickHandler();">Kliknij ten akapit a wyświetli się pomoc!</p>
 
@@ -72,9 +72,9 @@
                         <th style="background-color: #1C1D21" ts-criteria="clientNumber|parseInt">Numer klienta</th>
                         <th style="background-color: #1C1D21" ts-criteria="traderName|lowercase">Handlowiec</th>
                         <th style="background-color: #1C1D21" ts-criteria="date|parseInt">Data zatwierdzenia</th>
-                        <th style="background-color: #1C1D21" ts-criteria="">Zwłoka</th>
+                        <th style="background-color: #1C1D21">Zwłoka</th>
                         <th style="background-color: #1C1D21" ts-criteria="">Korekta</th>
-                        <th style="background-color: #1C1D21" ts-criteria="">ADMIN</th>
+                        <th ng-show="userRoles" style="background-color: #1C1D21" ts-criteria="">ADMIN</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -90,26 +90,41 @@
                             <timer start-time="document.date">{{days}} dni</timer>
                         </td>
 
-                        <td  ng-show="document.beCorrects==false">
+                        <td class="delete" ng-show="document.beCorrects==false">
 
-                            <input id="corectBy" type="checkbox" value="Koryguj"
+                            <input class="adminSubmit" type="submit" value="TAK"
                                    ng-click="editData.documents = document; correctBy();">
+
                         </td>
-                        <td  ng-show="document.beCorrects==true">
-                                K
+                        <td ng-show="document.beCorrects==true">
+                            K
                         </td>
 
-                        <td id="delete"><input class="adminSubmit" type="submit" value="Usuń"
-                                               ng-click="editData.documents = document; clickToDelete();">
+                        <td class="delete" ng-show="userRoles"><input class="adminSubmit" type="submit" value="Usuń"
+                                                                      ng-click="editData.documents = document; clickToDelete();">
                         </td>
                     </tr>
+                    <div style="font-size: 30px;" ng-show="notFindByTrader">Nie ma żadnych dokumentów w bazie danych
+                        podanego handlowca.
+                    </div>
+                    <div style="font-size: 30px;" ng-show="notFindByNumberWZ">Nie znaleziono dokumentu
+                        WZ o podanym numerze.
+
+                    </div>
+                    <div style="font-size: 30px;" ng-show="notFindByClienName">Nie znaleziono klienta w bazie danych.
+
+                    </div>
+                    <div style="font-size: 30px;" ng-show="notFindByClientNumber">Nie znaleziono klienta w bazie danych.
+                    </div>
+                    <div style="font-size: 30px;" ng-show="notFindByNameTeam">Nie znaleziono podanego TOK-u.
+                    </div>
                     </tbody>
+
                 </table>
             </div>
 
-            {{subProDelete}}
 
-            <script type="text/ng-template" id="templateId">
+            <script type="text/ng-template" id="AreYouSureDeleteDocument">
                 <h1>Czy na pewno chcesz usunąć dokument?</h1>
                 <input class="submitConfirmDialog" type="submit" value="Tak"
                        ng-click="closeThisDialog(0); deleteDocument();">
@@ -122,16 +137,22 @@
                        ng-click="closeThisDialog(0); correctDone(); ">
                 <input class="submitDelete" type="submit" value="Nie" ng-click="closeThisDialog(0)">
             </script>
+            <script type="text/ng-template" id="SuccessCorrect">
+                <h1>Korekta zatwierdzona!</h1>
+                <input style="margin-left: 100px; margin-top: 5px;" class="submitConfirmDialog" type="submit" value="Ok"
+                       ng-click="closeThisDialog(0)">
+            </script>
 
-            <script type="text/ng-template" id="success">
+            <script type="text/ng-template" id="successDeleteDocument">
                 <h1>Dokument został usunięty pomyślnie!</h1>
                 <input style="margin-left: 100px; margin-top: 5px;" class="submitConfirmDialog" type="submit" value="Ok"
                        ng-click="reloadRoute(); closeThisDialog(0);">
             </script>
 
-            <script type="text/ng-template" id="error">
-                <h1>Wystąpił błąd</h1>
-                <input style="margin-left: 100px; margin-top: 5px;" class="submitDelete" type="submit" value="Ok"
+            <script type="text/ng-template" id="errorFindDocument">
+                <h1>Wystąpił błąd podczas szukania WZ.</h1>
+                <p>Brak połączenia z serwerem.</p>
+                <input style="background-color:rgb(221,44,0);" class="submitSuccess" type="submit" value="Ok"
                        ng-click="closeThisDialog(0);">
             </script>
             <!--</div>-->

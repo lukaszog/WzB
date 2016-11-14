@@ -5,11 +5,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import pl.lenda.marcin.wzb.dto.FindTraderAccount;
+import pl.lenda.marcin.wzb.dto.TraderAccountDto;
 import pl.lenda.marcin.wzb.entity.TraderAccount;
-import pl.lenda.marcin.wzb.service.trader.TraderServiceImplementation;
+import pl.lenda.marcin.wzb.repository.TraderAccountRepository;
+import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
+import pl.lenda.marcin.wzb.service.trader.TraderService;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Promar on 03.11.2016.
@@ -17,17 +23,46 @@ import java.util.List;
 @RestController
 public class TraderController {
 
+    private final Map<String, Object> response = new LinkedHashMap<>();
+
     @Autowired
-    TraderServiceImplementation traderServiceImplementation;
+    private TraderService traderService;
+    @Autowired
+    private ConvertTo convertTo;
+    @Autowired
+    private TraderAccountRepository traderAccountRepository;
+
+
 
     @RequestMapping(value = "/save_trader", method = RequestMethod.POST)
-    public TraderAccount saveTrader(@RequestBody TraderAccount traderAccount){
-        return traderServiceImplementation.createTrader(traderAccount);
+    public Map<String, Object> saveTrader(@RequestBody TraderAccountDto traderAccountDto){
+        response.clear();
+        if(traderService.findByTraderSurnameAndNumber(traderAccountDto.getSurname(),
+                traderAccountDto.getNumberTrader())!= null){
+            response.put("Error", "ExistsTrader");
+            return response;
+        }else if(traderService.findByNumberTrader(traderAccountDto.getNumberTrader()) != null){
+            response.put("Error", "ExistsTrader");
+            return response;
+        }
+
+        else{
+            traderService.createTrader(convertTo.convertToTraderEntity(traderAccountDto));
+            response.put("Success", traderAccountDto);
+            return response;
+        }
     }
 
     @RequestMapping(value = "/all_trader", method = RequestMethod.GET)
     public List<TraderAccount> findAllTrader(){
         List listTrader = new ArrayList();
-        return listTrader = traderServiceImplementation.findAllTrader();
+        return listTrader = traderService.findAllTrader();
+    }
+
+    @RequestMapping(value = "/find_trader", method = RequestMethod.POST)
+    public TraderAccount findTrader(@RequestBody FindTraderAccount findTraderAccount){
+        TraderAccount traderAccount = traderService.findByTraderSurnameAndNumber(
+                findTraderAccount.getSurname(), findTraderAccount.getNumberTrader());
+        return traderAccount;
     }
 }

@@ -33,7 +33,8 @@ public class ClientAccountImplementation implements ClientAccountService {
 
     @Override
     public ClientAccount findByClientNumber(String numberClient) {
-        return null;
+
+        return clientAccountRepository.findByNumberClient(numberClient);
     }
 
 

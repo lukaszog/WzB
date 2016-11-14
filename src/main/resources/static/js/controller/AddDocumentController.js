@@ -2,7 +2,7 @@
  * Created by Promar on 11.10.2016.
  */
 
-app.controller('DocumentOperation', ['$scope', '$http', '$window', '$route', 'documentWZ', function ($scope, $http, $window, $route, documentWZ) {
+app.controller('DocumentOperation', ['$scope', '$http', '$window', '$route', 'documentWZ','HOST', function ($scope, $http, $window, $route, documentWZ, HOST) {
 
     $scope.form = {};
     $scope.listTrader = '';
@@ -17,7 +17,7 @@ app.controller('DocumentOperation', ['$scope', '$http', '$window', '$route', 'do
 
     $http({
         method: 'GET',
-        url: 'http://localhost:8080/all_trader',
+        url: HOST + '/all_trader',
         headers: {'Content-type': 'application/json'}
     })
         .success(function (data) {
@@ -33,7 +33,7 @@ app.controller('DocumentOperation', ['$scope', '$http', '$window', '$route', 'do
 
     $http({
         method: 'GET',
-        url: 'http://localhost:8080/all_client',
+        url: HOST + '/all_client',
         headers: {'Content-type': 'application/json'}
     })
         .success(function (data) {

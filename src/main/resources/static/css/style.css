@@ -220,10 +220,9 @@ section ul li:before {
     #wrapper .intro-text {
         padding-top: 135px;
         padding-bottom: 150px;
-        min-height: 702px;
+        min-height: 800px;
     }
 }
-
 #wrapper .intro-text .intro-lead-in {
     display: inline-block;
     background-color: rgba(255, 255, 255, 0.65);
@@ -259,7 +258,7 @@ section ul li:before {
 @media (min-width: 768px) {
     #wrapper .intro-text .intro-heading {
         line-height: 95px;
-        font-size: 55px;
+        font-size: 48px;
         margin-bottom: 50px;
     }
 }
@@ -663,22 +662,22 @@ table, th, td {
 Option Admin
 --------------------*/
 
-#delete .adminSubmit {
+.delete .adminSubmit {
     width: 80px;
     background-color: #e74c3c;
 }
 
-#delete .adminSubmit:hover {
+.delete .adminSubmit:hover {
     width: 80px;
     background-color: #5D5D5F;
 }
-#active_account .adminSubmit {
-    width: 80px;
+.active_account .adminSubmit {
+    width: 150px;
     background-color: #23AD21;
 }
 
-#active_account .adminSubmit:hover {
-    width: 80px;
+.active_account .adminSubmit:hover {
+    width: 150px;
     background-color: #5D5D5F;
 }
 
@@ -738,6 +737,51 @@ Option Admin
 
 }
 
+.submitSuccess
+{
+    width: 410px;
+    padding: 0;
+    background-color: #00465c;
+    margin-top: 0px;
+    margin-right: 3px;
+    font-weight: 800;
+    border-radius: 0;
+    letter-spacing: 2px;
+    font-size: 16px;
+    padding: 17px 45px;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    border: solid 1px #b3aca7;
+
+}
+.submitError
+{
+    width: 410px;
+    padding: 0;
+    background-color: #e74c3c;
+    margin-top: 0px;
+    margin-right: 3px;
+    font-weight: 800;
+    border-radius: 0;
+    letter-spacing: 2px;
+    font-size: 16px;
+    padding: 17px 45px;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    border: solid 1px #b3aca7;
+
+}
+
 .submitDelete
 {
     width: 200px;
@@ -779,7 +823,7 @@ Login and register
     margin: 0 auto;
     padding-bottom: 50px;
     opacity: 0.9;
-    /*mso-border-shadow: 10px 10px 5px #888;*/
+
 }
 #login h1
 {
@@ -803,7 +847,7 @@ Login and register
 }
 #login a:hover
 {
-    color:#1a1a1a;
+    color:#fec503;
 }
 
 #register
@@ -832,4 +876,60 @@ Login and register
 #register #submit:hover
 {
     opacity: 0.5;
+}
+
+/*--------------------
+User info
+--------------------*/
+
+#infoUser {
+    font-size: 17px;
+    background-color: #00465c;
+    width: 600px;
+    margin-bottom: 300px;
+
+}
+
+#infoUser tr:first-child {
+    background-color: #31353D;
+
+}
+
+#infoUser tr:first-child:hover {
+
+}
+
+#infoUser td:hover {
+    background: #fec503;
+}
+
+#infoUser .thNumberWz {
+    width: 300px;
+}
+
+#infoUser table, th, td {
+    border: 3px solid white;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+    border-spacing: 5px;
+}
+
+#infoUser tbody
+{
+    background-color: #23AD21;
+}
+
+/*--------------------
+Page Home
+--------------------*/
+#home
+{
+    color:red;
+    padding-bottom:5px;
+    font-size: 30px;
+    font-family: 'Roboto Condensed', sans-serif;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+    padding-bottom: 6px;
 }

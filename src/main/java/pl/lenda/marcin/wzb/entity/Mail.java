@@ -20,7 +20,7 @@ public class Mail {
     @NotNull
     private String content;
 
-    public Mail(){
+    public Mail() {
     }
 
     public Mail(String from, String subject, String content) {
@@ -57,8 +57,7 @@ public class Mail {
         return content;
     }
 
-    public void setContent(String content, String from) {
-        content = "Wiadomość od :"+from+" \n\n"+content;
+    public void setContent(String content) {
         this.content = content;
     }
 }

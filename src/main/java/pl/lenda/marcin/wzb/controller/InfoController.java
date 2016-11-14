@@ -12,14 +12,14 @@ import pl.lenda.marcin.wzb.service.user.UserServiceImplementation;
  * Created by Promar on 11.10.2016.
  */
 @RestController
-public class ControllerInfo {
+public class InfoController {
 
     private final DocumentWzServiceImplementation documentWzServiceImplementation;
     private final UserServiceImplementation userServiceImplementation;
     private final ClientAccountImplementation clientAccountImplementation;
 
     @Autowired
-    public ControllerInfo(DocumentWzServiceImplementation documentWzServiceImplementation, UserServiceImplementation userServiceImplementation, ClientAccountImplementation clientAccountImplementation) {
+    public InfoController(DocumentWzServiceImplementation documentWzServiceImplementation, UserServiceImplementation userServiceImplementation, ClientAccountImplementation clientAccountImplementation) {
         this.documentWzServiceImplementation = documentWzServiceImplementation;
         this.userServiceImplementation = userServiceImplementation;
         this.clientAccountImplementation = clientAccountImplementation;

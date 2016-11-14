@@ -2,17 +2,22 @@
  * Created by Promar on 28.10.2016.
  */
 
-app.service('documentWZ', function ($rootScope, $http, ngDialog) {
+app.service('documentWZ', function ($rootScope, $http, ngDialog, HOST) {
 
     var self = this;
     $rootScope.responseFromServer = '';
-
+    $rootScope.showInfo = false;
+    $rootScope.notFindByTrader = false;
+    $rootScope.notFindByNumberWZ = false;
+    $rootScope.notFindByClienName = false;
+    $rootScope.notFindByClientNumber = false;
+    $rootScope.notFindByNameTeam = false;
 
     this.addWZ = function (numberWZ, subProcess, client, traderName,
                            date) {
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/saveDocument',
+            url: HOST + '/saveDocument',
             data: {
                 "numberWZ": numberWZ,
                 "subProcess": subProcess,
@@ -23,62 +28,68 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog) {
             headers: {'Content-type': 'application/json'}
         })
             .success(function (data) {
-                $rootScope.responseFromServer = "Dodałeś dokument WZ o numerze:" + data.numberWZ + " / " + data.subProcess +
-                    " do bazy danych.";
+                $rootScope.successDocument = data.Success;
+                $rootScope.errorDocument = data.Error;
+                $rootScope.responseFromServer = '';
 
-                ngDialog.open({
-                    template: 'addDocument',
-                    controller: 'DocumentOperation',
-                    className: 'ngdialog-theme-default'
-                });
+                if ($rootScope.errorDocument == 'ExistsDocument') {
+                    $rootScope.successDocument = '';
+                    $rootScope.errorDocument = '';
+                    ngDialog.open({
+                        template: 'errorAdd',
+                        controller: 'DocumentOperation',
+                        className: 'ngdialog-theme-default'
+                    });
+                }
+                else {
+                    $rootScope.responseFromServer = "Dodałeś dokument WZ do bazy danych.";
+                    ngDialog.open({
+                        template: 'addDocument',
+                        controller: 'DocumentOperation',
+                        className: 'ngdialog-theme-default'
+                    });
+                }
+
 
             }).error(function (data) {
             $rootScope.responseFromServer = data.message;
-
-        });
-    };
-
-    this.removeWZ = function (numberWZ) {
-
-        $http({
-            method: 'DELETE',
-            url: 'http://localhost:8080/deleteDocument',
-            data: numberWZ,
-            headers: {'Content-type': 'application/json'}
-        })
-            .success(function (data) {
-                console.log("Usunięty dokument");
-                $scope.info = data;
-
-            }).error(function (data) {
-            console.log('error:');
-            $scope.info = "Błąd dodwania dokumentu!";
-
+            ngDialog.open({
+                template: 'errorAddDocument',
+                controller: 'DocumentOperation',
+                className: 'ngdialog-theme-default'
+            });
         });
     };
 
     this.findDocumentByNumberWZ = function (numberWZ, subPro) {
+        $rootScope.showInfo = false;
         $rootScope.documents = [];
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/findByNumber',
+            url: HOST + '/findByNumber',
             data: {
                 "numberWZ": numberWZ,
                 "subPro": subPro
             },
             headers: {'Content-type': 'application/json'}
         }).success(function (data) {
+            $rootScope.notFindByTrader = false;
+            $rootScope.notFindByClienName = false;
+            $rootScope.notFindByClientNumber = false;
+            $rootScope.notFindByNameTeam = false;
+
+
             if (data.length == 0) {
-                $rootScope.info = "Dokument nie istnieje w bazie danych.";
+                $rootScope.notFindByNumberWZ = true;
+            } else {
+                $rootScope.documents.push(data);
+                $rootScope.notFindByNumberWZ = false;
             }
-            console.log(data);
-            $rootScope.documents.push(data);
-            console.log(numberWZ + "1");
-            console.log(subPro + "2");
+
+
         }).error(function (data) {
-            console.log('Nie udało się pobrać WZ');
-            console.log(numberWZ + "1");
-            console.log(subPro + "2");
+            $rootScope.notFindByNumberWZ = true;
+
         });
     };
 
@@ -87,14 +98,27 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog) {
 
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/findByClient',
+            url: HOST + '/findByClient',
             data: client,
             headers: {'Content-type': 'application/json'},
         }).success(function (data) {
             $rootScope.documents = data;
+            $rootScope.notFindByTrader = false;
+            $rootScope.notFindByNumberWZ = false;
+            $rootScope.notFindByClientNumber = false;
+            $rootScope.notFindByNameTeam = false;
+            if (data.length == 0) {
+                $rootScope.notFindByClienName = true;
+            } else {
+                $rootScope.notFindByClienName = false;
+            }
 
         }).error(function (data) {
-            console.log('Nie udało się pobrać WZ');
+            ngDialog.open({
+                template: 'errorFindDocument',
+                controller: 'findDocument',
+                className: 'ngdialog-theme-default'
+            });
 
         });
     };
@@ -104,15 +128,33 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog) {
 
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/findByClientNumber',
-            data: clientNumber,
+            url: HOST + '/findByClientNumber',
+            data: {
+
+                "findClientNumber": clientNumber
+            },
 
             headers: {'Content-type': 'application/json'},
         }).success(function (data) {
             $rootScope.documents = data;
+            console.log(data);
+            $rootScope.notFindByTrader = false;
+            $rootScope.notFindByNumberWZ = false;
+            $rootScope.notFindByClienName = false;
+            $rootScope.notFindByNameTeam = false;
+
+            if (data.length == 0) {
+                $rootScope.notFindByClientNumber = true;
+            } else {
+                $rootScope.notFindByClientNumber = false;
+            }
 
         }).error(function (data) {
-            console.log('Nie udało się pobrać WZ');
+            ngDialog.open({
+                template: 'errorFindDocument',
+                controller: 'findDocument',
+                className: 'ngdialog-theme-default'
+            });
 
         });
     };
@@ -122,15 +164,30 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog) {
 
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/findByTraderName',
+            url: HOST + '/findByTraderName',
             data: traderName,
 
             headers: {'Content-type': 'application/json'},
         }).success(function (data) {
             $rootScope.documents = data;
+            $rootScope.notFindByNumberWZ = false;
+            $rootScope.notFindByClienName = false;
+            $rootScope.notFindByClientNumber = false;
+            $rootScope.notFindByNameTeam = false;
+
+
+            if ($rootScope.documents.length == 0) {
+                $rootScope.notFindByTrader = true;
+            } else {
+                $rootScope.notFindByTrader = false;
+            }
 
         }).error(function (data) {
-            console.log('Nie udało się pobrać WZ');
+            ngDialog.open({
+                template: 'errorFindDocument',
+                controller: 'findDocument',
+                className: 'ngdialog-theme-default'
+            });
 
         });
     };
@@ -140,14 +197,28 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog) {
 
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/find_nameteam',
+            url: HOST + '/find_nameteam',
             data: nameTeam,
             headers: {'Content-type': 'application/json'},
         }).success(function (data) {
             $rootScope.documents = data;
+            $rootScope.notFindByTrader = false;
+            $rootScope.notFindByNumberWZ = false;
+            $rootScope.notFindByClienName = false;
+            $rootScope.notFindByClientNumber = false;
+
+            if (data.length == 0) {
+                $rootScope.notFindByNameTeam = true;
+            } else {
+                $rootScope.notFindByNameTeam = false;
+            }
 
         }).error(function (data) {
-            console.log('Nie udało się pobrać WZ');
+            ngDialog.open({
+                template: 'errorFindDocument',
+                controller: 'findDocument',
+                className: 'ngdialog-theme-default'
+            });
 
         });
     };
@@ -156,47 +227,54 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog) {
     this.deleteDocument = function (numberWZ, subProcess) {
         $http({
             method: 'DELETE',
-            url: 'http://localhost:8080/deleteDocument',
+            url: HOST + '/deleteDocument',
             data: {
                 "numberWZ": numberWZ,
                 "subPro": subProcess
             },
             headers: {'Content-type': 'application/json'},
         }).success(function (data) {
-            console.log('Usunieto dokument');
+            $rootScope.documents = [];
             ngDialog.open({
-                template: 'succes',
+                template: 'success',
                 controller: 'findDocument',
                 className: 'ngdialog-theme-default'
             });
 
         }).error(function (data) {
             ngDialog.open({
-                template: 'error',
+                template: 'errorFindDocument',
                 controller: 'findDocument',
                 className: 'ngdialog-theme-default'
             });
 
         });
-    }
+    };
 
     this.correctWZ = function (numberWZ, subPro) {
         $rootScope.documents = [];
         $http({
             method: 'PATCH',
-            url: 'http://localhost:8080/by_correct',
+            url: HOST + '/by_correct',
             data: {
                 "numberWZ": numberWZ,
                 "subPro": subPro
             },
             headers: {'Content-type': 'application/json'}
         }).success(function (data) {
-            if (data.length == 0) {
-                $rootScope.info = "Dokument nie istnieje w bazie danych.";
-            }
+            ngDialog.open({
+                template: 'SuccessCorrect',
+                controller: 'findDocument',
+                className: 'ngdialog-theme-default'
+            });
+
 
         }).error(function (data) {
-
+            ngDialog.open({
+                template: 'errorFindDocument',
+                controller: 'findDocument',
+                className: 'ngdialog-theme-default'
+            });
         });
     };
 
@@ -205,19 +283,22 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog) {
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8080/find_correct',
+            url: HOST + '/find_correct',
 
             headers: {'Content-type': 'application/json'},
         }).success(function (data) {
             $rootScope.documents = data;
 
         }).error(function (data) {
-            console.log('Nie udało się pobrać WZ');
+            ngDialog.open({
+                template: 'errorFindDocument',
+                controller: 'findDocument',
+                className: 'ngdialog-theme-default'
+            });
 
         });
 
     };
-
 
 
 });

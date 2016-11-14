@@ -2,39 +2,67 @@
  * Created by Promar on 03.11.2016.
  */
 
-app.service('TraderService', function ($rootScope, $http, ngDialog) {
+app.service('TraderService', function ($rootScope, $http, ngDialog, HOST) {
 
-    this.addTrader = function (name, surname, nameTeam) {
+    this.addTrader = function (name, surname, nameTeam, numberTrader) {
 
         $http({
             method: 'POST',
-            url: 'http://localhost:8080/save_trader',
+            url: HOST + '/save_trader',
             data: {
                 "name": name,
                 "surname": surname,
-                "nameTeam": nameTeam
+                "nameTeam": nameTeam,
+                "numberTrader": numberTrader
             },
             headers: {'Content-type': 'application/json'}
         })
             .success(function (data) {
+                $rootScope.success = data.Success;
+                $rootScope.error = data.Error;
+                $rootScope.responseList = data;
 
-                $rootScope.responseFromServer = 'Dodałeś pomyślnie handlowca: ' + data.name + " " + data.surname;
+                console.log($rootScope.success);
+                console.log($rootScope.error);
 
-                ngDialog.open({
-                    template: 'addTrader',
-                    controller: 'TraderOperation',
-                    className: 'ngdialog-theme-default'
-                });
 
-            }).error(function (data) {
+                    angular.forEach($rootScope.responseList, function (value, key) {
+                        $rootScope.name = value.name;
+                        $rootScope.surname = value.surname;
+
+                    });
+
+                    if ($rootScope.error == 'ExistsTrader') {
+                        $rootScope.success = '';
+                        $rootScope.error = '';
+                        ngDialog.open({
+                            template: 'errorTrader',
+                            controller: 'ClientOperation',
+                            className: 'ngdialog-theme-default'
+                        });
+                    } else {
+                        $rootScope.success = '';
+                        $rootScope.error = '';
+                        $rootScope.responseFromServer = 'Dodałeś pomyślnie Handlowca: ' + $rootScope.name +' '+
+                            $rootScope.surname ;
+                        ngDialog.open({
+                            template: 'addTrader',
+                            controller: 'TraderOperation',
+                            className: 'ngdialog-theme-default'
+                        });
+                    }
+                }
+            ).error(function (data) {
 
             ngDialog.open({
-                template: 'error',
+                template: 'errorAddTrader',
                 controller: 'TraderOperation',
                 className: 'ngdialog-theme-default'
             });
 
         });
-    };
+    }
+    ;
 
-});
+})
+;
