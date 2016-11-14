@@ -25,6 +25,7 @@ public class ClientController {
     private ConvertTo convertTo;
 
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/save_client", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -47,6 +48,7 @@ public class ClientController {
 
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/all_client", method = RequestMethod.GET)
     public List<ClientAccount> allClientAccount() {
         List<ClientAccount> listClient = new ArrayList<>();

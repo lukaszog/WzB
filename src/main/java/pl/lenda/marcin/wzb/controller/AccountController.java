@@ -6,10 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.*;
 import pl.lenda.marcin.wzb.entity.TraderAccount;
 import pl.lenda.marcin.wzb.entity.UserAccount;
@@ -50,6 +47,7 @@ public class AccountController {
 
     private final Map<String, Object> response = new LinkedHashMap<>();
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/create_account", method = RequestMethod.POST)
     public Map<String, Object> createNewUser(@Valid @RequestBody UserAccountDto userAccountDto,
                                              BindingResult bindingResult) {
@@ -82,17 +80,19 @@ public class AccountController {
         return response;
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping("/user")
     public Principal user(Principal user) {
         return user;
     }
 
-
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/find_notactive_account", method = RequestMethod.GET)
     public List<UserAccount> findUserNotActive() {
         return userAccountService.findNotActiveAccount();
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/active_account", method = RequestMethod.GET)
     public List<UserAccountDto> findAllActiveAccount() {
         List<UserAccountDto> listDto = new ArrayList();
@@ -104,7 +104,7 @@ public class AccountController {
         return listDto;
     }
 
-
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/make_active_account", method = RequestMethod.PATCH)
     public void makeAccountActive(@RequestBody UserAccountActiveDto userAccountActiveDto) throws MessagingException {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveDto.getUsername());
@@ -114,6 +114,7 @@ public class AccountController {
 
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/block_account", method = RequestMethod.PATCH)
     public void blockAccount(@RequestBody UserAccountActiveDto userAccountActiveDto) {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveDto.getUsername());
@@ -121,6 +122,7 @@ public class AccountController {
         userAccountService.registerNewUser(userAccount);
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RolesAllowed("ROLE_ADMIN")
     @RequestMapping(value = "/give_admin", method = RequestMethod.POST)
     public boolean giveRoleAdmin(@RequestBody String username) {
@@ -130,6 +132,7 @@ public class AccountController {
         return userAccountService.updateRole(userAccount);
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/role", method = RequestMethod.GET)
     public boolean getRole() {
         if (userAccountService.getRoleOfLoggedUser().equals("ROLE_ADMIN")) {
@@ -138,6 +141,7 @@ public class AccountController {
         return false;
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/user_info", method = RequestMethod.POST)
     public UserInfoDto userInfo(@RequestBody UserNameDto userNameDto) {
 
@@ -159,6 +163,7 @@ public class AccountController {
         return userInfoDto;
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
     public Map<String, Object> changePassword(@RequestBody ChangePasswordDto changePasswordDto,
                                               BindingResult bindingResult) {

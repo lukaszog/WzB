@@ -1,6 +1,7 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,17 +26,19 @@ public class InfoController {
         this.clientAccountImplementation = clientAccountImplementation;
     }
 
-
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/howManyTraders", method = RequestMethod.GET)
     public Integer howManyTraders() {
         return userServiceImplementation.findAllUser().size();
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/howManyDocument", method = RequestMethod.GET)
     public Integer howManyDocument() {
         return documentWzServiceImplementation.showAllDocument().size();
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/howManyClient", method = RequestMethod.GET)
     public Integer howManyClient(){
         return clientAccountImplementation.findAllClient().size();

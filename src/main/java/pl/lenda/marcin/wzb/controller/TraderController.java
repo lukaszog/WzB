@@ -1,10 +1,7 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.FindTraderAccount;
 import pl.lenda.marcin.wzb.dto.TraderAccountDto;
 import pl.lenda.marcin.wzb.entity.TraderAccount;
@@ -33,7 +30,7 @@ public class TraderController {
     private TraderAccountRepository traderAccountRepository;
 
 
-
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/save_trader", method = RequestMethod.POST)
     public Map<String, Object> saveTrader(@RequestBody TraderAccountDto traderAccountDto){
         response.clear();
@@ -53,12 +50,14 @@ public class TraderController {
         }
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/all_trader", method = RequestMethod.GET)
     public List<TraderAccount> findAllTrader(){
         List listTrader = new ArrayList();
         return listTrader = traderService.findAllTrader();
     }
 
+    @CrossOrigin(origins = "${application.url}")
     @RequestMapping(value = "/find_trader", method = RequestMethod.POST)
     public TraderAccount findTrader(@RequestBody FindTraderAccount findTraderAccount){
         TraderAccount traderAccount = traderService.findByTraderSurnameAndNumber(
