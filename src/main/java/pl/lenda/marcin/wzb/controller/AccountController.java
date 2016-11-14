@@ -47,7 +47,7 @@ public class AccountController {
 
     private final Map<String, Object> response = new LinkedHashMap<>();
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/create_account", method = RequestMethod.POST)
     public Map<String, Object> createNewUser(@Valid @RequestBody UserAccountDto userAccountDto,
                                              BindingResult bindingResult) {
@@ -80,19 +80,19 @@ public class AccountController {
         return response;
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping("/user")
     public Principal user(Principal user) {
         return user;
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/find_notactive_account", method = RequestMethod.GET)
     public List<UserAccount> findUserNotActive() {
         return userAccountService.findNotActiveAccount();
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/active_account", method = RequestMethod.GET)
     public List<UserAccountDto> findAllActiveAccount() {
         List<UserAccountDto> listDto = new ArrayList();
@@ -104,7 +104,7 @@ public class AccountController {
         return listDto;
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/make_active_account", method = RequestMethod.PATCH)
     public void makeAccountActive(@RequestBody UserAccountActiveDto userAccountActiveDto) throws MessagingException {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveDto.getUsername());
@@ -114,7 +114,7 @@ public class AccountController {
 
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/block_account", method = RequestMethod.PATCH)
     public void blockAccount(@RequestBody UserAccountActiveDto userAccountActiveDto) {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveDto.getUsername());
@@ -122,7 +122,7 @@ public class AccountController {
         userAccountService.registerNewUser(userAccount);
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RolesAllowed("ROLE_ADMIN")
     @RequestMapping(value = "/give_admin", method = RequestMethod.POST)
     public boolean giveRoleAdmin(@RequestBody String username) {
@@ -132,7 +132,7 @@ public class AccountController {
         return userAccountService.updateRole(userAccount);
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/role", method = RequestMethod.GET)
     public boolean getRole() {
         if (userAccountService.getRoleOfLoggedUser().equals("ROLE_ADMIN")) {
@@ -141,7 +141,7 @@ public class AccountController {
         return false;
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/user_info", method = RequestMethod.POST)
     public UserInfoDto userInfo(@RequestBody UserNameDto userNameDto) {
 
@@ -163,7 +163,7 @@ public class AccountController {
         return userInfoDto;
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
     public Map<String, Object> changePassword(@RequestBody ChangePasswordDto changePasswordDto,
                                               BindingResult bindingResult) {

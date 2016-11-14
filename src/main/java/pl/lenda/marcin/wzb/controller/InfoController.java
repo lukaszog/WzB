@@ -26,19 +26,19 @@ public class InfoController {
         this.clientAccountImplementation = clientAccountImplementation;
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/howManyTraders", method = RequestMethod.GET)
     public Integer howManyTraders() {
         return userServiceImplementation.findAllUser().size();
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/howManyDocument", method = RequestMethod.GET)
     public Integer howManyDocument() {
         return documentWzServiceImplementation.showAllDocument().size();
     }
 
-    @CrossOrigin(origins = "${application.url}")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/howManyClient", method = RequestMethod.GET)
     public Integer howManyClient(){
         return clientAccountImplementation.findAllClient().size();
