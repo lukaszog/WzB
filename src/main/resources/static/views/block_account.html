@@ -11,7 +11,12 @@
                         <th ts-criteria="">E-mail</th>
                         <th ts-criteria="">Imię</th>
                         <th ts-criteria="">Nazwisko</th>
-                        <th ts-criteria="">Zatwierdź</th>
+                        <th ts-criteria="">Numer</th>
+                        <th ts-criteria="">Team</th>
+                        <th ts-criteria="">Rola</th>
+                        <th>Blokada</th>
+                        <th ts-criteria="">Usuń</th>
+
 
                     </tr>
                     </thead>
@@ -20,8 +25,15 @@
                         <td>{{account.username}}</td>
                         <td>{{account.name}}</td>
                         <td>{{account.surname}}</td>
-                        <td id="active_account"><input style="background-color: #e74c3c;" class="adminSubmit" type="submit" value="Zablokuj"
+                        <td>{{account.numberUser}}</td>
+                        <td>{{account.nameTeam}}</td>
+                        <td ng-show="account.role=='ADMIN'">ADMIN</td>
+                        <td ng-show="account.role=='USER'">USER</td>
+                        <td class="active_account"><input style="background-color:rgb(221,44,0);width: 95px;" class="adminSubmit" type="submit" value="Zablokuj"
                                                        ng-click="editData.accounts = account; blockAccount();">
+                        </td>
+                        <td class="active_account"><input style="background-color:rgb(221,44,0);width: 95px;" class="adminSubmit" type="submit" value="Usuń"
+                                                          ng-click="editData.accounts = account; deleteAccount();">
                         </td>
                     </tr>
                     </tbody>
@@ -36,9 +48,22 @@
             <input class="submitDelete" type="submit" value="Nie" ng-click="closeThisDialog(0)">
         </script>
         <script type="text/ng-template" id="successBlock">
-            <h1>Konto zostało zablokowane!</h1>
-            <input class="submitConfirmDialog" type="submit" value="OK"
-                   ng-click="ShowAllNotActiveAccount(); closeThisDialog(0);">
+            <h1 style="font-size: 30px;">Konto zostało zablokowane!</h1>
+            <input style="width: 410px;" class="submitConfirmDialog" type="submit" value="OK"
+                   ng-click="reloadRoute(); closeThisDialog(0);">
+
+        </script>
+        <script type="text/ng-template" id="Delete">
+            <h1>Usunąć konto?</h1>
+            <p style="color: #ffffff;">Spowoduje to stałe użytkownika usunięcie z aplikacji.</p>
+            <input class="submitConfirmDialog" type="submit" value="Tak"
+                   ng-click="closeThisDialog(0); deleteThisAccount(); ">
+            <input class="submitDelete" type="submit" value="Nie" ng-click="closeThisDialog(0)">
+        </script>
+        <script type="text/ng-template" id="successDelete">
+            <h1 style="font-size: 30px;">Konto zostało usunięte!</h1>
+            <input style="width: 410px;" class="submitConfirmDialog" type="submit" value="OK"
+                   ng-click="reloadRoute(); closeThisDialog(0);">
 
         </script>
 

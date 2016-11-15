@@ -7,23 +7,30 @@ app.controller('UserAccount', function ($scope, $http, $rootScope, $location, do
     $scope.username = $rootScope._username;
     $scope.infoUsers = '';
     $rootScope.nameUser = '';
+    $scope.show = false;
 
-
+    $scope.isViewLoading = false;
+    $scope.$on('$routeChangeStart', function() {
+        $scope.isViewLoading = true;
+        console.log('param');
+    });
+    $scope.$on('$routeChangeSuccess', function() {
+        $scope.isViewLoading = false;
+    });
+    $scope.$on('$routeChangeError', function() {
+        $scope.isViewLoading = false;
+    });
 
 
     $http({
-        method: 'POST',
+        method: 'GET',
         url: HOST + '/myAccount/user_info',
-        data: {
-            "username": $scope.username
-
-
-        },
         headers: {'Content-type': 'application/json'}
     })
         .success(function (data) {
             $scope.infoUsers = data;
             $rootScope.nameUser = $scope.infoUsers.name;
+            $scope.show = true;
 
         }).error(function (data) {
         ngDialog.open({

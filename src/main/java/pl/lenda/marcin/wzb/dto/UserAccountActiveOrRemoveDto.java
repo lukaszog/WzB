@@ -3,14 +3,14 @@ package pl.lenda.marcin.wzb.dto;
 /**
  * Created by Promar on 07.11.2016.
  */
-public class UserAccountActiveDto {
+public class UserAccountActiveOrRemoveDto {
 
     private String username;
 
-    public UserAccountActiveDto(){
+    public UserAccountActiveOrRemoveDto(){
     }
 
-    public UserAccountActiveDto(String username) {
+    public UserAccountActiveOrRemoveDto(String username) {
         this.username = username;
     }
 

@@ -99,15 +99,25 @@ public class AccountController {
         List<UserAccount> listEntity = userAccountService.findActiveAccount();
 
         for (UserAccount entity : listEntity) {
-            listDto.add(convertTo.converToUserAccountDto(entity));
+            UserAccountDto userAccountDto = convertTo.converToUserAccountDto(entity);
+            TraderAccount traderAccount = traderService.findByTraderSurnameAndNumber(entity.getSurname(), entity.getNumberUser());
+            userAccountDto.setRole(entity.getRole());
+            if (traderAccount != null) {
+                userAccountDto.setNameTeam(traderAccount.getNameTeam());
+            } else {
+                userAccountDto.setNameTeam("X");
+            }
+
+            listDto.add(userAccountDto);
+
         }
         return listDto;
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/make_active_account", method = RequestMethod.PATCH)
-    public void makeAccountActive(@RequestBody UserAccountActiveDto userAccountActiveDto) throws MessagingException {
-        UserAccount userAccount = userAccountService.findByUsername(userAccountActiveDto.getUsername());
+    public void makeAccountActive(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto) throws MessagingException {
+        UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
         userAccount.setActive(true);
         userAccountService.registerNewUser(userAccount);
         mailService.mailConfirmAccount(userAccount.getUsername(), userAccount.getName(), userAccount.getSurname(), userAccount.getUsername());
@@ -116,8 +126,8 @@ public class AccountController {
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/block_account", method = RequestMethod.PATCH)
-    public void blockAccount(@RequestBody UserAccountActiveDto userAccountActiveDto) {
-        UserAccount userAccount = userAccountService.findByUsername(userAccountActiveDto.getUsername());
+    public void blockAccount(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto) {
+        UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
         userAccount.setActive(false);
         userAccountService.registerNewUser(userAccount);
     }
@@ -142,25 +152,22 @@ public class AccountController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
-    @RequestMapping(value = "/user_info", method = RequestMethod.POST)
-    public UserInfoDto userInfo(@RequestBody UserNameDto userNameDto) {
+    @RequestMapping(value = "/user_info", method = RequestMethod.GET)
+    public UserAccountDto userInfo() {
 
-        UserAccount userAccount = userAccountService.findByUsername(userNameDto.getUsername());
-        TraderAccount traderAccount = traderService.findBySurname(userAccount.getSurname());
-        UserInfoDto userInfoDto = new UserInfoDto();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserAccount userAccount = userAccountService.findByUsername(authentication.getName());
+        TraderAccount traderAccount = traderService.findBySurname(userAccount.getUsername());
+
+        UserAccountDto userAccountDto = new UserAccountDto();
+        userAccountDto = convertTo.converToUserAccountDto(userAccount);
+
         if (traderAccount != null) {
-            userInfoDto.setNameTeam(traderAccount.getNameTeam());
-            userInfoDto.setName(traderAccount.getName());
-            userInfoDto.setSurname(traderAccount.getSurname());
-            userInfoDto.setUsername(userNameDto.getUsername());
+            userAccountDto.setNameTeam(traderAccount.getNameTeam());
         } else {
-            userInfoDto.setNameTeam("X");
-            userInfoDto.setName(userAccount.getName());
-            userInfoDto.setSurname(userAccount.getSurname());
-            userInfoDto.setUsername(userNameDto.getUsername());
+            userAccountDto.setNameTeam("X");
         }
-
-        return userInfoDto;
+        return userAccountDto;
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
@@ -186,8 +193,12 @@ public class AccountController {
             response.put("Error", "wrongPass");
             return response;
         }
+    }
 
-
+    @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
+    public void removeAccount(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto){
+       UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
+        userAccountService.removeAccount(userAccount);
     }
 
 }

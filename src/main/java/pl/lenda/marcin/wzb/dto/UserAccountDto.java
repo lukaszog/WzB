@@ -19,19 +19,22 @@ public class UserAccountDto {
     private String confirmPassword;
     @NotNull
     private String numberUser;
+    @NotNull
+    private String nameTeam;
 
     private String role;
 
     public UserAccountDto(){
     }
 
-    public UserAccountDto(String username, String name, String surname, String password, String confirmPassword, String numberUser, String role) {
+    public UserAccountDto(String username, String name, String surname, String password, String confirmPassword, String numberUser, String nameTeam, String role) {
         this.username = username;
         this.name = name;
         this.surname = surname;
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.numberUser = numberUser;
+        this.nameTeam = nameTeam;
         this.role = role;
     }
 
@@ -90,5 +93,13 @@ public class UserAccountDto {
 
     public void setNumberUser(String numberUser) {
         this.numberUser = numberUser;
+    }
+
+    public String getNameTeam() {
+        return nameTeam;
+    }
+
+    public void setNameTeam(String nameTeam) {
+        this.nameTeam = nameTeam;
     }
 }

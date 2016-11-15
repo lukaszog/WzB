@@ -173,7 +173,7 @@ public class MyScheduledTasks {
                             traderAccounts.get(i).getSurname()).getUsername();
                     System.out.println(to);
                     mail.setFrom("wzbims@gmail.com");
-                    mailService.mailSend("777marcinlenda777@gmail.com", mail.getFrom(), mail.getSubject(), mail.getContent());
+                    mailService.mailSend("agnieszka7l@wp.pl", mail.getFrom(), mail.getSubject(), mail.getContent());
                 }
                 documentsWZ.clear();
                 content = "";

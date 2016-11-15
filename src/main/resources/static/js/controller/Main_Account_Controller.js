@@ -3,11 +3,15 @@
  */
 
 
-app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', 'UserAccountService', 'ngDialog','HOST', function ($scope, $http, $rootScope, UserAccountService, ngDialog, HOST) {
+app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', '$route', 'UserAccountService', 'ngDialog', 'HOST', function ($scope, $http, $rootScope, $route,  UserAccountService, ngDialog, HOST) {
 
     $scope.notActiveAccounts = [];
     $scope.editData = {};
     $scope.activeAccounts = [];
+
+    $scope.reloadRoute = function () {
+        $route.reload();
+    };
 
     $http({
         method: 'GET',
@@ -57,6 +61,20 @@ app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', 'UserAccount
             className: 'ngdialog-theme-default'
         });
 
+    };
+
+    $scope.deleteAccount = function () {
+        $rootScope.username = $scope.editData.accounts.username;
+
+        ngDialog.open({
+            template: 'Delete',
+            controller: 'MainAccountCtrl',
+            className: 'ngdialog-theme-default'
+        });
+    };
+
+    $scope.deleteThisAccount = function () {
+        UserAccountService.doneDeleteAccount($rootScope.username);
     };
 
     $scope.activeThisAccount = function () {

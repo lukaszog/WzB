@@ -4,13 +4,15 @@
 
             <div class="intro-heading" style="font-size: 30px; letter-spacing: 1px;">{{_username}}</div>
             <div id="infoUser" style="margin: 0 auto" ng-cloak>
-                <table class="table" ts-wrapper>
+                <span ng-show="isViewLoading" style="color:red;"> loading the view... </span>
+                <table class="table" ts-wrapper ng-if="show">
                     <thead>
                     <tr>
 
                         <th style="background-color: #445878;">E-mail</th>
                         <th style="background-color: #445878;">Imię</th>
                         <th style="background-color: #445878;">Nazwisko</th>
+                        <th style="background-color: #445878;">Numer</th>
                         <th style="background-color: #445878;">Team</th>
 
                     </tr>
@@ -20,6 +22,7 @@
                         <td>{{infoUsers.username}}</td>
                         <td>{{infoUsers.name}}</td>
                         <td>{{infoUsers.surname}}</td>
+                        <td>{{infoUsers.numberUser}}</td>
                         <td>{{infoUsers.nameTeam}}</td>
                     </tr>
                     </tbody>

@@ -77,6 +77,7 @@ public class ConvertTo {
         userAccountDto.setSurname(userAccount.getSurname());
         userAccountDto.setUsername(userAccount.getUsername());
         userAccountDto.setPassword(userAccount.getPassword());
+        userAccountDto.setNumberUser(userAccount.getNumberUser());
         return userAccountDto;
     }
 

@@ -48,4 +48,25 @@ app.service('UserAccountService', function ($rootScope, $http, ngDialog, HOST) {
         });
     };
 
+    this.doneDeleteAccount = function (username) {
+        $rootScope.documents = [];
+        $http({
+            method: 'DELETE',
+            url: HOST + '/myAccount//remove',
+            data: {
+                "username": username
+            },
+            headers: {'Content-type': 'application/json'}
+        }).success(function (data) {
+            ngDialog.open({
+                template: 'successDelete',
+                controller: 'MainAccountCtrl',
+                className: 'ngdialog-theme-default'
+            });
+
+        }).error(function (data) {
+
+        });
+    };
+
 });

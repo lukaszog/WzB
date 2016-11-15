@@ -28,5 +28,7 @@ public interface UserAccountService {
 
     void changePassword(ChangePasswordDto changePasswordDto, UserAccount userAccount);
 
+    void removeAccount(UserAccount userAccount);
+
     String getRoleOfLoggedUser();
 }

@@ -81,6 +81,11 @@ public class UserAccountImplementation implements UserAccountService{
     }
 
     @Override
+    public void removeAccount(UserAccount userAccount) {
+        userAccountRepository.delete(userAccount);
+    }
+
+    @Override
     public String getRoleOfLoggedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
