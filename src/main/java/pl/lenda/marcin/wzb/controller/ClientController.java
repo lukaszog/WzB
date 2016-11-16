@@ -2,6 +2,7 @@ package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.lenda.marcin.wzb.dto.ClientFindDto;
 import pl.lenda.marcin.wzb.entity.ClientAccount;
 import pl.lenda.marcin.wzb.service.client_account.ClientAccountService;
 import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
@@ -46,6 +47,13 @@ public class ClientController {
             return response;
         }
 
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "delete_client", method = RequestMethod.DELETE)
+    public void deleteClient(@RequestBody ClientFindDto clientFindDto){
+        ClientAccount clientAccount = clientAccountService.findByClientName(clientFindDto.getName());
+        clientAccountService.deleteAccountClient(clientAccount);
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")

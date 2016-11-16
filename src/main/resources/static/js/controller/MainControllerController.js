@@ -2,24 +2,14 @@
  * Created by Promar on 11.10.2016.
  */
 
-app.controller('MainController', function ($scope, $http, $interval, HOST) {
+app.controller('MainController', function ($scope, $rootScope, $http, $interval, HOST) {
 
     $scope.howManyDocument = '0';
     $scope.howManyTraders = '0';
     $scope.howManyClient = '0';
 
-    $scope.loading = true;
-    $http.get('/')
-        .success(function (data) {
-            // Do stuff with data.
-        })
-        .catch(function (err) {
-            // Log error somehow.
-        })
-        .finally(function () {
-            // Hide loading spinner whether our call succeeded or failed.
-            $scope.loading = false;
-        });
+
+
 
     $http({
         method: 'GET',
@@ -59,6 +49,7 @@ app.controller('MainController', function ($scope, $http, $interval, HOST) {
         }).error(function (data) {
         console.log('Nie udało się ');
     });
+
 
 
 

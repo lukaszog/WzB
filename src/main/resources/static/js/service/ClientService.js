@@ -78,5 +78,34 @@ app.service('ClientService', function ($rootScope, $http, ngDialog, HOST) {
         });
     };
 
+    this.deleteClient = function (name) {
 
+        $http({
+            method: 'DELETE',
+            url: HOST + '/delete_client',
+            data:
+            {
+                "name":name
+            },
+            headers: {'Content-type': 'application/json'}
+        })
+            .success(function (data) {
+
+                    ngDialog.open({
+                        template: 'DeleteClientInfo',
+                        controller: 'ClientOperation',
+                        className: 'ngdialog-theme-default'
+                    });
+                }
+            ).error(function (data) {
+
+            ngDialog.open({
+                template: 'errorAddTrader',
+                controller: 'ClientOperation',
+                className: 'ngdialog-theme-default'
+            });
+
+        });
+
+    };
 });

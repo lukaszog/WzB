@@ -2,13 +2,19 @@
  * Created by Promar on 10.11.2016.
  */
 
-app.controller('UserAccount', function ($scope, $http, $rootScope, $location, documentWZ, ngDialog, HOST) {
+app.controller('UserAccount', function ($scope, $http, $rootScope, $location, $timeout, documentWZ, ngDialog, HOST) {
 
     $scope.username = $rootScope._username;
     $scope.infoUsers = '';
     $rootScope.nameUser = '';
-    $scope.show = false;
+    $scope.showInfo = false;
     $scope.load = true;
+
+    $timeout(function () {
+        $scope.showInfo = true;
+        $scope.load = false;
+    }, 1500);
+
 
     $scope.isViewLoading = false;
     $scope.$on('$routeChangeStart', function() {
@@ -31,8 +37,7 @@ app.controller('UserAccount', function ($scope, $http, $rootScope, $location, do
         .success(function (data) {
             $scope.infoUsers = data;
             $rootScope.nameUser = $scope.infoUsers.name;
-            $scope.show = true;
-            $scope.load = false;
+
 
         }).error(function (data) {
         ngDialog.open({

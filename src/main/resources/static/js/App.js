@@ -111,6 +111,14 @@ var app = angular.module('myApp', [
             templateUrl: 'views/admin/all_traders.html',
             controller: 'TraderOperation'
         })
+        .when('/client', {
+            templateUrl: 'views/admin/client.html',
+            controller: 'ClientOperation'
+        })
+        .when('/all_client', {
+            templateUrl: 'views/admin/all_client.html',
+            controller: 'ClientOperation'
+        })
         .otherwise({redirectTo: '/'});
 
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

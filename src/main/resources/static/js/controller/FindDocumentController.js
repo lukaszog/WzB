@@ -2,12 +2,19 @@
  * Created by Promar on 12.10.2016.
  */
 
-app.controller('findDocument', function ($scope, $http, $rootScope, $route, $location, documentWZ, ngDialog) {
+app.controller('findDocument', function ($scope, $http, $rootScope, $route, $location, $timeout, documentWZ, ngDialog) {
 
     $scope.form = {};
     $scope.empty = [];
     $scope.info = '';
     $scope.editData = {};
+    $scope.showInfo = false;
+    $scope.load = true;
+
+    $timeout(function () {
+        $scope.showInfo = true;
+        $scope.load = false;
+    }, 1500);
 
     $scope.reloadRoute = function () {
         $route.reload();

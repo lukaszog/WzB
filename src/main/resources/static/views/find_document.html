@@ -1,128 +1,136 @@
 <div class="container">
     <div class="slider-container">
         <div class="intro-text">
-
-            <form div="form" class="topBefore" style="font-size:20px;">
-                <h1>Wyszukaj po:</h1>
-
-
-                <p onclick="onclickHandler();">Kliknij ten akapit a wyświetli się pomoc!</p>
-
-                <select ng-model="myVar">
-                    <option value="numberWZ">Numer WZ</option>
-                    <option value="nameClient">Nazwa klienta</option>
-                    <option value="numberClient">Numer klienta</option>
-                    <option value="nameTrader">Opiekun</option>
-                    <option value="nameTeam">TOK</option>
-                </select>
+            <img ng-show="load" style="font-size: 10px; padding-top: 80px;" src="../images/gears.svg">
+            <div ng-show="showInfo">
+                <form div="form" class="topBefore" style="font-size:20px;">
+                    <h1>Wyszukaj po:</h1>
 
 
-                <hr>
-                <div ng-switch="myVar">
-                    <div ng-switch-when="numberWZ">
+                    <p onclick="onclickHandler();">Kliknij ten akapit a wyświetli się pomoc!</p>
 
-                        <input id="numberDocument" type="text" ng-model="form.numberDocument" placeholder="Numer WZ">
-                        <input id="subPro" required type="number" ng-model="form.subProcess" placeholder="Podproces"
-                               min="1"
-                               max="4999"/>
-                        <input class="submit" type="submit" value="Szukaj" ng-click="findByNumber()">
+                    <select ng-model="myVar">
+                        <option value="numberWZ">Numer WZ</option>
+                        <option value="nameClient">Nazwa klienta</option>
+                        <option value="numberClient">Numer klienta</option>
+                        <option value="nameTrader">Opiekun</option>
+                        <option value="nameTeam">TOK</option>
+                    </select>
+
+
+                    <hr>
+                    <div ng-switch="myVar">
+                        <div ng-switch-when="numberWZ">
+
+                            <input id="numberDocument" type="text" ng-model="form.numberDocument"
+                                   placeholder="Numer WZ">
+                            <input id="subPro" required type="number" ng-model="form.subProcess" placeholder="Podproces"
+                                   min="1"
+                                   max="4999"/>
+                            <input class="submit" type="submit" value="Szukaj" ng-click="findByNumber()">
+                        </div>
+                        <div ng-switch-when="nameClient">
+
+
+                            <input class="inputDocument" type="text" ng-model="form.nameClient"
+                                   placeholder="Nazwa klienta">
+                            <input class="submit" type="submit" value="Szukaj" ng-click="findByClient()">
+
+
+                        </div>
+                        <div ng-switch-when="numberClient">
+
+
+                            <input class="inputDocument" type="text" ng-model="form.numberClient"
+                                   placeholder="Numer klienta">
+                            <input class="submit" type="submit" value="Szukaj" ng-click="findByClientNumber()">
+
+
+                        </div>
+                        <div ng-switch-when="nameTrader">
+
+                            <input class="inputDocument" type="text" ng-model="form.nameTrader"
+                                   placeholder="Handlowiec">
+                            <input class="submit" type="submit" value="Szukaj" ng-click="findByTrader()">
+
+                        </div>
+                        <div ng-switch-when="nameTeam">
+
+                            <input class="inputDocument" type="text" ng-model="form.nameTeam" placeholder="Nazwa TOKU">
+                            <input class="submit" type="submit" value="Szukaj" ng-click="findByNameTeam()">
+
+                        </div>
                     </div>
-                    <div ng-switch-when="nameClient">
+
+                </form>
 
 
-                        <input class="inputDocument" type="text" ng-model="form.nameClient" placeholder="Nazwa klienta">
-                        <input class="submit" type="submit" value="Szukaj" ng-click="findByClient()">
+                <div id="showDocument">
+                    <table class="table" ts-wrapper ng-init="showModal=false">
+                        <thead>
+                        <tr>
 
+                            <th style="background-color: #1C1D21" ts-criteria="NumberWZ|parseInt" ts-default>Numer WZ
+                            </th>
+                            <th style="background-color: #1C1D21" ts-criteria="subProcess|parseInt">Podproces</th>
+                            <th style="background-color: #1C1D21" ts-criteria="client|lowercase">Klient</th>
+                            <th style="background-color: #1C1D21" ts-criteria="clientNumber|parseInt">Numer klienta</th>
+                            <th style="background-color: #1C1D21" ts-criteria="traderName|lowercase">Handlowiec</th>
+                            <th style="background-color: #1C1D21" ts-criteria="date|parseInt">Data zatwierdzenia</th>
+                            <th style="background-color: #1C1D21">Zwłoka</th>
+                            <th style="background-color: #1C1D21" ts-criteria="">Korekta</th>
+                            <th ng-show="userRoles" style="background-color: #1C1D21" ts-criteria="">ADMIN</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="document in documents" ts-repeat>
 
-                    </div>
-                    <div ng-switch-when="numberClient">
+                            <td>{{document.numberWZ}}</td>
+                            <td>{{document.subProcess}}</td>
+                            <td>{{document.client}}</td>
+                            <td>{{document.clientNumber}}</td>
+                            <td>{{document.traderName}}</td>
+                            <td>{{document.date | date:'MM/dd/yyyy - h:mma'}}</td>
+                            <td>
+                                <timer start-time="document.date">{{days}} dni</timer>
+                            </td>
 
+                            <td class="delete" ng-show="document.beCorrects==false">
 
-                        <input class="inputDocument" type="text" ng-model="form.numberClient"
-                               placeholder="Numer klienta">
-                        <input class="submit" type="submit" value="Szukaj" ng-click="findByClientNumber()">
+                                <input class="adminSubmit" type="submit" value="TAK"
+                                       ng-click="editData.documents = document; correctBy();">
 
+                            </td>
+                            <td ng-show="document.beCorrects==true">
+                                K
+                            </td>
 
-                    </div>
-                    <div ng-switch-when="nameTrader">
+                            <td class="delete" ng-show="userRoles"><input class="adminSubmit" type="submit" value="Usuń"
+                                                                          ng-click="editData.documents = document; clickToDelete();">
+                            </td>
+                        </tr>
+                        <div style="font-size: 30px;" ng-show="notFindByTrader">Nie ma żadnych dokumentów w bazie danych
+                            podanego handlowca.
+                        </div>
+                        <div style="font-size: 30px;" ng-show="notFindByNumberWZ">Nie znaleziono dokumentu
+                            WZ o podanym numerze.
 
-                        <input class="inputDocument" type="text" ng-model="form.nameTrader" placeholder="Handlowiec">
-                        <input class="submit" type="submit" value="Szukaj" ng-click="findByTrader()">
+                        </div>
+                        <div style="font-size: 30px;" ng-show="notFindByClienName">Nie znaleziono klienta w bazie
+                            danych.
 
-                    </div>
-                    <div ng-switch-when="nameTeam">
+                        </div>
+                        <div style="font-size: 30px;" ng-show="notFindByClientNumber">Nie znaleziono klienta w bazie
+                            danych.
+                        </div>
+                        <div style="font-size: 30px;" ng-show="notFindByNameTeam">Nie znaleziono podanego TOK-u.
+                        </div>
+                        </tbody>
 
-                        <input class="inputDocument" type="text" ng-model="form.nameTeam" placeholder="Nazwa TOKU">
-                        <input class="submit" type="submit" value="Szukaj" ng-click="findByNameTeam()">
-
-                    </div>
+                    </table>
                 </div>
 
-            </form>
-
-
-            <div id="showDocument">
-                <table class="table" ts-wrapper ng-init="showModal=false">
-                    <thead>
-                    <tr>
-
-                        <th style="background-color: #1C1D21" ts-criteria="NumberWZ|parseInt" ts-default>Numer WZ</th>
-                        <th style="background-color: #1C1D21" ts-criteria="subProcess|parseInt">Podproces</th>
-                        <th style="background-color: #1C1D21" ts-criteria="client|lowercase">Klient</th>
-                        <th style="background-color: #1C1D21" ts-criteria="clientNumber|parseInt">Numer klienta</th>
-                        <th style="background-color: #1C1D21" ts-criteria="traderName|lowercase">Handlowiec</th>
-                        <th style="background-color: #1C1D21" ts-criteria="date|parseInt">Data zatwierdzenia</th>
-                        <th style="background-color: #1C1D21">Zwłoka</th>
-                        <th style="background-color: #1C1D21" ts-criteria="">Korekta</th>
-                        <th ng-show="userRoles" style="background-color: #1C1D21" ts-criteria="">ADMIN</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="document in documents" ts-repeat>
-
-                        <td>{{document.numberWZ}}</td>
-                        <td>{{document.subProcess}}</td>
-                        <td>{{document.client}}</td>
-                        <td>{{document.clientNumber}}</td>
-                        <td>{{document.traderName}}</td>
-                        <td>{{document.date | date:'MM/dd/yyyy - h:mma'}}</td>
-                        <td>
-                            <timer start-time="document.date">{{days}} dni</timer>
-                        </td>
-
-                        <td class="delete" ng-show="document.beCorrects==false">
-
-                            <input class="adminSubmit" type="submit" value="TAK"
-                                   ng-click="editData.documents = document; correctBy();">
-
-                        </td>
-                        <td ng-show="document.beCorrects==true">
-                            K
-                        </td>
-
-                        <td class="delete" ng-show="userRoles"><input class="adminSubmit" type="submit" value="Usuń"
-                                                                      ng-click="editData.documents = document; clickToDelete();">
-                        </td>
-                    </tr>
-                    <div style="font-size: 30px;" ng-show="notFindByTrader">Nie ma żadnych dokumentów w bazie danych
-                        podanego handlowca.
-                    </div>
-                    <div style="font-size: 30px;" ng-show="notFindByNumberWZ">Nie znaleziono dokumentu
-                        WZ o podanym numerze.
-
-                    </div>
-                    <div style="font-size: 30px;" ng-show="notFindByClienName">Nie znaleziono klienta w bazie danych.
-
-                    </div>
-                    <div style="font-size: 30px;" ng-show="notFindByClientNumber">Nie znaleziono klienta w bazie danych.
-                    </div>
-                    <div style="font-size: 30px;" ng-show="notFindByNameTeam">Nie znaleziono podanego TOK-u.
-                    </div>
-                    </tbody>
-
-                </table>
             </div>
-
 
             <script type="text/ng-template" id="AreYouSureDeleteDocument">
                 <h1>Czy na pewno chcesz usunąć dokument?</h1>

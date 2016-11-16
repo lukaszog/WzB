@@ -10,6 +10,19 @@ app.controller('TraderOperation', ['$scope', '$http', '$route', '$rootScope', 'T
     $scope.names = ["STA", "STB", "STC",
         "STE", "STX"];
 
+    $http({
+        method: 'GET',
+        url: HOST + '/all_trader',
+
+        headers: {'Content-type': 'application/json'},
+    }).success(function (data) {
+        $scope.traders = data;
+
+    }).error(function (data) {
+        console.log('Nie udało się pobrać WZ');
+
+    });
+
     $scope.reloadRoute = function () {
         $route.reload();
     };
@@ -49,18 +62,7 @@ app.controller('TraderOperation', ['$scope', '$http', '$route', '$rootScope', 'T
         TraderService.deleteTrader($rootScope.surnameTrader, $rootScope.numberTrader);
     };
 
-    $http({
-        method: 'GET',
-        url: HOST + '/all_trader',
 
-        headers: {'Content-type': 'application/json'},
-    }).success(function (data) {
-        $scope.traders = data;
-
-    }).error(function (data) {
-        console.log('Nie udało się pobrać WZ');
-
-    });
 
 
 }]);
