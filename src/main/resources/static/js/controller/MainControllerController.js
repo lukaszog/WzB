@@ -8,6 +8,19 @@ app.controller('MainController', function ($scope, $http, $interval, HOST) {
     $scope.howManyTraders = '0';
     $scope.howManyClient = '0';
 
+    $scope.loading = true;
+    $http.get('/')
+        .success(function (data) {
+            // Do stuff with data.
+        })
+        .catch(function (err) {
+            // Log error somehow.
+        })
+        .finally(function () {
+            // Hide loading spinner whether our call succeeded or failed.
+            $scope.loading = false;
+        });
+
     $http({
         method: 'GET',
         url: HOST + '/howManyDocument',

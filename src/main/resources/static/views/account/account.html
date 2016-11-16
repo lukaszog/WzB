@@ -3,8 +3,9 @@
         <div class="intro-text">
 
             <div class="intro-heading" style="font-size: 30px; letter-spacing: 1px;">{{_username}}</div>
-            <div id="infoUser" style="margin: 0 auto" ng-cloak>
-                <span ng-show="isViewLoading" style="color:red;"> loading the view... </span>
+          <div ng-show="load"> <img  style="font-size: 10px; padding-bottom: 37px;" src="../images/gears.svg"></div>
+            <div id="infoUser" style="margin: 0 auto" >
+
                 <table class="table" ts-wrapper ng-if="show">
                     <thead>
                     <tr>

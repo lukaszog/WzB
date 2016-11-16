@@ -8,6 +8,7 @@ app.controller('UserAccount', function ($scope, $http, $rootScope, $location, do
     $scope.infoUsers = '';
     $rootScope.nameUser = '';
     $scope.show = false;
+    $scope.load = true;
 
     $scope.isViewLoading = false;
     $scope.$on('$routeChangeStart', function() {
@@ -31,6 +32,7 @@ app.controller('UserAccount', function ($scope, $http, $rootScope, $location, do
             $scope.infoUsers = data;
             $rootScope.nameUser = $scope.infoUsers.name;
             $scope.show = true;
+            $scope.load = false;
 
         }).error(function (data) {
         ngDialog.open({
