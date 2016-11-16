@@ -82,6 +82,12 @@
                    ng-click="reloadRoute(); closeThisDialog(0);">
 
         </script>
+        <script type="text/ng-template" id="Admin">
+            <h1>Czy nadać uprawnienia administratora?</h1>
+            <input class="submitConfirmDialog" type="submit" value="Tak"
+                   ng-click="closeThisDialog(0); confirmGiveRoleAdmin();">
+            <input class="submitDelete" type="submit" value="Nie" ng-click="closeThisDialog(0)">
+        </script>
 
     </div>
 </div>

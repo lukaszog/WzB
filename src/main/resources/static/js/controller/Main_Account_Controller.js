@@ -93,16 +93,16 @@ app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', '$route', 'U
 
     };
 
-    // $scope.giveRoleUser = function () {
-    //     $rootScope.username = $scope.editData.accounts.username;
-    //
-    //     ngDialog.open({
-    //         template: 'USER',
-    //         controller: 'MainAccountCtrl',
-    //         className: 'ngdialog-theme-default'
-    //     });
-    //
-    // };
+    $scope.giveRoleUser = function () {
+        $rootScope.username = $scope.editData.accounts.username;
+
+        ngDialog.open({
+            template: 'USER',
+            controller: 'MainAccountCtrl',
+            className: 'ngdialog-theme-default'
+        });
+
+    };
 
     $scope.confirmGiveRoleAdmin = function () {
 
