@@ -7,7 +7,27 @@
 var app = angular.module('myApp', [
     'ngRoute', 'ngResource','ngDialog', 'tableSort', 'ngMaterial', 'ngMessages', 'timer', 'config'
 
-]).config(function ($routeProvider, $httpProvider) {
+])
+    .factory('httpInterceptor', function ($q, $rootScope, $location) {
+        return {
+            request: function (config) {
+                return config || $q.when(config)
+            },
+            response: function (response) {
+                return response || $q.when(response);
+            },
+            responseError: function (response) {
+                if (response.status === 401) {
+                    //here I preserve login page
+                    $location.url('/');
+                    console.log("Errorrrr");
+                    $rootScope.$broadcast('error');
+                }
+                return $q.reject(response);
+            }
+        };
+    })
+    .config(function ($routeProvider, $httpProvider) {
 
     $routeProvider
         .when('/', {
@@ -94,5 +114,6 @@ var app = angular.module('myApp', [
         .otherwise({redirectTo: '/'});
 
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    $httpProvider.interceptors.push('httpInterceptor');
 
 });
