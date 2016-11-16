@@ -25,7 +25,7 @@ public class ClientController {
     private ConvertTo convertTo;
 
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/save_client", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -48,7 +48,7 @@ public class ClientController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/all_client", method = RequestMethod.GET)
     public List<ClientAccount> allClientAccount() {
         List<ClientAccount> listClient = new ArrayList<>();
