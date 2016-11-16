@@ -29,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/index.html", "/views/main.html", "/views/login.html", "/views/register.html", "/views/after_register.html").permitAll()
+                .antMatchers("/", "/index.html", "/views/main.html", "/views/login.html", "/views/register/register.html", "/views/register/after_register.html").permitAll()
                 .antMatchers("/howManyDocument","/howManyTraders","/howManyClient").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/bower_components/**").permitAll()

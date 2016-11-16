@@ -4,6 +4,40 @@
 
 app.service('TraderService', function ($rootScope, $http, ngDialog, HOST) {
 
+    this.deleteTrader = function (surname, numberTrader) {
+
+        $http({
+            method: 'DELETE',
+            url: HOST + '/delete_trader',
+            data: {
+                "surname": surname,
+                "numberTrader": numberTrader
+
+            },
+            headers: {'Content-type': 'application/json'}
+        })
+            .success(function (data) {
+
+                    ngDialog.open({
+                        template: 'DeleteTraderInfo',
+                        controller: 'TraderOperation',
+                        className: 'ngdialog-theme-default'
+                    });
+            }
+            ).error(function (data) {
+
+            ngDialog.open({
+                template: 'errorAddTrader',
+                controller: 'TraderOperation',
+                className: 'ngdialog-theme-default'
+            });
+
+        });
+
+
+    };
+
+
     this.addTrader = function (name, surname, nameTeam, numberTrader) {
 
         $http({

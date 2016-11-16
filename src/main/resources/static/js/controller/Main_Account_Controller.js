@@ -93,9 +93,18 @@ app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', '$route', 'U
 
     };
 
-    $scope.doneGiveRoleAdmin = function () {
+    // $scope.giveRoleUser = function () {
+    //     $rootScope.username = $scope.editData.accounts.username;
+    //
+    //     ngDialog.open({
+    //         template: 'USER',
+    //         controller: 'MainAccountCtrl',
+    //         className: 'ngdialog-theme-default'
+    //     });
+    //
+    // };
 
-        console.log('siema');
+    $scope.confirmGiveRoleAdmin = function () {
 
         $http({
             method: 'POST',
@@ -104,6 +113,12 @@ app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', '$route', 'U
             headers: {'Content-type': 'application/json'}
         })
             .success(function (data) {
+                ngDialog.open({
+                    template: 'SuccessAddRole',
+                    controller: 'ClientOperation',
+                    className: 'ngdialog-theme-default'
+                });
+
 
             }).error(function (data) {
 
@@ -115,6 +130,42 @@ app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', '$route', 'U
 
         });
 
+    };
+
+    $scope.confirmRoleUser = function () {
+        $http({
+            method: 'POST',
+            url: HOST + '/myAccount/give_user',
+            data: $rootScope.username,
+            headers: {'Content-type': 'application/json'}
+        })
+            .success(function (data) {
+                ngDialog.open({
+                    template: 'SuccessAddRole',
+                    controller: 'ClientOperation',
+                    className: 'ngdialog-theme-default'
+                });
+
+
+            }).error(function (data) {
+
+            ngDialog.open({
+                template: 'errorAddClient',
+                controller: 'ClientOperation',
+                className: 'ngdialog-theme-default'
+            });
+
+        });
+    };
+
+    $scope.giveRoleUser = function () {
+        $rootScope.username = $scope.editData.accounts.username;
+
+        ngDialog.open({
+            template: 'User',
+            controller: 'MainAccountCtrl',
+            className: 'ngdialog-theme-default'
+        });
     };
 
     $scope.blockAccountUser = function () {

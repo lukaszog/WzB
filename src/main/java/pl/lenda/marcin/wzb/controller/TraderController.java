@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.FindTraderAccount;
 import pl.lenda.marcin.wzb.dto.TraderAccountDto;
+import pl.lenda.marcin.wzb.dto.TraderToDeleteDto;
 import pl.lenda.marcin.wzb.entity.TraderAccount;
 import pl.lenda.marcin.wzb.repository.TraderAccountRepository;
 import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
@@ -63,5 +64,13 @@ public class TraderController {
         TraderAccount traderAccount = traderService.findByTraderSurnameAndNumber(
                 findTraderAccount.getSurname(), findTraderAccount.getNumberTrader());
         return traderAccount;
+    }
+
+    @RequestMapping(value = "/delete_trader", method = RequestMethod.DELETE)
+    public void deleteTraderAccount(@RequestBody TraderToDeleteDto traderToDeleteDto){
+        TraderAccount traderAccount = traderService.findByTraderSurnameAndNumber(traderToDeleteDto.getSurname(),
+                traderToDeleteDto.getNumberTrader());
+
+        traderService.deleteTrader(traderAccount);
     }
 }

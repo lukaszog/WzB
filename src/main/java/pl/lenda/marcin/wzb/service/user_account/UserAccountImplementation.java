@@ -86,6 +86,11 @@ public class UserAccountImplementation implements UserAccountService{
     }
 
     @Override
+    public void makeActiveAccount(UserAccount userAccount) {
+        userAccountRepository.save(userAccount);
+    }
+
+    @Override
     public String getRoleOfLoggedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

@@ -30,5 +30,7 @@ public interface UserAccountService {
 
     void removeAccount(UserAccount userAccount);
 
+    void makeActiveAccount(UserAccount userAccount);
+
     String getRoleOfLoggedUser();
 }

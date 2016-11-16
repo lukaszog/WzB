@@ -24,7 +24,7 @@ public class TraderServiceImplementation implements TraderService {
 
     @Override
     public void deleteTrader(TraderAccount traderAccount) {
-
+        traderAccountRepository.delete(traderAccount);
     }
 
     @Override

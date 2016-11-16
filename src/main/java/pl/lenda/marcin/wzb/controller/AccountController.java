@@ -119,7 +119,7 @@ public class AccountController {
     public void makeAccountActive(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto) throws MessagingException {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
         userAccount.setActive(true);
-        userAccountService.registerNewUser(userAccount);
+        userAccountService.makeActiveAccount(userAccount);
         mailService.mailConfirmAccount(userAccount.getUsername(), userAccount.getName(), userAccount.getSurname(), userAccount.getUsername());
 
     }
@@ -139,6 +139,16 @@ public class AccountController {
 
         UserAccount userAccount = userAccountService.findByUsername(username);
         userAccount.setRole("ADMIN");
+        return userAccountService.updateRole(userAccount);
+    }
+
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @RolesAllowed("ROLE_ADMIN")
+    @RequestMapping(value = "/give_user", method = RequestMethod.POST)
+    public boolean giveRoleUser(@RequestBody String username) {
+
+        UserAccount userAccount = userAccountService.findByUsername(username);
+        userAccount.setRole("USER");
         return userAccountService.updateRole(userAccount);
     }
 
