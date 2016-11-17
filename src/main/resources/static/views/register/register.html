@@ -5,7 +5,7 @@
             <div id="register">
                 <h1>Rejestracja</h1>
                 <md-content layout="column" md-theme="docs-dark" layout-padding="">
-                    <form name="projectForm">
+                    <form name="projectForm" ng-submit="registerUser()">
                         <div>
 
                             <md-input-container class="md-block">
@@ -89,8 +89,7 @@
                                 </div>
                             </md-input-container>
                         </div>
-                        <input class="page-scroll btn btn-xl" type="submit" value="Zarejestruj"
-                               ng-click="registerUser()">
+                        <input class="page-scroll btn btn-xl" type="submit" value="Zarejestruj">
                         <div ng-show="reponseError">
                             <small style="color:rgb(221,44,0); display: block; text-align: center; font-size: 13px;">
                                 Wystąpił błąd przy rejestracji.

@@ -8,7 +8,7 @@
                     <h1>Zaloguj</h1>
                 </div>
                 <md-content layout="column" md-theme="docs-dark" layout-padding="">
-                    <form name="projectForm">
+                    <form name="projectForm" ng-submit="controller.login()" >
                         <md-input-container class="md-block" flex-gt-sm="">
                             <label>E-mail</label>
                             <input required name="mail" ng-model="controller.credentials.username">
@@ -32,9 +32,10 @@
                                 </div>
                             </div>
                         </md-input-container>
+                        <input class="page-scroll btn btn-xl" type="submit" value="Zaloguj">
+                        <a href="#/register">Rejestracja</a>
                     </form>
-                    <input class="page-scroll btn btn-xl" type="submit" value="Zaloguj" ng-click="controller.login()">
-                    <a href="#/register">Rejestracja</a>
+
 
                     <div ng-show="loginError">
                         <small style="color:rgb(221,44,0); display: block; text-align: center; font-size: 18px;">

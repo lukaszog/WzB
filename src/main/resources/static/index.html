@@ -22,6 +22,17 @@
     <link href="bower_components/ng-dialog/css/ngDialog-theme-default.css" rel="stylesheet">
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+
+    <script>
+        $(function() {
+            $( "#datepicker-13" ).datepicker();
+            $( "#datepicker-13" ).datepicker("show");
+        });
+    </script>
+
+
 
     <script type="text/javascript">
         function onclickHandler() {
@@ -76,9 +87,7 @@
                 <li ng-show="authenticated">
                     <a class="page-scroll" href="" ng-click="logout()">Wyloguj</a>
                 </li>
-                <!--<li>-->
-                <!--<a class="page-scroll" href="#contact">Contact</a>-->
-                <!--</li>-->
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -168,6 +177,7 @@
 <script src="js/controller/LoginController.js"></script>
 <script src="js/controller/Main_Account_Controller.js"></script>
 <script src="js/controller/UserAccount.js"></script>
+
 
 <script src="js/controller/LoginController.js"></script>
 <script src="js/controller/RegisterController.js"></script>
