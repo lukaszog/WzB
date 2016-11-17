@@ -18,8 +18,15 @@
 
                 </select>
 
-                <input type=date step=2 min=2014-W30 ng-model="form.date">
+                <!--<input type=date step=2 min=2014-W30 ng-model="form.date">-->
+                <div style="background-color: #5D5D5F; width: 94%; margin-left: 15px; height: 75px; ">
+                <md-input-container>
+                    <label style="color:white">Data</label>
+                    <md-datepicker ng-model="form.date"></md-datepicker>
+                </md-input-container>
+                </div>
                 <input id="submit" type="submit" value="Dodaj">
+
 
             </form>
 
