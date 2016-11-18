@@ -15,6 +15,8 @@ public class ClientAccount {
 
     private String name;
 
+    private String abbreviationName;
+
     private String numberClient;
 
     private String nameTeam;
@@ -22,8 +24,9 @@ public class ClientAccount {
     public ClientAccount() {
     }
 
-    public ClientAccount(String name, String numberClient, String nameTeam) {
+    public ClientAccount(String name, String abbreviationName, String numberClient, String nameTeam) {
         this.name = name;
+        this.abbreviationName = abbreviationName;
         this.numberClient = numberClient;
         this.nameTeam = nameTeam;
     }
@@ -58,5 +61,13 @@ public class ClientAccount {
 
     public void setNameTeam(String nameTeam) {
         this.nameTeam = nameTeam;
+    }
+
+    public String getAbbreviationName() {
+        return abbreviationName;
+    }
+
+    public void setAbbreviationName(String abbreviationName) {
+        this.abbreviationName = abbreviationName;
     }
 }

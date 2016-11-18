@@ -39,17 +39,18 @@ public class ConvertTo {
 
     public DocumentWz convertDocumentToEntity(DocumentWzDto documentWzDto){
         DocumentWz documentWz = new DocumentWz();
-        ClientAccount clientAccount = clientAccountImplementation.findByClientName(documentWzDto.getClient());
+        ClientAccount clientAccount = clientAccountImplementation.findByAbbreviationName(documentWzDto.getClient());
         TraderAccount traderAccount = traderServiceImplementation.findBySurname(documentWzDto.getTraderName());
 
         documentWz.setNumberWZ(documentWzDto.getNumberWZ());
         documentWz.setSubProcess(documentWzDto.getSubProcess());
-        documentWz.setClient(documentWzDto.getClient());
+        documentWz.setClient(clientAccount.getName());
         documentWz.setDate(documentWzDto.getDate());
         documentWz.setTraderName(documentWzDto.getTraderName());
         documentWz.setBeCorrects(documentWzDto.isBeCorrects());
         documentWz.setNameTeam(traderAccount.getNameTeam());
         documentWz.setClientNumber(clientAccount.getNumberClient());
+        documentWz.setAbbreviationName(clientAccount.getAbbreviationName());
         return documentWz;
     }
 

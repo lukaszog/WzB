@@ -23,6 +23,8 @@ public class DocumentWz {
     private String client;
     @NotNull
     private String clientNumber;
+    @NotNull
+    private String abbreviationName;
 
     private String nameTeam;
     @NotNull
@@ -35,13 +37,14 @@ public class DocumentWz {
     public DocumentWz() {
     }
 
-    public DocumentWz(String id, String numberWZ, String subProcess, String client, String clientNumber, String nameTeam,
+    public DocumentWz(String id, String numberWZ, String subProcess, String client, String clientNumber, String abbreviationName, String nameTeam,
                       String traderName, Date date, boolean beCorrects) {
         this.id = id;
         this.numberWZ = numberWZ;
         this.subProcess = subProcess;
         this.client = client;
         this.clientNumber = clientNumber;
+        this.abbreviationName = abbreviationName;
         this.nameTeam = nameTeam;
         this.traderName = traderName;
         this.date = date;
@@ -118,5 +121,13 @@ public class DocumentWz {
 
     public void setBeCorrects(boolean beCorrects) {
         this.beCorrects = beCorrects;
+    }
+
+    public String getAbbreviationName() {
+        return abbreviationName;
+    }
+
+    public void setAbbreviationName(String abbreviationName) {
+        this.abbreviationName = abbreviationName;
     }
 }

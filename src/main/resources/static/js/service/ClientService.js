@@ -6,7 +6,7 @@ app.service('ClientService', function ($rootScope, $http, ngDialog, HOST) {
 
     $rootScope.responseFromServer = '';
 
-    this.addClient = function (name, numberClient, nameTeam) {
+    this.addClient = function (name, numberClient, nameTeam, abbreviationNameClient) {
 
         $http({
             method: 'POST',
@@ -14,7 +14,8 @@ app.service('ClientService', function ($rootScope, $http, ngDialog, HOST) {
             data: {
                 "name": name,
                 "numberClient": numberClient,
-                "nameTeam": nameTeam
+                "nameTeam": nameTeam,
+                "abbreviationName": abbreviationNameClient
             },
             headers: {'Content-type': 'application/json'}
         })
@@ -55,6 +56,14 @@ app.service('ClientService', function ($rootScope, $http, ngDialog, HOST) {
                         controller: 'ClientOperation',
                         className: 'ngdialog-theme-default'
                     });
+                } else if($rootScope.error == 'ExistsAbbreviation'){
+                    $rootScope.success = '';
+                    $rootScope.error =  '';
+                    ngDialog.open({
+                        template: 'errorExistsAbbreviation',
+                        controller: 'ClientOperation',
+                        className: 'ngdialog-theme-default'
+                    });
                 } else {
                     $rootScope.success = '';
                     $rootScope.error =  '';
@@ -78,14 +87,15 @@ app.service('ClientService', function ($rootScope, $http, ngDialog, HOST) {
         });
     };
 
-    this.deleteClient = function (name) {
+    this.deleteClient = function (name, numberClient) {
 
         $http({
             method: 'DELETE',
             url: HOST + '/delete_client',
             data:
             {
-                "name":name
+                "name":name,
+                "number": numberClient
             },
             headers: {'Content-type': 'application/json'}
         })

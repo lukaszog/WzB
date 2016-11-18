@@ -3,10 +3,7 @@ package pl.lenda.marcin.wzb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pl.lenda.marcin.wzb.dto.DocumentWzDto;
-import pl.lenda.marcin.wzb.dto.DocumentWzToDeleteDto;
-import pl.lenda.marcin.wzb.dto.FindByNumberWzDto;
-import pl.lenda.marcin.wzb.dto.FindClientNumber;
+import pl.lenda.marcin.wzb.dto.*;
 import pl.lenda.marcin.wzb.entity.DocumentWz;
 import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
 import pl.lenda.marcin.wzb.service.document_wz.DocumentWzServiceImplementation;
@@ -76,10 +73,10 @@ public class DocumentWZController {
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/findByClient", method = RequestMethod.POST)
-    public List<DocumentWzDto> findByClient(@RequestBody String client) {
+    public List<DocumentWzDto> findByClient(@RequestBody DocumentWzAbbreviationNameDto documentWzAbbreviationNameDto) {
         List<DocumentWz> listDocumentWZ;
         List<DocumentWzDto> listDocumentWzDto = new ArrayList<>();
-        listDocumentWZ = documentWzServiceImplementation.findByNameClient(client);
+        listDocumentWZ = documentWzServiceImplementation.findByAbbreviationName(documentWzAbbreviationNameDto.getAbbreviationName());
 
         for (DocumentWz documentWz : listDocumentWZ) {
             listDocumentWzDto.add(convertTo.convertDocumentToDto(documentWz));

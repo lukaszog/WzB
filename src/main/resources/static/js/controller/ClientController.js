@@ -32,6 +32,7 @@ app.controller('ClientOperation', ['$scope', '$rootScope', '$http','$route', 'Cl
 
         var nameClient = $scope.form.nameClient;
         var numberClient = $scope.form.numberClient;
+        var abbreviationNameClient = $scope.form.abbreviationName;
         var nameTeam;
 
         if ($scope.nameTeam == 'STA') {
@@ -44,11 +45,12 @@ app.controller('ClientOperation', ['$scope', '$rootScope', '$http','$route', 'Cl
             nameTeam = 'STE';
         }
 
-        ClientService.addClient(nameClient, numberClient, nameTeam);
+        ClientService.addClient(nameClient, numberClient, nameTeam, abbreviationNameClient);
     };
 
     $scope.deleteClient = function () {
         $rootScope.nameClient = $scope.editData.accounts.name;
+        $rootScope.numberClient = $scope.editData.accounts.numberClient;
 
         ngDialog.open({
             template: 'DeleteClient',
@@ -58,8 +60,8 @@ app.controller('ClientOperation', ['$scope', '$rootScope', '$http','$route', 'Cl
     };
 
     $scope.deleteClientConfirm = function () {
-        console.log('siema');
-        ClientService.deleteClient($rootScope.nameClient);
+
+        ClientService.deleteClient($rootScope.nameClient ,$rootScope.numberClient);
     };
 
 }]);

@@ -5,13 +5,16 @@ package pl.lenda.marcin.wzb.dto;
  */
 public class ClientFindDto {
 
-    String name;
+    private String name;
+
+    private String number;
 
     public ClientFindDto(){
     }
 
-    public ClientFindDto(String name) {
+    public ClientFindDto(String name, String number) {
         this.name = name;
+        this.number = number;
     }
 
     public String getName() {
@@ -20,5 +23,13 @@ public class ClientFindDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

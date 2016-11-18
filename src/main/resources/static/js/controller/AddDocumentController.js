@@ -40,7 +40,7 @@ app.controller('DocumentOperation', ['$scope', '$http', '$window', '$route', 'do
             $scope.listClient = data;
 
             angular.forEach($scope.listClient, function (value, key) {
-                $scope.resultListClient.push(value.name);
+                $scope.resultListClient.push(value.abbreviationName);
             });
 
 

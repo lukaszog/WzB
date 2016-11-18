@@ -15,6 +15,7 @@ public class DocumentWzServiceImplementation implements DocumentWzService {
 
     private final DocumentWzRepository documentWzRepository;
 
+
     @Autowired
     public DocumentWzServiceImplementation(DocumentWzRepository documentWzRepository) {
         this.documentWzRepository = documentWzRepository;
@@ -29,6 +30,11 @@ public class DocumentWzServiceImplementation implements DocumentWzService {
     @Override
     public DocumentWz findByNumberWZAndSubProcess(String numberWZ, String subProcess) {
         return documentWzRepository.findByNumberWZAndSubProcess(numberWZ, subProcess);
+    }
+
+    @Override
+    public List<DocumentWz> findByAbbreviationName(String abbreviationName) {
+        return documentWzRepository.findByAbbreviationNameIgnoreCase(abbreviationName);
     }
 
     @Override

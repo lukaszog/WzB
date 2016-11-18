@@ -35,13 +35,17 @@ public class ClientController {
         if (clientAccountService.findByClientNumber(clientAccount.getNumberClient()) != null) {
             response.put("Error", "ExistsClientNr");
             return response;
-        } else if (clientAccountService.findByClientName(clientAccount.getName()) != null) {
+        } else if (clientAccountService.findByAbbreviationName(clientAccount.getName()) != null) {
             response.put("Error", "ExistsClient");
             return response;
         } else if (clientAccount.getNumberClient().length() > 6 || clientAccount.getNumberClient().length() < 6) {
             response.put("Error", "NumberLength");
             return response;
-        } else {
+        }else if(clientAccountService.findByAbbreviationName(clientAccount.getAbbreviationName()) != null){
+            response.put("Error", "ExistsAbbreviation");
+            return response;
+        }
+        else {
             clientAccountService.createAccount(clientAccount);
             response.put("Success", clientAccount);
             return response;
@@ -50,9 +54,10 @@ public class ClientController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "delete_client", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete_client", method = RequestMethod.DELETE)
     public void deleteClient(@RequestBody ClientFindDto clientFindDto){
-        ClientAccount clientAccount = clientAccountService.findByClientName(clientFindDto.getName());
+        ClientAccount clientAccount = clientAccountService.findByClientNameAndNumber(clientFindDto.getName(),
+               clientFindDto.getNumber());
         clientAccountService.deleteAccountClient(clientAccount);
     }
 

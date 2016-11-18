@@ -16,6 +16,8 @@ public interface DocumentWzRepository extends MongoRepository<DocumentWz, String
 
     List<DocumentWz> findByClientIgnoreCase(String client);
 
+    List<DocumentWz> findByAbbreviationNameIgnoreCase(String abbreviationName);
+
     List<DocumentWz> findByClientNumber(String clientNumber);
 
     List<DocumentWz> findByTraderNameIgnoreCase(String traderName);

@@ -21,6 +21,8 @@ public class DocumentWzDto {
 
     private String clientNumber;
 
+    private String abbreviationName;
+
     private String nameTeam;
 
     private String traderName;
@@ -29,27 +31,21 @@ public class DocumentWzDto {
 
     private boolean beCorrects;
 
-    public DocumentWzDto(String numberWZ, String subProcess, String client, String clientNumber, String nameTeam,
-                         String traderName, Date date, boolean beCorrects) {
-        this.numberWZ = numberWZ;
-        this.subProcess = subProcess;
-        this.client = client;
-        this.clientNumber = clientNumber;
-        this.nameTeam = nameTeam;
-        this.traderName = traderName;
-        this.date = date;
-        this.beCorrects = beCorrects;
-    }
 
     public DocumentWzDto() {
     }
 
-    public DocumentWzDto(String numberWZ, String subProcess, String client, String traderName, Date date) {
+    public DocumentWzDto(String numberWZ, String subProcess, String client, String clientNumber,
+                         String abbreviationName, String nameTeam, String traderName, Date date, boolean beCorrects) {
         this.numberWZ = numberWZ;
         this.subProcess = subProcess;
         this.client = client;
+        this.clientNumber = clientNumber;
+        this.abbreviationName = abbreviationName;
+        this.nameTeam = nameTeam;
         this.traderName = traderName;
         this.date = date;
+        this.beCorrects = beCorrects;
     }
 
     public String getNumberWZ() {
@@ -114,5 +110,13 @@ public class DocumentWzDto {
 
     public void setBeCorrects(boolean beCorrects) {
         this.beCorrects = beCorrects;
+    }
+
+    public String getAbbreviationName() {
+        return abbreviationName;
+    }
+
+    public void setAbbreviationName(String abbreviationName) {
+        this.abbreviationName = abbreviationName;
     }
 }

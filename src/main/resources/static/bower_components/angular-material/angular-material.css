@@ -483,9 +483,9 @@ md-autocomplete {
                 transform: scale(0); }
   @media screen and (-ms-high-contrast: active) {
     md-autocomplete input {
-      border: 1px solid #fff; }
+      border: 1px solid black; }
     md-autocomplete li:focus {
-      color: #fff; } }
+      color: black; } }
 
 .md-virtual-repeat-container.md-autocomplete-suggestions-container {
   position: absolute;

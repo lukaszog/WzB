@@ -17,12 +17,7 @@
                 <select ng-model="myTrader" ng-options="x for x in resultListTrader | orderBy">
 
                 </select>
-                <div style="background-color: #5D5D5F; width: 94%; margin-left: 15px; height: 85px; ">
-
-                            <h4 style="color: #e2dedb;"><b>Data zatwierdzenia</b></h4>
-                            <md-datepicker style="color: whitesmoke" ng-model="myDate" md-placeholder="Podaj date"></md-datepicker>
-
-                </div>
+                <input required type="date" value="Data" ng-model="form.date">
                 <input id="submit" type="submit" value="Dodaj">
 
 

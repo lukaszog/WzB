@@ -6,6 +6,7 @@
                 <h1>Dodwanie klienta</h1>
 
                 <input name="nameClient" type="text" ng-model="form.nameClient" placeholder="Nazwa klienta">
+                <input name="nameClient" type="text" ng-model="form.abbreviationName" placeholder="Skrót">
                 <input name="numberClient" required type="text" ng-model="form.numberClient" placeholder="Numer klienta" />
                 <select ng-model="nameTeam" ng-options="x for x in names | orderBy"></select>
                 <!--
@@ -33,6 +34,11 @@
     <script type="text/ng-template" id="errorClientNumberLength">
         <h1 style="font-size: 30px;">Niepoprawny numer klienta.</h1>
         <p style="font-size: 18px; color: #ffffff;">Sprwadź długość numeru klienta.</p>
+        <input style="background-color:rgb(221,44,0);" class="submitSuccess" type="submit" value="Ok" ng-click="clearInput(); closeThisDialog(0);">
+    </script>
+    <script type="text/ng-template" id="errorExistsAbbreviation">
+        <h1 style="font-size: 25px;">Podany skrót już jest przypisany do innego klienta.</h1>
+        <p style="font-size: 18px; color: #ffffff;">Spróbuj  przebudować  obecny.</p>
         <input style="background-color:rgb(221,44,0);" class="submitSuccess" type="submit" value="Ok" ng-click="clearInput(); closeThisDialog(0);">
     </script>
     <script type="text/ng-template" id="errorAddClient">

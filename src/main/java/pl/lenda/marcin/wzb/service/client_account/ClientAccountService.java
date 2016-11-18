@@ -13,7 +13,9 @@ public interface ClientAccountService {
 
     void deleteAccountClient(ClientAccount clientAccount);
 
-    ClientAccount findByClientName(String name);
+    ClientAccount findByAbbreviationName(String name);
+
+    ClientAccount findByClientNameAndNumber(String name, String number);
 
     ClientAccount findByClientNumber(String numberClient);
 

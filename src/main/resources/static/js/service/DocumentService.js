@@ -99,7 +99,9 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog, HOST) {
         $http({
             method: 'POST',
             url: HOST + '/findByClient',
-            data: client,
+            data: {
+                "abbreviationName":client
+            },
             headers: {'Content-type': 'application/json'},
         }).success(function (data) {
             $rootScope.documents = data;

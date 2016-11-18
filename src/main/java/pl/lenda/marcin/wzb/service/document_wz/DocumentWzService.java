@@ -13,6 +13,8 @@ public interface DocumentWzService {
 
     DocumentWz findByNumberWZAndSubProcess(String numberWZ, String subProcess);
 
+    List<DocumentWz> findByAbbreviationName(String abbreviationName);
+
     List<DocumentWz> findByNumberClient(String numberClient);
 
     List<DocumentWz> findByNameClient(String nameClient);
