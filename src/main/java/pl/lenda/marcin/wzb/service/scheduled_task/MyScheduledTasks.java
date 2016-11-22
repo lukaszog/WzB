@@ -72,7 +72,7 @@ public class MyScheduledTasks {
                 "\n" +
                 "<div id=\"photo\">\n" +
                 "    <p><b>Mail został wygenerowany automatycznie. Wszelkie prawa zastrzeżone.</b></p>\n" +
-                "    <img src='cid:identifier1234'> </div>"
+                "    <img > </div>"
                 +
                 "</body>\n" +
                 "</html>";
