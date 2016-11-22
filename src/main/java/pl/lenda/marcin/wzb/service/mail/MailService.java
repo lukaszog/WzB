@@ -1,7 +1,6 @@
 package pl.lenda.marcin.wzb.service.mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -115,8 +114,8 @@ public class MailService {
         helper.setFrom("wzbims@gmail.com");
         helper.setSubject("Aktywacja konta: "+userName);
         helper.setText(allContent, true);
-        FileSystemResource res = new FileSystemResource(new java.io.File("C:\\Users\\Promar\\Desktop\\b5.png"));
-        helper.addInline("identifier1234", res);
+       // FileSystemResource res = new FileSystemResource(new java.io.File("C:\\Users\\Promar\\Desktop\\b5.png"));
+        //helper.addInline("identifier1234", res);
         javaMailSender.send(mimeMessage);
         return mimeMessage;
     }
