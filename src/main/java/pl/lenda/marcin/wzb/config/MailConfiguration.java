@@ -29,20 +29,30 @@ public class MailConfiguration {
     private String username;
     @Value("${mail.password}")
     private String password;
+    @Value("${mail.stmp.username}")
+    private String stmpUsername;
+    @Value("${mail.stmp.password}")
+    private String stmpPassword;
 
     @Bean
     public JavaMailSender javaMailSender() {
+
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        Properties mailProperties = new Properties();
-        mailProperties.put("mail.smtp.auth", auth);
-        mailProperties.put("mail.smtp.starttls.enable", "true");
-        mailProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        mailSender.setJavaMailProperties(mailProperties);
+        Properties props = System.getProperties();
+        props.put("mail.transport.protocol", "smtps");
+        props.put("mail.smtp.port", 25);
+
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.starttls.required", "true");
+
+        mailSender.setJavaMailProperties(props);
         mailSender.setHost(host);
         mailSender.setPort(port);
         mailSender.setProtocol(protocol);
-        mailSender.setUsername(username);
-        mailSender.setPassword(password);
+        mailSender.setUsername(stmpUsername);
+        mailSender.setPassword(stmpPassword);
+
         return mailSender;
     }
 }
