@@ -31,7 +31,7 @@ public class TraderController {
     private TraderAccountRepository traderAccountRepository;
 
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/save_trader", method = RequestMethod.POST)
     public Map<String, Object> saveTrader(@RequestBody TraderAccountDto traderAccountDto){
         response.clear();
@@ -51,14 +51,14 @@ public class TraderController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/all_trader", method = RequestMethod.GET)
     public List<TraderAccount> findAllTrader(){
         List listTrader = new ArrayList();
         return listTrader = traderService.findAllTrader();
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/find_trader", method = RequestMethod.POST)
     public TraderAccount findTrader(@RequestBody FindTraderAccount findTraderAccount){
         TraderAccount traderAccount = traderService.findByTraderSurnameAndNumber(
