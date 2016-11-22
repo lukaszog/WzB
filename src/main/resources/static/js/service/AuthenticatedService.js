@@ -12,59 +12,71 @@ app.service('AuthenticatedService', function ($rootScope, $http, ngDialog, HOST)
     $rootScope.loginError = false;
 
 
-    var setUsername = function (username) {
-        _username = username;
-    };
+
+    function serializeData(credentials) {
+        return $.param({
+            "username" : credentials.username,
+            "password" : credentials.password
+        });
+    }
+
+    (function() {
+
+        $http({
+            method: 'GET',
+            url: HOST + '/success'
+        }).then(function successCallback(response) {
+            var data = response.data;
+            if(data.name) {
+                $rootScope.authenticated = true;
+                $rootScope._username = data.name;
+                console.log($rootScope._username);
+                $http({
+                    method: 'GET',
+                    url: HOST + '/myAccount/role'
+                }).then(function successCallback(response) {
+                    $rootScope.userRoles = response.data;
+
+                }, function errorCallback(response) {
+                    $rootScope.userRoles = false;
+
+                });
+            }
+
+        }, function errorCallback(response) {
+            $rootScope.authenticated = false;
+
+        });
+    })();
 
 
 
-    this.showUserName = function () {
-        return "Jesteś zalogowany jako: "+_username;
-    };
 
 
-    $http({
-        method: 'GET',
-        url: HOST + '/myAccount/user'
-    }).then(function successCallback(response) {
-        var data = response.data;
-        if(data.name) {
-            $rootScope.authenticated = true;
-            $rootScope._username = data.name;
-            console.log($rootScope._username);
-            $http({
-                method: 'GET',
-                url: HOST + '/myAccount/role'
-            }).then(function successCallback(response) {
-                $rootScope.userRoles = response.data;
 
-            }, function errorCallback(response) {
-                $rootScope.userRoles = false;
-
-            });
-        }
-
-    }, function errorCallback(response) {
-        $rootScope.authenticated = false;
-
-    });
 
 
 
     this.authenticatedUser = function(credentials, callback) {
 
-        var headers = credentials ? {
-            authorization : "Basic "
-            + btoa(credentials.username + ":"
-                + credentials.password)
-        } : {};
+        // var headers = credentials ? {
+        //     authorization : "Basic "
+        //     + btoa(credentials.username + ":"
+        //         + credentials.password)
+        // } : {};
 
+        var headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        };
 
-        $http.get(HOST + '/myAccount/user', {
+        var data = serializeData(credentials);
+
+        $http.post(HOST + '/perform_login', data, {
             headers : headers
         }).then(function(response) {
             var data = response.data;
             if (data.name) {
+                console.log('tutaj'+ data.name);
                 $rootScope.authenticated = true;
                 $rootScope._username = data.name;
                 $rootScope.admin = data && data.roles && data.roles.indexOf("ROLE_ADMIN")>-1;
@@ -74,6 +86,7 @@ app.service('AuthenticatedService', function ($rootScope, $http, ngDialog, HOST)
                     url: HOST + '/myAccount/role'
                 }).then(function successCallback(response) {
                     $rootScope.userRoles = response.data;
+                    console.log('role '+$rootScope.userRoles);
 
                 }, function errorCallback(response) {
                     $rootScope.userRoles = false;

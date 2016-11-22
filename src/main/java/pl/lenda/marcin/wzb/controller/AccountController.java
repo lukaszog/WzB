@@ -47,7 +47,7 @@ public class AccountController {
 
     private final Map<String, Object> response = new LinkedHashMap<>();
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/create_account", method = RequestMethod.POST)
     public Map<String, Object> createNewUser(@Valid @RequestBody UserAccountDto userAccountDto,
                                              BindingResult bindingResult) {
@@ -80,19 +80,19 @@ public class AccountController {
         return response;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping("/user")
     public Principal user(Principal user) {
         return user;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/find_notactive_account", method = RequestMethod.GET)
     public List<UserAccount> findUserNotActive() {
         return userAccountService.findNotActiveAccount();
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/active_account", method = RequestMethod.GET)
     public List<UserAccountDto> findAllActiveAccount() {
         List<UserAccountDto> listDto = new ArrayList();
@@ -114,7 +114,7 @@ public class AccountController {
         return listDto;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/make_active_account", method = RequestMethod.PATCH)
     public void makeAccountActive(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto) throws MessagingException {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
@@ -124,7 +124,7 @@ public class AccountController {
 
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/block_account", method = RequestMethod.PATCH)
     public void blockAccount(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto) {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
@@ -132,8 +132,8 @@ public class AccountController {
         userAccountService.registerNewUser(userAccount);
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
-    @RolesAllowed("ROLE_ADMIN")
+    @CrossOrigin(origins = "http://localhost:8080")
+    @RolesAllowed("ADMIN")
     @RequestMapping(value = "/give_admin", method = RequestMethod.POST)
     public boolean giveRoleAdmin(@RequestBody String username) {
 
@@ -142,8 +142,8 @@ public class AccountController {
         return userAccountService.updateRole(userAccount);
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
-    @RolesAllowed("ROLE_ADMIN")
+    @CrossOrigin(origins = "http://localhost:8080")
+    @RolesAllowed("ADMIN")
     @RequestMapping(value = "/give_user", method = RequestMethod.POST)
     public boolean giveRoleUser(@RequestBody String username) {
 
@@ -152,7 +152,7 @@ public class AccountController {
         return userAccountService.updateRole(userAccount);
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/role", method = RequestMethod.GET)
     public boolean getRole() {
         if (userAccountService.getRoleOfLoggedUser().equals("ROLE_ADMIN")) {
@@ -161,7 +161,7 @@ public class AccountController {
         return false;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/user_info", method = RequestMethod.GET)
     public UserAccountDto userInfo() {
 
@@ -180,7 +180,7 @@ public class AccountController {
         return userAccountDto;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
     public Map<String, Object> changePassword(@RequestBody ChangePasswordDto changePasswordDto,
                                               BindingResult bindingResult) {
@@ -211,6 +211,56 @@ public class AccountController {
         userAccountService.removeAccount(userAccount);
     }
 
+    @RequestMapping(value = "/find_user", method = RequestMethod.POST)
+    public UserAccount findUserAccount(@RequestBody FindUserAccountDto findUserAccountDto){
+      UserAccount userAccount = userAccountService.findByUsername(findUserAccountDto.getUsername());
+        return userAccount;
+    }
+
+    @RequestMapping(value = "/edit_date", method = RequestMethod.POST)
+    public Map<String, Object> updateUserAccount(@RequestBody UpdateUserAccountDto updateUserAccountDto){
+        response.clear();
+        UserAccount userAccount = userAccountService.findByUsername(updateUserAccountDto.getUsername());
+
+        if(updateUserAccountDto.getName() != ""){
+            userAccount.setName(updateUserAccountDto.getName());
+            userAccountService.editData(userAccount);
+            response.put("Success", "Zmieniono imie użytkownika.");
+            return response;
+
+        }else if(updateUserAccountDto.getSurname() != ""){
+            userAccount.setSurname(updateUserAccountDto.getSurname());
+            userAccountService.editData(userAccount);
+            response.put("Success", "Zmienono nazwisko użytkownika.");
+            return response;
+
+        } else if(updateUserAccountDto.getNumberUser() != ""){
+
+            if(userAccountService.findByNumberUser(updateUserAccountDto.getNumberUser()) != null){
+                response.put("Error", "Numer istnieje w bazie danych.");
+                return response;
+            }else {
+                userAccount.setNumberUser(updateUserAccountDto.getNumberUser());
+                userAccountService.editData(userAccount);
+                response.put("Success", "Zmieniono numer użytkownika.");
+                return response;
+            }
+        }else if(updateUserAccountDto.getNewUsername() != null){
+
+            if(userAccountService.findByUsername(updateUserAccountDto.getUsername()) != null){
+                response.put("Error", "Podany numer e-mail jest już zajęty.");
+                return response;
+            }else{
+                userAccount.setUsername(updateUserAccountDto.getNewUsername());
+                userAccountService.editData(userAccount);
+                response.put("Success", "Zmieniono adres e-mail.");
+                return response;
+            }
+
+        }
+        response.put("Error", "Żądanie zakończone niepowodzeniem.");
+        return response;
+    }
 }
 
 

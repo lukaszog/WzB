@@ -35,10 +35,10 @@ public class MongoUserDetailsService implements UserDetailsService {
 
     public List<GrantedAuthority> getAuthorities(String role) {
         List<GrantedAuthority> authList = new ArrayList<>();
-        if (role.equalsIgnoreCase("ADMIN")) {
+        if (role.equalsIgnoreCase("ROLE_ADMIN")) {
             authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
-        } else if (role.equalsIgnoreCase("USER")) {
+        } else if (role.equalsIgnoreCase("ROLE_USER")) {
             authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return authList;

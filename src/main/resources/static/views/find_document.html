@@ -3,13 +3,13 @@
         <div class="intro-text">
             <img ng-show="load" style="font-size: 10px; padding-top: 80px;" src="../images/gears.svg">
             <div ng-show="showInfo">
-                <form div="form" class="topBefore" style="font-size:20px;">
+                <form div="form" class="topBefore" style="font-size:20px; color:#6A735D;">
                     <h1>Wyszukaj po:</h1>
 
 
                     <p onclick="onclickHandler();">Kliknij ten akapit a wyświetli się pomoc!</p>
 
-                    <select ng-model="myVar">
+                    <select ng-model="myVar" style="color:#6A735D;">
                         <option value="numberWZ">Numer WZ</option>
                         <option value="nameClient">Nazwa klienta</option>
                         <option value="numberClient">Numer klienta</option>
@@ -36,34 +36,6 @@
                                    placeholder="Nazwa klienta">
                             <input class="submit" type="submit" value="Szukaj" ng-click="findByClient()">
 
-                            <!--<div ng-controller="DemoCtrl as ctrl" layout="column" ng-cloak >-->
-                                <!--<md-content class="md-padding">-->
-                                    <!--<form ng-submit="$event.preventDefault()" style="background-color: gainsboro">-->
-                                        <!--<md-autocomplete-->
-                                                <!--ng-disabled="ctrl.isDisabled"-->
-                                                <!--md-no-cache="ctrl.noCache"-->
-                                                <!--md-selected-item="ctrl.selectedItem"-->
-                                                <!--md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"-->
-                                                <!--md-search-text="ctrl.searchText"-->
-                                                <!--md-selected-item-change="ctrl.selectedItemChange(item)"-->
-                                                <!--md-items="item in ctrl.querySearch(ctrl.searchText)"-->
-                                                <!--md-item-text="item.display"-->
-                                                <!--md-min-length="0"-->
-                                                <!--placeholder="What is your favorite US state?">-->
-                                            <!--<md-item-template>-->
-                                                <!--<span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>-->
-                                            <!--</md-item-template>-->
-                                            <!--<md-not-found>-->
-                                                <!--No states matching "{{ctrl.searchText}}" were found.-->
-                                                <!--<a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>-->
-                                            <!--</md-not-found>-->
-                                        <!--</md-autocomplete>-->
-                                        <!--<br/>-->
-
-
-                                    <!--</form>-->
-                                <!--</md-content>-->
-                            <!--</div>-->
 
 
                         </div>
@@ -99,16 +71,15 @@
                         <thead>
                         <tr>
 
-                            <th style="background-color: #1C1D21" ts-criteria="NumberWZ|parseInt" ts-default>Numer WZ
-                            </th>
-                            <th style="background-color: #1C1D21" ts-criteria="subProcess|parseInt">Pod proces</th>
-                            <th style="background-color: #1C1D21" ts-criteria="client|lowercase">Klient</th>
-                            <th style="background-color: #1C1D21" ts-criteria="clientNumber|parseInt">Numer klienta</th>
-                            <th style="background-color: #1C1D21" ts-criteria="traderName|lowercase">Handlowiec</th>
-                            <th style="background-color: #1C1D21" ts-criteria="date|parseInt">Data zatwierdzenia</th>
-                            <th style="background-color: #1C1D21">Zwłoka</th>
-                            <th style="background-color: #1C1D21" ts-criteria="">Korekta</th>
-                            <th ng-show="userRoles" style="background-color: #1C1D21" ts-criteria="">ADMIN</th>
+                            <th class="menu_t " style="background-color: #1C1D21">Numer WZ</th>
+                            <th class="menu_t " style="background-color: #1C1D21" ts-criteria="subProcess|parseInt">Pod proces</th>
+                            <th class="menu_t " style="background-color: #1C1D21" ts-criteria="client|lowercase">Klient</th>
+                            <th class="menu_t " style="background-color: #1C1D21" ts-criteria="clientNumber|parseInt">Numer klienta</th>
+                            <th class="menu_t " style="background-color: #1C1D21" ts-criteria="traderName|lowercase">Handlowiec</th>
+                            <th class="menu_t " style="background-color: #1C1D21" ts-criteria="date|parseInt">Data zatwierdzenia</th>
+                            <th class="menu_t " style="background-color: #1C1D21">Zwłoka</th>
+                            <th class="menu_t " style="background-color: #1C1D21" ts-criteria="">Korekta</th>
+                            <th class="menu_t " ng-show="userRoles" style="background-color: #1C1D21" ts-criteria="">ADMIN</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -119,7 +90,7 @@
                             <td>{{document.client}}</td>
                             <td>{{document.clientNumber}}</td>
                             <td>{{document.traderName}}</td>
-                            <td>{{document.date | date:'MM/dd/yyyy - h:mma'}}</td>
+                            <td>{{document.date | date:'MM/dd/yyyy'}}</td>
                             <td>
                                 <timer start-time="document.date">{{days}} dni</timer>
                             </td>
@@ -185,14 +156,12 @@
                 <input style="margin-left: 100px; margin-top: 5px;" class="submitConfirmDialog" type="submit" value="Ok"
                        ng-click="reloadRoute(); closeThisDialog(0);">
             </script>
-
             <script type="text/ng-template" id="errorFindDocument">
                 <h1>Wystąpił błąd podczas szukania WZ.</h1>
                 <p>Brak połączenia z serwerem.</p>
                 <input style="background-color:rgb(221,44,0);" class="submitSuccess" type="submit" value="Ok"
                        ng-click="closeThisDialog(0);">
             </script>
-            <!--</div>-->
         </div>
     </div>
 

@@ -7,6 +7,7 @@ import pl.lenda.marcin.wzb.entity.ClientAccount;
 import pl.lenda.marcin.wzb.service.client_account.ClientAccountService;
 import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,7 +27,8 @@ public class ClientController {
     private ConvertTo convertTo;
 
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
+    @RolesAllowed("ADMIN")
     @RequestMapping(value = "/save_client", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -61,7 +63,7 @@ public class ClientController {
         clientAccountService.deleteAccountClient(clientAccount);
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/all_client", method = RequestMethod.GET)
     public List<ClientAccount> allClientAccount() {
         List<ClientAccount> listClient = new ArrayList<>();

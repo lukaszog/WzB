@@ -14,7 +14,6 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
             return $route.current && route === $route.current.controller;
         };
 
-
         var authenticated = function (credentials, callback) {
             AuthenticatedService.authenticatedUser(credentials, callback);
         };
@@ -30,7 +29,7 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
 
                 } else {
                     $scope.errorForm = "Błędne dane!";
-                    $location.path("/login");
+                    $location.path("/perform_login");
                     self.error = true;
                     $rootScope.authenticated = false;
                 }

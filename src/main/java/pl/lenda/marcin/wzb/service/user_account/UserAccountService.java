@@ -14,6 +14,8 @@ public interface UserAccountService {
 
     UserAccount findByUsername(String username);
 
+    UserAccount editData(UserAccount userAccount);
+
     UserAccount findByNameAndSurname(String name, String surname);
 
     UserAccount findByNumberUser(String numberUser);

@@ -20,7 +20,6 @@ app.controller('AdminController', function ($scope, $http, $rootScope, $route, $
         $rootScope.alertForAdmin = true;
     }
 
-
     $http({
         method: 'GET',
         url: HOST + '/find_correct',

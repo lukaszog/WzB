@@ -22,17 +22,8 @@
     <link href="bower_components/ng-dialog/css/ngDialog-theme-default.css" rel="stylesheet">
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-
-    <script>
-        $(function() {
-            $( "#datepicker-13" ).datepicker();
-            $( "#datepicker-13" ).datepicker("show");
-        });
-    </script>
-
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 
     <script type="text/javascript">
         function onclickHandler() {
@@ -51,7 +42,6 @@
 
 <body id="page-top" ng-app="myApp" ng-controller="MainController" class="ng-cloak">
 
-<div ng-show="alertForAdmin">cosodasdasd</div>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -64,7 +54,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="#/home"><img src="images/wzb25.png" alt="Sanza theme logo"></a>
+            <a class="navbar-brand page-scroll" href="#/home"><img src="images/wzb25.png" alt="WzB"></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LoginCtrl">
@@ -73,30 +63,31 @@
                     <a href="#page-top"></a>
                 </li>
                 <li ng-show="authenticated">
-                    <a class="page-scroll" href="#/home">O WzB</a>
+                    <a class="page-scroll" href="#/home">O WzB <md-icon md-svg-src='images/icons/about.svg'></md-icon></a>
                 </li>
                 <li ng-show="authenticated">
-                    <a class="page-scroll" href="#/search">Szukaj WZ</a>
+                    <a class="page-scroll" href="#/search">Szukaj WZ  <md-icon md-svg-src='images/icons/loop.svg'></md-icon></a>
                 </li>
                 <li ng-show="authenticated">
-                    <a class="page-scroll" href="#/account">Moje konto</a>
+                    <a class="page-scroll" href="#/account">Moje konto <md-icon md-svg-src='images/icons/my_account.svg'></md-icon></a>
                 </li>
                 <li ng-show="userRoles">
-                    <a class="page-scroll" href="#/admin">Administracja</a>
+                    <a class="page-scroll" href="#/admin">Administracja <md-icon md-svg-src='images/icons/admin.svg'></md-icon></a>
                 </li>
                 <li ng-show="authenticated">
-                    <a class="page-scroll" href="" ng-click="logout()">Wyloguj</a>
+                    <a class="page-scroll" href="" ng-click="logout()">Wyloguj <md-icon md-svg-src='images/icons/logout.svg'></md-icon></a>
                 </li>
 
             </ul>
         </div>
-        <!-- /.navbar-collapse -->
+
     </div>
-    <!-- /.container-fluid -->
+
 </nav>
-<!-- Header -->
+
 <div id="wrapper">
     <div id="test" ng-view></div>
+
 </div>
 
 
@@ -166,6 +157,8 @@
 <script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
 
 
+
+
 <script src="js/App.js"></script>
 <script src="js/controller/AddDocumentController.js"></script>
 <script src="js/controller/MainControllerController.js"></script>
@@ -175,7 +168,6 @@
 <script src="js/controller/TraderController.js"></script>
 <script src="js/controller/AdminController.js"></script>
 <script src="js/controller/LoginController.js"></script>
-<script src="js/controller/autocomplete.js"></script>
 <script src="js/controller/Main_Account_Controller.js"></script>
 <script src="js/controller/UserAccount.js"></script>
 
@@ -189,7 +181,6 @@
 <script src="js/directive/ConfirmDelete.js"></script>
 <script src="js/service/DocumentService.js"></script>
 <script src="js/config.js"></script>
-
 
 </body>
 

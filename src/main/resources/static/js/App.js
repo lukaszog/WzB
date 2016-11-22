@@ -19,8 +19,7 @@ var app = angular.module('myApp', [
             responseError: function (response) {
                 if (response.status === 401) {
                     //here I preserve login page
-                    $location.url('/');
-                    console.log("Errorrrr");
+                    $location.url('/main');
                     $rootScope.$broadcast('error');
                 }
                 return $q.reject(response);
@@ -32,11 +31,11 @@ var app = angular.module('myApp', [
     $routeProvider
         .when('/', {
             templateUrl: 'views/main.html',
-            controller: 'LoginCtrl'
+            controller: 'UserAccount'
         })
         .when('/main', {
             templateUrl: 'views/main.html',
-            controller: 'LoginCtrl'
+            controller: 'UserAccount'
         })
         .when('/home', {
             templateUrl: 'views/home.html',
@@ -119,9 +118,14 @@ var app = angular.module('myApp', [
             templateUrl: 'views/admin/all_client.html',
             controller: 'ClientOperation'
         })
+        .when('/test', {
+            templateUrl: 'views/test.html',
+            controller: 'MyCtrl'
+        })
+
         .otherwise({redirectTo: '/'});
 
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     $httpProvider.interceptors.push('httpInterceptor');
 
-});
+    });

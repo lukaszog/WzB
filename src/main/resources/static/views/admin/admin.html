@@ -2,10 +2,11 @@
     <div class="slider-container">
         <div class="intro-text">
 
-            <img ng-show="load" style="font-size: 10px; padding-top: 80px;" src="../images/gears.svg">
 
+
+            <div  ng-show="userRoles" >
+                <img ng-show="load" style="font-size: 10px; padding-top: 80px;" src="../images/gears.svg">
             <div ng-show="showInfo">
-
                 <div class="intro-heading">Panel administracyjny</div>
 
 
@@ -39,6 +40,7 @@
                     <a href="#/show_documents"><input type="submit" class="submitAdmin" value="Podgląd dokumentów"></a>
 
                 </div>
+            </div>
 
             </div>
 

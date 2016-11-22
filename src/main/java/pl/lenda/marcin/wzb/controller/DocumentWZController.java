@@ -1,17 +1,20 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.*;
 import pl.lenda.marcin.wzb.entity.DocumentWz;
+import pl.lenda.marcin.wzb.entity.HistoryDeleteDocumentWz;
+import pl.lenda.marcin.wzb.entity.UserAccount;
+import pl.lenda.marcin.wzb.repository.HistoryDeleteDocumentWzRepository;
 import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
 import pl.lenda.marcin.wzb.service.document_wz.DocumentWzServiceImplementation;
+import pl.lenda.marcin.wzb.service.user_account.UserAccountService;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Promar on 09.10.2016.
@@ -27,6 +30,10 @@ public class DocumentWZController {
 
     @Autowired
     private ConvertTo convertTo;
+    @Autowired
+    UserAccountService userAccountService;
+    @Autowired
+    HistoryDeleteDocumentWzRepository historyDeleteDocumentWzRepository;
     private final Map<String, Object> response = new LinkedHashMap<>();
 
     @Autowired
@@ -34,7 +41,7 @@ public class DocumentWZController {
         this.documentWzServiceImplementation = documentWzServiceImplementation;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/saveDocument")
     public
     @ResponseBody
@@ -52,15 +59,27 @@ public class DocumentWZController {
 
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/deleteDocument", method = RequestMethod.DELETE)
     public void deleteDocument(@RequestBody DocumentWzToDeleteDto documentWzToDeleteDto) {
         DocumentWz documentWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(
                 documentWzToDeleteDto.getNumberWZ(), documentWzToDeleteDto.getSubPro());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserAccount userAccount = userAccountService.findByUsername(authentication.getName());
+
+        HistoryDeleteDocumentWz historyDeleteDocumentWz = new HistoryDeleteDocumentWz();
+        historyDeleteDocumentWz.setNumberWZ(documentWzToDeleteDto.getNumberWZ());
+        historyDeleteDocumentWz.setSubPro(documentWzToDeleteDto.getSubPro());
+        historyDeleteDocumentWz.setNameClient(documentWz.getClient());
+        historyDeleteDocumentWz.setNameTrader(documentWz.getTraderName());
+        historyDeleteDocumentWz.setUser(userAccount.getUsername());
+        historyDeleteDocumentWz.setDate(new Date());
+        historyDeleteDocumentWzRepository.save(historyDeleteDocumentWz);
         documentWzServiceImplementation.removeDocumentWz(documentWz);
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/findByNumber", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -71,7 +90,7 @@ public class DocumentWZController {
         return convertTo.convertDocumentToDto(byNumberWz);
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/findByClient", method = RequestMethod.POST)
     public List<DocumentWzDto> findByClient(@RequestBody DocumentWzAbbreviationNameDto documentWzAbbreviationNameDto) {
         List<DocumentWz> listDocumentWZ;
@@ -84,7 +103,7 @@ public class DocumentWZController {
         return listDocumentWzDto;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/findByClientNumber", method = RequestMethod.POST)
     public List<DocumentWzDto> findByClientNumber(@RequestBody FindClientNumber findClientNumber) {
         List<DocumentWz> listDocumentWZ;
@@ -97,7 +116,7 @@ public class DocumentWZController {
         return listDocumentWzDto;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/findByTraderName", method = RequestMethod.POST)
     public List<DocumentWzDto> findByTraderName(@RequestBody String traderName) {
         List<DocumentWz> listDocumentWZ;
@@ -110,7 +129,7 @@ public class DocumentWZController {
         return listDocumentWzDto;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/showAllDocuments", method = RequestMethod.GET)
     public List<DocumentWzDto> findAll() {
         List<DocumentWzDto> listDocumentWzDto = new ArrayList<>();
@@ -123,7 +142,7 @@ public class DocumentWZController {
         return listDocumentWzDto;
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/by_correct", method = RequestMethod.PATCH)
     public void correctBy(@RequestBody FindByNumberWzDto findByNumberWzDto){
         DocumentWz byNumberWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(
@@ -132,13 +151,13 @@ public class DocumentWZController {
         documentWzServiceImplementation.createDocumentWz(byNumberWz);
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/find_correct", method = RequestMethod.GET)
     public List<DocumentWz> findCorrectionDocument(){
         return documentWzServiceImplementation.listByCorrectionDocuments();
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/find_nameteam", method = RequestMethod.POST)
     public @ResponseBody List<DocumentWz> findByNameTeam(@RequestBody String nameTeam){
         return documentWzServiceImplementation.findByNameTeam(nameTeam);

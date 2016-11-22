@@ -44,6 +44,11 @@ public class UserAccountImplementation implements UserAccountService{
     }
 
     @Override
+    public UserAccount editData(UserAccount userAccount) {
+        return userAccountRepository.save(userAccount);
+    }
+
+    @Override
     public UserAccount findByNameAndSurname(String name, String surname) {
         return userAccountRepository.findByNameAndSurname(name, surname);
     }

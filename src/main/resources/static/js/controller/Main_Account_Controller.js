@@ -3,11 +3,15 @@
  */
 
 
-app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', '$route', 'UserAccountService', 'ngDialog', 'HOST', function ($scope, $http, $rootScope, $route,  UserAccountService, ngDialog, HOST) {
+app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', '$route', 'UserAccountService', 'ngDialog', 'HOST', function ($scope, $http, $rootScope, $route, UserAccountService, ngDialog, HOST) {
 
     $scope.notActiveAccounts = [];
     $scope.editData = {};
     $scope.activeAccounts = [];
+    $rootScope.editName = '';
+    $scope.edit = {};
+    $scope.user = '';
+
 
     $scope.reloadRoute = function () {
         $route.reload();
@@ -51,6 +55,133 @@ app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', '$route', 'U
         });
 
     };
+
+    $scope.editName = function () {
+        ngDialog.open({
+            template: 'EditName',
+            controller: 'MainAccountCtrl',
+            className: 'ngdialog-theme-default'
+        });
+        $rootScope.username = $scope.editData.accounts.username;
+    };
+
+    $scope.editSurname = function () {
+        ngDialog.open({
+            template: 'EditSurname',
+            controller: 'MainAccountCtrl',
+            className: 'ngdialog-theme-default'
+        });
+        $rootScope.username = $scope.editData.accounts.username;
+    };
+
+    $scope.editNumber = function () {
+        ngDialog.open({
+            template: 'EditNumber',
+            controller: 'MainAccountCtrl',
+            className: 'ngdialog-theme-default'
+        });
+        $rootScope.username = $scope.editData.accounts.username;
+    };
+
+    $scope.editTeam = function () {
+        ngDialog.open({
+            template: 'EditTeam',
+            controller: 'MainAccountCtrl',
+            className: 'ngdialog-theme-default'
+        });
+        $rootScope.username = $scope.editData.accounts.username;
+    };
+
+    $scope.editMail = function () {
+        ngDialog.open({
+            template: 'EditEmail',
+            controller: 'MainAccountCtrl',
+            className: 'ngdialog-theme-default'
+        });
+        $rootScope.username = $scope.editData.accounts.username;
+    };
+
+    $scope.editDataAccount = function () {
+
+        $http({
+            method: 'POST',
+            url: HOST + '/myAccount/find_user',
+            data:{
+                    "username": $rootScope.username
+            },
+            headers: {'Content-type': 'application/json'},
+        }).success(function (data) {
+            $scope.user = data;
+        }).error(function (data) {
+            console.log('Nie udało pobrać się użytkownika.');
+
+        });
+
+        var username = $rootScope.username;
+        var name = '';
+        var surname = '';
+        var nameTeam = '';
+        var number = '';
+        var newUsername = '';
+
+
+        if($scope.edit.Name != null) {
+            name = $scope.edit.Name;
+        }
+
+        if($scope.edit.Surname != null){
+            surname = $scope.edit.Surname;
+        }
+
+        if($scope.edit.Number != null){
+            number = $scope.edit.Number;
+        }
+
+        if($scope.edit.Mail != null){
+           username = $scope.edit.Mail;
+        }
+
+        if($scope.edit.NameTeam != null){
+            nameTeam = $scope.edit.NameTeam;
+        }
+
+        if($scope.edit.Mail != null){
+            newUsername = $scope.edit.Mail;
+        }
+
+        $http({
+            method: 'POST',
+            url: HOST + '/myAccount/edit_date',
+            data:{
+                "username": username,
+                "newUsername": newUsername,
+                "name": name,
+                "surname": surname,
+                "numberUser": number,
+                "nameTeam": nameTeam
+
+            },
+            headers: {'Content-type': 'application/json'},
+        }).success(function (data) {
+            $rootScope.response = data.Success;
+
+            if($rootScope.response != '') {
+                ngDialog.open({
+                    template: 'response',
+                    controller: 'MainAccountCtrl',
+                    className: 'ngdialog-theme-default'
+                });
+            }
+                $rootScope.response2 = data.Error;
+
+            $route.reload();
+
+        }).error(function (data) {
+            $rootScope.response = 'Błąd z serwera.';
+
+        });
+    };
+
 
     $scope.blockAccount = function () {
         $rootScope.username = $scope.editData.accounts.username;
@@ -172,5 +303,6 @@ app.controller('MainAccountCtrl', ['$scope', '$http', '$rootScope', '$route', 'U
 
         UserAccountService.doneBlockAccount($scope.username);
     };
+
 
 }]);
