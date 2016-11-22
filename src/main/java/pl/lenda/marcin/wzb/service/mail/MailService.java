@@ -33,8 +33,8 @@ public class MailService {
         helper.setFrom(setFrom);
         helper.setSubject(setSubject);
         helper.setText(setText, true);
-        FileSystemResource res = new FileSystemResource(new java.io.File("C:\\Users\\Promar\\Desktop\\b5.png"));
-        helper.addInline("identifier1234", res);
+//        FileSystemResource res = new FileSystemResource(new java.io.File("C:\\Users\\Promar\\Desktop\\b5.png"));
+//        helper.addInline("identifier1234", res);
         javaMailSender.send(mimeMessage);
 
         return  mimeMessage;
