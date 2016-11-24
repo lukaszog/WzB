@@ -12,7 +12,7 @@ import pl.lenda.marcin.wzb.entity.TraderAccount;
 import pl.lenda.marcin.wzb.entity.UserAccount;
 import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
 import pl.lenda.marcin.wzb.service.document_wz.DocumentWzService;
-//import pl.lenda.marcin.wzb.service.mail.MailService;
+import pl.lenda.marcin.wzb.service.mail.MailService;
 import pl.lenda.marcin.wzb.service.trader.TraderService;
 import pl.lenda.marcin.wzb.service.user_account.UserAccountService;
 
@@ -40,8 +40,8 @@ public class AccountController {
     DocumentWzService documentWzService;
     @Autowired
     ConvertTo convertTo;
-//    @Autowired
-//    MailService mailService;
+    @Autowired
+    MailService mailService;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -120,7 +120,7 @@ public class AccountController {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
         userAccount.setActive(true);
         userAccountService.makeActiveAccount(userAccount);
-//        mailService.mailConfirmAccount(userAccount.getUsername(), userAccount.getName(), userAccount.getSurname(), userAccount.getUsername());
+        mailService.mailConfirmAccount(userAccount.getUsername(), userAccount.getName(), userAccount.getSurname(), userAccount.getUsername());
 
     }
 
