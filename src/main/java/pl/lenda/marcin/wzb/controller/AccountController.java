@@ -47,7 +47,7 @@ public class AccountController {
 
     private final Map<String, Object> response = new LinkedHashMap<>();
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/create_account", method = RequestMethod.POST)
     public Map<String, Object> createNewUser(@Valid @RequestBody UserAccountDto userAccountDto,
                                              BindingResult bindingResult) {
@@ -80,19 +80,19 @@ public class AccountController {
         return response;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping("/user")
     public Principal user(Principal user) {
         return user;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/find_notactive_account", method = RequestMethod.GET)
     public List<UserAccount> findUserNotActive() {
         return userAccountService.findNotActiveAccount();
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/active_account", method = RequestMethod.GET)
     public List<UserAccountDto> findAllActiveAccount() {
         List<UserAccountDto> listDto = new ArrayList();
@@ -114,7 +114,7 @@ public class AccountController {
         return listDto;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/make_active_account", method = RequestMethod.PATCH)
     public void makeAccountActive(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto) throws MessagingException {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
@@ -124,7 +124,7 @@ public class AccountController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/block_account", method = RequestMethod.PATCH)
     public void blockAccount(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto) {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
@@ -132,7 +132,7 @@ public class AccountController {
         userAccountService.registerNewUser(userAccount);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RolesAllowed("ADMIN")
     @RequestMapping(value = "/give_admin", method = RequestMethod.POST)
     public boolean giveRoleAdmin(@RequestBody String username) {
@@ -142,7 +142,7 @@ public class AccountController {
         return userAccountService.updateRole(userAccount);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RolesAllowed("ADMIN")
     @RequestMapping(value = "/give_user", method = RequestMethod.POST)
     public boolean giveRoleUser(@RequestBody String username) {
@@ -152,7 +152,7 @@ public class AccountController {
         return userAccountService.updateRole(userAccount);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/role", method = RequestMethod.GET)
     public boolean getRole() {
         if (userAccountService.getRoleOfLoggedUser().equals("ROLE_ADMIN")) {
@@ -161,7 +161,7 @@ public class AccountController {
         return false;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/user_info", method = RequestMethod.GET)
     public UserAccountDto userInfo() {
 
@@ -180,7 +180,7 @@ public class AccountController {
         return userAccountDto;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
     public Map<String, Object> changePassword(@RequestBody ChangePasswordDto changePasswordDto,
                                               BindingResult bindingResult) {
