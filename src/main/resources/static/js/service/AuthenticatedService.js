@@ -29,7 +29,7 @@ app.service('AuthenticatedService', function ($rootScope, $http, ngDialog, HOST)
             var data = response.data;
             if(data.name) {
                 $rootScope.authenticated = true;
-                $rootScope._username = data.name;
+                $rootScope._username = data.username;
                 console.log($rootScope._username);
                 $http({
                     method: 'GET',
@@ -78,7 +78,7 @@ app.service('AuthenticatedService', function ($rootScope, $http, ngDialog, HOST)
             if (data.name) {
                 console.log('tutaj'+ data.name);
                 $rootScope.authenticated = true;
-                $rootScope._username = data.name;
+                $rootScope._username = data.username;
                 $rootScope.admin = data && data.roles && data.roles.indexOf("ROLE_ADMIN")>-1;
 
                 $http({
