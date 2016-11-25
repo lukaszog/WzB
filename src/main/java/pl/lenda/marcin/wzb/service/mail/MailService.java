@@ -111,7 +111,7 @@ public class MailService {
                 "            padding: 8px;\n" +
                 "        }\n" +
                 "\n" +
-                "        tr:nth-child(even) {\n" +
+                "        tr:first-child(even) {\n" +
                 "            background-color: #dddddd;\n" +
                 "        }\n" +
                 "\n" +
