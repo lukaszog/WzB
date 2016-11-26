@@ -122,15 +122,15 @@ var app = angular.module('myApp', [
                 controller: 'ClientOperation'
             })
             .when('/history', {
-                templateUrl: 'views/history/history_menu.html',
+                templateUrl: 'views/admin/history/history_menu.html',
                 controller: 'HistoryCtrl'
             })
             .when('/all_delete_document', {
-                templateUrl: 'views/history/all_delete_document.html',
+                templateUrl: 'views/admin/history/all_delete_document.html',
                 controller: 'HistoryCtrl'
             })
             .when('/all_corrects_document', {
-                templateUrl: 'views/history/all_corrects_document.html',
+                templateUrl: 'views/admin/history/all_corrects_document.html',
                 controller: 'HistoryCtrl'
             })
             .when('/items', {
