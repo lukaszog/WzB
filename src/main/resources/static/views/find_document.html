@@ -4,7 +4,7 @@
             <img ng-show="load" style="font-size: 10px; padding-top: 80px;" src="../images/gears.svg">
             <div ng-show="showInfo">
                 <form div="form" class="topBefore" style="font-size:20px; color:#6A735D;">
-                    <h1>Wyszukaj po:</h1>
+                    <h1>Wyszukaj po:  <img src="images/icons/loupe.png"> </h1>
 
 
                     <p onclick="onclickHandler();">Kliknij ten akapit a wyświetli się pomoc!</p>
@@ -90,7 +90,7 @@
                             <td>{{document.client}}</td>
                             <td>{{document.clientNumber}}</td>
                             <td>{{document.traderName}}</td>
-                            <td>{{document.date | date:'MM/dd/yyyy'}}</td>
+                            <td>{{document.date | date:'dd/MM/yyyy'}}</td>
                             <td>
                                 <timer start-time="document.date">{{days}} dni</timer>
                             </td>

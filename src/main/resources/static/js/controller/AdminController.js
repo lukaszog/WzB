@@ -39,7 +39,7 @@ app.controller('AdminController', function ($scope, $http, $rootScope, $route, $
     })
         .success(function (data) {
             $scope.accountToActive = data.length;
-            console.log($scope.accountToActive);
+
 
         }).error(function (data) {
         console.log('Nie udało się ');

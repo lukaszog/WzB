@@ -50,7 +50,7 @@ app.controller('DocumentOperation', ['$scope', '$http', '$window', '$route', 'do
 
 
     $scope.clearInput = function () {
-        console.log('dzialam');
+
         $scope.form.numberWZ = '';
         $scope.form.subProcess = '';
         $scope.form.nameClient = '';

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import pl.lenda.marcin.wzb.entity.HistoryCorrectsDocument;
 import pl.lenda.marcin.wzb.entity.HistoryDeleteDocumentWz;
 import pl.lenda.marcin.wzb.service.history.HistoryService;
 
@@ -22,5 +23,10 @@ public class HistoryController {
     @RequestMapping(value = "/all_deleteE", method = RequestMethod.GET)
     public List<HistoryDeleteDocumentWz> showAllDocumentDelete(){
         return historyService.showAllDeleteDocument();
+    }
+
+    @RequestMapping(value = "/all_corrects", method = RequestMethod.GET)
+    public List<HistoryCorrectsDocument> showAllDocumentCorrects(){
+        return historyService.showAllCorrectsDocument();
     }
 }

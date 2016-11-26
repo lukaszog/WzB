@@ -55,7 +55,7 @@ app.controller('RegisterCtrl', function ($scope, $http, $location, HOST) {
                     $scope.reponseError = true;
                     $scope.numberAlreadyExists = false;
                     $scope.userAlreadyExists = false;
-                    console.log('jestem tu');
+
                 }
 
                 if ($scope.error == 'ExistsNumber') {

@@ -1,12 +1,11 @@
 package pl.lenda.marcin.wzb.service.mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import pl.lenda.marcin.wzb.base64.ImagesBase64;
+
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -26,8 +25,7 @@ public class MailService {
     MailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
-    @Autowired
-    private ImagesBase64 imagesBase64;
+
 
     public MimeMessage mailSend(String setTo, String setFrom, String setSubject, String setText) throws MessagingException {
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
@@ -36,8 +34,8 @@ public class MailService {
         helper.setFrom(setFrom);
         helper.setSubject(setSubject);
         helper.setText(setText, true);
-        FileSystemResource res = new FileSystemResource(new java.io.File("C:\\Users\\Promar\\Desktop\\b5.png"));
-        helper.addInline("identifier1234", res);
+//        FileSystemResource res = new FileSystemResource(new java.io.File("C:\\Users\\Promar\\Desktop\\b5.png"));
+//        helper.addInline("identifier1234", res);
         javaMailSender.send(mimeMessage);
 
         return  mimeMessage;
@@ -50,7 +48,7 @@ public class MailService {
         String line3 = "";
         String line4 = "";
         String line5 = "";
-        String ednContent = "    </table>\n" +
+        String ednContent = "</table>\n" +
                 "\n" +
                 "    <div style=\"text-align: center\">\n" +
                 "        <a href=\"http://52.39.52.69:8080/#/login\">\n" +
@@ -79,7 +77,6 @@ public class MailService {
                 "<html>\n" +
                 "<head>\n" +
                 "    <link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">\n" +
-                "    <link href=\"mail.css\" rel=\"stylesheet\">\n" +
                 "    <meta charset=\"utf-8\">\n" +
                 "    <style>\n" +
                 "\n" +
@@ -102,7 +99,7 @@ public class MailService {
                 "        }\n" +
                 "\n" +
                 "        p {\n" +
-                "            font-size: 23px;\n" +
+                "            font-size: 25px;\n" +
                 "        }\n" +
                 "\n" +
                 "        td, th {\n" +
@@ -111,7 +108,7 @@ public class MailService {
                 "            padding: 8px;\n" +
                 "        }\n" +
                 "\n" +
-                "        tr:first-child(even) {\n" +
+                "        tr:nth-child(even) {\n" +
                 "            background-color: #dddddd;\n" +
                 "        }\n" +
                 "\n" +
@@ -172,22 +169,22 @@ public class MailService {
                 "<body>\n" +
                 "\n" +
                 "<div id=\"content\">\n" +
-                "    <h1>Witaj "+ name +"!</h1>\n" +
-                "    <p>Aktywacja konta " +userName+ " przebiegła pomyślnie. Twoje dane to:</p>\n" +
+                "    <h1 style=\"font-size: 41px;\">Witaj "+name+"!</h1>\n" +
+                "    <p>Aktywacja konta "+userName+" przebiegła pomyślnie. Twoje dane to:</p>\n" +
                 "\n" +
-                "    <table>\n" +
+                "    <table style=\"margin: 0 auto;\">\n" +
                 "\n" +
                 "        <tr style=\"background-color: #23AD21; color:white;\">\n" +
-                "            <th style=\"width: 30%;\">E-mail</th>\n" +
-                "            <th style=\"width: 10%;\">Imie</th>\n" +
-                "            <th style=\"width: 30%;\">Nazwisko</th>\n" +
-                "            <th style=\"width: 15%;\">Numer pracownika</th>\n" +
+                "            <th style='width: 30%; font-size: 16px;'>E-mail</th>\n" +
+                "            <th style='width: 30%; font-size: 16px;'>Imie</th>\n" +
+                "            <th style='width: 30%; font-size: 16px;'>Nazwisko</th>\n" +
+                "            <th style='width: 30%; font-size: 16px;'>Numer pracownika</th>\n" +
                 "        </tr>";
 
-        line1 = "<th>" + userName + "</th>";
-        line2 = "<th>" + name + "</th>";
-        line3 = "<th>" + surname + "</th>";
-        line5 = "<th>" + number + "</th>";
+        line1 = "<th style=' font-size: 16px;'>" + userName + "</th>";
+        line2 = "<th style=' font-size: 16px;'>" + name + "</th>";
+        line3 = "<th style=' font-size: 16px;'>" + surname + "</th>";
+        line5 = "<th style=' font-size: 16px;'>" + number + "</th>";
 
         String allContent = content + line1 + line2 + line3 + line5 + ednContent;
 

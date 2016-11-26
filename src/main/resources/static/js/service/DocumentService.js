@@ -139,7 +139,6 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog, HOST) {
             headers: {'Content-type': 'application/json'},
         }).success(function (data) {
             $rootScope.documents = data;
-            console.log(data);
             $rootScope.notFindByTrader = false;
             $rootScope.notFindByNumberWZ = false;
             $rootScope.notFindByClienName = false;

@@ -7,8 +7,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.*;
 import pl.lenda.marcin.wzb.entity.DocumentWz;
+import pl.lenda.marcin.wzb.entity.HistoryCorrectsDocument;
 import pl.lenda.marcin.wzb.entity.HistoryDeleteDocumentWz;
 import pl.lenda.marcin.wzb.entity.UserAccount;
+import pl.lenda.marcin.wzb.repository.HistoryCorrectsDocumentRepository;
 import pl.lenda.marcin.wzb.repository.HistoryDeleteDocumentWzRepository;
 import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
 import pl.lenda.marcin.wzb.service.document_wz.DocumentWzServiceImplementation;
@@ -34,6 +36,9 @@ public class DocumentWZController {
     UserAccountService userAccountService;
     @Autowired
     HistoryDeleteDocumentWzRepository historyDeleteDocumentWzRepository;
+    @Autowired
+    HistoryCorrectsDocumentRepository historyCorrectsDocumentRepository;
+
     private final Map<String, Object> response = new LinkedHashMap<>();
 
     @Autowired
@@ -148,6 +153,18 @@ public class DocumentWZController {
         DocumentWz byNumberWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(
                 findByNumberWzDto.getNumberWZ(), findByNumberWzDto.getSubPro());
         byNumberWz.setBeCorrects(true);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserAccount userAccount = userAccountService.findByUsername(authentication.getName());
+
+        HistoryCorrectsDocument historyCorrectsDocument = new HistoryCorrectsDocument();
+        historyCorrectsDocument.setNumberWZ(byNumberWz.getNumberWZ());
+        historyCorrectsDocument.setSubPro(byNumberWz.getSubProcess());
+        historyCorrectsDocument.setUser(userAccount.getUsername());
+        historyCorrectsDocument.setNameClient(byNumberWz.getClient());
+        historyCorrectsDocument.setNameTrader(byNumberWz.getTraderName());
+        historyCorrectsDocument.setDate(new Date());
+        historyCorrectsDocumentRepository.save(historyCorrectsDocument);
         documentWzServiceImplementation.createDocumentWz(byNumberWz);
     }
 

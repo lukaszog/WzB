@@ -56,10 +56,6 @@ app.service('TraderService', function ($rootScope, $http, ngDialog, HOST) {
                 $rootScope.error = data.Error;
                 $rootScope.responseList = data;
 
-                console.log($rootScope.success);
-                console.log($rootScope.error);
-
-
                     angular.forEach($rootScope.responseList, function (value, key) {
                         $rootScope.name = value.name;
                         $rootScope.surname = value.surname;

@@ -2,25 +2,30 @@
     <div class="slider-container">
         <div class="intro-text">
 
-         <div ng-show="!authenticated">
-            <div style="font-weight: 800; font-size: 40px; padding: 15px;" class="intro-lead-in">Witaj na stronie WzB</div>
-            <div class="intro-heading">Zaloguj się lub załóż konto.</div>
-            <a  href="#/login" class="page-scroll btn btn-xl">Zaloguj / Zarejestruj</a>
+            <div ng-show="!authenticated">
+                <div style="font-weight: 800; font-size: 40px; padding: 15px;" class="intro-lead-in">Witaj na stronie
+                    WzB
+                </div>
+                <div style="margin: 0 auto">
+                    <img src="images/Q4.png">
+                </div>
+                <div style="font-size: 42px;" class="intro-heading">Zaloguj się lub załóż konto.</div>
+                <a href="#/login" class="page-scroll btn btn-xl">Zaloguj / Zarejestruj</a>
 
-        </div>
-        <div ng-show="authenticated">
-            <img ng-show="load" style="font-size: 10px; padding-top: 80px;" src="../images/gears.svg">
-
-            <div ng-show="showInfo">
-                <div style="letter-spacing: 1px;" class="intro-heading">Witaj {{nameUser}}</div>
-
-                <p style="font-size: 35px; font-family: 'Kreon', serif; color: #FFFFFF; line-height: 120%;"> Głównym
-                    zadaniem aplikacji jest wyszukiwanie nieodebranych dokumentów WZ.
-                    Każda zatwierdzona korekta będzie widoczna i trafi do archiwizacji.
-                    Dwa razy w miesiącu generuje listę nieodebranych dokumentów,
-                    gdzie zwłoka przekracza 14 dni i wysyła maila do konkretnego opiekuna danego klienta.</p>
             </div>
-        </div>
+            <div ng-show="authenticated">
+                <img ng-show="load" style="font-size: 10px; padding-top: 80px;" src="../images/gears.svg">
+
+                <div ng-show="showInfo">
+                    <div style="letter-spacing: 1px;" class="intro-heading">Witaj {{nameUser}}</div>
+
+                    <p style="font-size: 35px; font-family: 'Kreon', serif; color: #FFFFFF; line-height: 120%;">
+                        Aplikacja umożliwia szybkie zweryfikowanie, czy konkretny dokument WZ został odebrany. Dwa razy
+                        w miesiącu generuję listę, nieodebranych dokumentów gdzie zwłoka nieodbierania przekracza 14 dni
+                        i wysyła do opiekuna danego klienta. Oferuję też usystematyzowanie przepływu informacji
+                        dotyczącego zrobionej korekty. Zakładka rezerwacje fizycznie jest aktualnie w rozbudowie.</p>
+                </div>
+            </div>
 
 
         </div>

@@ -55,7 +55,7 @@ public class ClientController {
 
     }
 
-    @CrossOrigin
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/delete_client", method = RequestMethod.DELETE)
     public void deleteClient(@RequestBody ClientFindDto clientFindDto){
         ClientAccount clientAccount = clientAccountService.findByClientNameAndNumber(clientFindDto.getName(),

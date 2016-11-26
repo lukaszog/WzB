@@ -30,7 +30,7 @@ app.service('AuthenticatedService', function ($rootScope, $http, ngDialog, HOST)
             if(data.name) {
                 $rootScope.authenticated = true;
                 $rootScope._username = data.username;
-                console.log($rootScope._username);
+
                 $http({
                     method: 'GET',
                     url: HOST + '/myAccount/role'
@@ -76,7 +76,7 @@ app.service('AuthenticatedService', function ($rootScope, $http, ngDialog, HOST)
         }).then(function(response) {
             var data = response.data;
             if (data.name) {
-                console.log('tutaj'+ data.name);
+
                 $rootScope.authenticated = true;
                 $rootScope._username = data.username;
                 $rootScope.admin = data && data.roles && data.roles.indexOf("ROLE_ADMIN")>-1;
@@ -86,8 +86,6 @@ app.service('AuthenticatedService', function ($rootScope, $http, ngDialog, HOST)
                     url: HOST + '/myAccount/role'
                 }).then(function successCallback(response) {
                     $rootScope.userRoles = response.data;
-                    console.log('role '+$rootScope.userRoles);
-
                 }, function errorCallback(response) {
                     $rootScope.userRoles = false;
                 });
@@ -95,7 +93,6 @@ app.service('AuthenticatedService', function ($rootScope, $http, ngDialog, HOST)
         } else {
             self.authenticated = false;
             self.admin = false;
-                console.log('tutaj');
         }
             callback && callback(true);
         }, function(err) {

@@ -17,7 +17,7 @@ app.controller('ClientOperation', ['$scope', '$rootScope', '$http','$route', 'Cl
         headers: {'Content-type': 'application/json'},
     }).success(function (data) {
         $scope.clients = data;
-        console.log('asdasd');
+
 
     }).error(function (data) {
         console.log('Nie udało się pobrać WZ');

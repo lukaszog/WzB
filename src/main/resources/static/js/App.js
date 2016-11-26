@@ -19,8 +19,11 @@ var app = angular.module('myApp', [
             responseError: function (response) {
                 if (response.status === 401) {
                     //here I preserve login page
+                    if($location.absUrl() != 'http://52.39.52.69:8080/#/after_register')
                     $location.url('/main');
                     $rootScope.$broadcast('error');
+                }else if(response.status === 403){
+                    $location.url('/access_denied');
                 }
                 return $q.reject(response);
             }
@@ -119,12 +122,36 @@ var app = angular.module('myApp', [
                 controller: 'ClientOperation'
             })
             .when('/history', {
-                templateUrl: 'views/history/history.html',
+                templateUrl: 'views/history/history_menu.html',
                 controller: 'HistoryCtrl'
             })
             .when('/all_delete_document', {
                 templateUrl: 'views/history/all_delete_document.html',
                 controller: 'HistoryCtrl'
+            })
+            .when('/all_corrects_document', {
+                templateUrl: 'views/history/all_corrects_document.html',
+                controller: 'HistoryCtrl'
+            })
+            .when('/items', {
+                templateUrl: 'views/items/items_menu.html',
+                controller: 'ItemsOperation'
+            })
+            .when('/save_item', {
+                templateUrl: 'views/items/add_items.html',
+                controller: 'ItemsOperation'
+            })
+            .when('/all_items', {
+                templateUrl: 'views/items/items.html',
+                controller: 'ItemsOperation'
+            })
+            .when('/access_denied', {
+                templateUrl: 'views/access_denied.html',
+                controller: 'ItemsOperation'
+            })
+            .when('/under_construction', {
+                templateUrl: 'views/items/under_construction.html',
+                controller: 'ItemsOperation'
             })
 
             .otherwise({redirectTo: '/'});

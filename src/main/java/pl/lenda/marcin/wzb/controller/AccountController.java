@@ -167,7 +167,7 @@ public class AccountController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserAccount userAccount = userAccountService.findByUsername(authentication.getName());
-        TraderAccount traderAccount = traderService.findBySurname(userAccount.getUsername());
+        TraderAccount traderAccount = traderService.findBySurname(userAccount.getSurname());
 
         UserAccountDto userAccountDto = new UserAccountDto();
         userAccountDto = convertTo.converToUserAccountDto(userAccount);

@@ -17,14 +17,14 @@ app.controller('UserAccount', function ($scope, $http, $rootScope, $location, $t
 
 
     $scope.isViewLoading = false;
-    $scope.$on('$routeChangeStart', function() {
+    $scope.$on('$routeChangeStart', function () {
         $scope.isViewLoading = true;
-        console.log('param');
+
     });
-    $scope.$on('$routeChangeSuccess', function() {
+    $scope.$on('$routeChangeSuccess', function () {
         $scope.isViewLoading = false;
     });
-    $scope.$on('$routeChangeError', function() {
+    $scope.$on('$routeChangeError', function () {
         $scope.isViewLoading = false;
     });
 
@@ -102,7 +102,7 @@ app.controller('UserAccount', function ($scope, $http, $rootScope, $location, $t
 
 
             }).error(function (data) {
-            console.log("bład");
+
             ngDialog.open({
                 template: 'errorAccountUser',
                 controller: 'UserAccount',

@@ -54,7 +54,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="#/home"><img src="images/Q5.png" alt="WzB"></a>
+            <a ng-show="authenticated" class="navbar-brand page-scroll" href="#/home"><img src="images/Q5.png" alt="WzB"></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="LoginCtrl">
@@ -71,11 +71,14 @@
                 <li ng-show="authenticated">
                     <a class="page-scroll" href="#/account">Moje konto <md-icon md-svg-src='images/icons/my_account.svg'></md-icon></a>
                 </li>
+                <li ng-show="authenticated">
+                    <a class="page-scroll" href="#/under_construction">RF <md-icon md-svg-src='images/icons/rf.svg'></md-icon></a>
+                </li>
                 <li ng-show="userRoles">
                     <a class="page-scroll" href="#/admin">Administracja <md-icon md-svg-src='images/icons/admin.svg'></md-icon></a>
                 </li>
                 <li ng-show="authenticated">
-                    <a class="page-scroll" href="" ng-click="logout()">Wyloguj <md-icon md-svg-src='images/icons/logout.svg'></md-icon></a>
+                    <a class="page-scroll" href="" ng-click="logout()">Wyloguj <md-icon md-svg-src='images/icons/logout.svg' style="color:red;"></md-icon></a>
                 </li>
 
             </ul>
@@ -171,6 +174,7 @@
 <script src="js/controller/Main_Account_Controller.js"></script>
 <script src="js/controller/UserAccount.js"></script>
 <script src="js/controller/HistoryCtrl.js"></script>
+<script src="js/controller/ItemsCtrl.js"></script>
 
 
 <script src="js/controller/LoginController.js"></script>

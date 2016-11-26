@@ -2,12 +2,11 @@
  * Created by Promar on 22.11.2016.
  */
 
-app.controller('HistoryCtrl', ['$scope', '$http', '$route', '$rootScope','HOST','ngDialog',
-    function ($scope, $http, $route, $rootScope, TraderService,HOST, ngDialog) {
+app.controller('HistoryCtrl', ['$scope', '$http',
+    function ($scope, $http) {
 
     $scope.deleteDocument = [];
-
-
+    $scope.correctsDocument = [];
 
         $http({
             method: 'GET',
@@ -20,8 +19,16 @@ app.controller('HistoryCtrl', ['$scope', '$http', '$route', '$rootScope','HOST',
 
         });
 
+        $http({
+            method: 'GET',
+            url: '/all_corrects'
+        }).success(function (data) {
+            $scope.correctsDocument = data;
+
+        }).error(function (data) {
+            console.log('Nie udało się pobrać WZ');
+
+        });
 
 
-
-
-}]);
+    }]);
