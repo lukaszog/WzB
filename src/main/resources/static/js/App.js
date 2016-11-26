@@ -151,7 +151,7 @@ var app = angular.module('myApp', [
             })
             .when('/under_construction', {
                 templateUrl: 'views/items/under_construction.html',
-                controller: 'ItemsOperation'
+                controller: 'UserAccount'
             })
 
             .otherwise({redirectTo: '/'});
