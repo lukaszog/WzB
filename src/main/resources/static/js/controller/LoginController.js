@@ -3,12 +3,19 @@
  */
 
 
-app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$scope','AuthenticatedService', '$window',
-    function ($rootScope, $http, $location, $route, $scope, AuthenticatedService, $window) {
+app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$scope','$timeout','AuthenticatedService', '$window',
+    function ($rootScope, $http, $location, $route, $scope,$timeout, AuthenticatedService, $window) {
 
         var self = this;
         this.credentials = {};
         $rootScope.loginError = false;
+        $scope.showInfo = false;
+        $scope.load = true;
+
+        $timeout(function () {
+            $scope.showInfo = true;
+            $scope.load = false;
+        }, 4000);
 
         self.tab = function (route) {
             return $route.current && route === $route.current.controller;

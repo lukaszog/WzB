@@ -1,37 +1,139 @@
 /**
  * Created by Promar on 26.11.2016.
  */
-app.controller('ItemsOperation', ['$scope', '$http', '$window', '$route', 'documentWZ', 'HOST', function ($scope, $http, $window, $route, documentWZ, HOST) {
+app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$route', '$timeout', 'ItemsService', 'HOST', function ($scope, $rootScope, $http, $window, $route, $timeout, ItemsService, HOST) {
 
     $scope.form = {};
     $scope.listItems = '';
-    $scope.listClient = '';
+    $rootScope.listClient = '';
     $scope.resultListClient = [];
     $scope.resultListTrader = [];
+    $scope.load = true;
+    $scope.filterNameClient = false;
+    $scope.filterNameTrader = false;
+    $scope.filterNameTeam = false;
+    $scope.filterProvider = false;
+    $scope.filterDate = false;
+    $scope.filterNumberPro = false;
+    $scope.filterKBN = false;
+    $scope.filterBusinessSector = false;
+
+    $scope.showNumber = function() {
+        $scope.filterNumberPro = true;
+        $scope.filterNameClient = false;
+        $scope.filterNameTrader = false;
+        $scope.filterNameTeam = false;
+        $scope.filterProvider = false;
+        $scope.filterDate = false;
+        $scope.filterKBN = false;
+        $scope.filterBusinessSector = false;
+    };
+    $scope.showClient = function() {
+        $scope.filterNameClient = true;
+        $scope.filterNameTrader = false;
+        $scope.filterNameTeam = false;
+        $scope.filterProvider = false;
+        $scope.filterDate = false;
+        $scope.filterNumberPro = false;
+        $scope.filterKBN = false;
+        $scope.filterBusinessSector = false;
+    };
+    $scope.showTrader = function() {
+        $scope.filterNameTrader = true;
+        $scope.filterNameClient = false;
+        $scope.filterNameTeam = false;
+        $scope.filterProvider = false;
+        $scope.filterDate = false;
+        $scope.filterNumberPro = false;
+        $scope.filterKBN = false;
+        $scope.filterBusinessSector = false;
+    };
+    $scope.showTeam = function() {
+        $scope.filterNameTeam = true;
+        $scope.filterNameClient = false;
+        $scope.filterNameTrader = false;
+        $scope.filterProvider = false;
+        $scope.filterDate = false;
+        $scope.filterNumberPro = false;
+        $scope.filterKBN = false;
+        $scope.filterBusinessSector = false;
+    };
+    $scope.showProvider = function() {
+        $scope.filterProvider = true;
+        $scope.filterNameClient = false;
+        $scope.filterNameTrader = false;
+        $scope.filterNameTeam = false;
+        $scope.filterDate = false;
+        $scope.filterNumberPro = false;
+        $scope.filterKBN = false;
+        $scope.filterBusinessSector = false;
+    };
+    $scope.showDate = function() {
+        $scope.filterDate = true;
+        $scope.filterNameClient = false;
+        $scope.filterNameTrader = false;
+        $scope.filterNameTeam = false;
+        $scope.filterProvider = false;
+        $scope.filterNumberPro = false;
+        $scope.filterKBN = false;
+        $scope.filterBusinessSector = false;
+    };
+    $scope.showPro= function() {
+        $scope.filterNumberPro = true;
+        $scope.filterNameClient = false;
+        $scope.filterNameTrader = false;
+        $scope.filterNameTeam = false;
+        $scope.filterProvider = false;
+        $scope.filterDate = false;
+        $scope.filterKBN = false;
+        $scope.filterBusinessSector = false;
+    };
+    $scope.showKBN= function() {
+        $scope.filterKBN = true;
+        $scope.filterNameClient = false;
+        $scope.filterNameTrader = false;
+        $scope.filterNameTeam = false;
+        $scope.filterProvider = false;
+        $scope.filterDate = false;
+        $scope.filterNumberPro = false;
+        $scope.filterBusinessSector = false;
+    };
+    $scope.showBusiness= function() {
+        $scope.filterBusinessSector = true;
+        $scope.filterNameClient = false;
+        $scope.filterNameTrader = false;
+        $scope.filterNameTeam = false;
+        $scope.filterProvider = false;
+        $scope.filterDate = false;
+        $scope.filterNumberPro = false;
+        $scope.filterKBN = false;
+    };
+
+    $timeout(function () {
+        $scope.showInfo = true;
+        $scope.load = false;
+    }, 1500);
 
 
     $scope.reloadRoute = function () {
         $route.reload();
     };
 
+    $http({
+        method: 'GET',
+        url: HOST + '/findAll_items',
+        headers: {'Content-type': 'application/json'}
+    })
+        .success(function (data) {
+            $scope.listItems = data;
 
+        }).error(function (data) {
+        $rootScope.listClient = 'Nie udało się pobrać listy handlowców.'
+    });
 
-        $http({
-            method: 'GET',
-            url: HOST + '/findAll_items',
-            headers: {'Content-type': 'application/json'}
-        })
-            .success(function (data) {
-                $scope.listItems = data;
-
-            }).error(function (data) {
-            $scope.listClient = 'Nie udało się pobrać listy handlowców.'
-        });
-
-
-
-
-
+    $scope.runService = function () {
+        ItemsService.findAllItems();
+    };
     $scope.addItems = function () {
         $http({
             method: 'POST',
@@ -51,11 +153,13 @@ app.controller('ItemsOperation', ['$scope', '$http', '$window', '$route', 'docum
             headers: {'Content-type': 'application/json'}
         })
             .success(function (data) {
-                console.log('dodano');
+                    console.log('dodano');
                 }
             ).error(function (data) {
-                console.log('nie dodano');
+            console.log('nie dodano');
         });
     };
+
+
 
 }]);

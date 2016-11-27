@@ -65,6 +65,11 @@ public class AccountController {
             return response;
         }
 
+        if(userAccountDto.getNumberUser().startsWith("0")){
+            response.put("Error", "Start_with_0");
+            return response;
+        }
+
         if (userAccountService.findByNumberUser(userAccountDto.getNumberUser()) != null) {
             response.put("Error", "ExistsNumber");
             return response;

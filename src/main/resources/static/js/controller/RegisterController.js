@@ -12,6 +12,7 @@ app.controller('RegisterCtrl', function ($scope, $http, $location, HOST) {
     $scope.userAlreadyExists = false;
     $scope.numberAlreadyExists = false;
     $scope.wrongPass = false;
+    $scope.numberStart0= false;
 
     $scope.registerUser = function () {
 
@@ -42,6 +43,7 @@ app.controller('RegisterCtrl', function ($scope, $http, $location, HOST) {
                         $scope.userAlreadyExists = false;
                         $scope.numberAlreadyExisits = false;
                         $scope.wrongPass = false;
+                        $scope.numberStart0= false;
                         $scope.reponseError = false;
                         if (value == 'ExistsUser') {
                             $scope.userAlreadyExists = true;
@@ -55,15 +57,23 @@ app.controller('RegisterCtrl', function ($scope, $http, $location, HOST) {
                     $scope.reponseError = true;
                     $scope.numberAlreadyExists = false;
                     $scope.userAlreadyExists = false;
-
+                    $scope.numberStart0= false;
                 }
 
                 if ($scope.error == 'ExistsNumber') {
                     $scope.numberAlreadyExists = true;
                     $scope.userAlreadyExisits = false;
                     $scope.wrongPass = false;
+                    $scope.numberStart0= false;
                     $scope.reponseError = true;
                 }
+
+                if ($scope.error == 'Start_with_0') {
+                    $scope.numberAlreadyExists = false;
+                    $scope.userAlreadyExisits = false;
+                    $scope.wrongPass = false;
+                    $scope.numberStart0= true;
+                    $scope.reponseError = true;                }
 
                 if ($scope.success == 'Create') {
                     $location.path("/after_register");

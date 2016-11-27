@@ -16,6 +16,7 @@ app.controller('UserAccount', function ($scope, $http, $rootScope, $location, $t
     }, 1500);
 
 
+
     $scope.isViewLoading = false;
     $scope.$on('$routeChangeStart', function () {
         $scope.isViewLoading = true;
