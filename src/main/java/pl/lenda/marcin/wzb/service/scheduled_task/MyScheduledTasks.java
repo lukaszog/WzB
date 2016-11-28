@@ -44,8 +44,8 @@ public class MyScheduledTasks {
         this.mailService = mailService;
     }
 
-    @Scheduled(fixedRate = 10000000)
-    public void sendMailToCustomers() throws MessagingException, InterruptedException {
+    @Scheduled(fixedRate = 1000000)
+    public void sendMailToCustomers() throws MessagingException {
 
         List<UserAccount> userAccounts = userAccountService.findAllAccount();
         List<TraderAccount> traderAccounts = new ArrayList<>();
@@ -54,18 +54,12 @@ public class MyScheduledTasks {
 
             if (traderService.findByTraderSurnameAndNumber(user.getSurname(), user.getNumberUser()) != null) {
                 traderAccounts.add(traderService.findByTraderSurnameAndNumber(user.getSurname(), user.getNumberUser()));
-                System.out.println("Znalazłem handlowca: " + traderService.findByTraderSurnameAndNumber(user.getSurname(), user.getNumberUser()));
+                System.out.println("Znalazłem handlowca: "+traderService.findByTraderSurnameAndNumber(user.getSurname(), user.getNumberUser()));
             }
         }
         System.out.println(traderAccounts.toString());
         List<DocumentWz> documentsWZ = new ArrayList<>();
-
-        //when variable numberOfWz is bigger from 20, we sends two message email to trader
-        String content2 = null;
-
-        //helps variable to send email
-        boolean sendOneMessage = false;
-        boolean sendMultiPartMessage = false;
+        boolean send = false;
         Integer howManyDocumentsToSend = 0;
         String startTable = "<tr>";
         String endTable = "</tr>";
@@ -74,7 +68,9 @@ public class MyScheduledTasks {
         String line3 = "";
         String line4 = "";
         String line5 = "";
-        String endContent = " </table>\n" +
+        String line6 = "";
+        long counter = 0;
+        String endContent =  " </table>\n" +
                 "    <p style=\"font-size: 17px;\">Gdybyś miał zamiar zrobić korektę do któregoś z dokumentów poinformuj nas o tym na: <a\n" +
                 "            href=\"http://52.39.52.69:8080/#/login\">\n" +
                 "        <input style=\"width:150px; margin-top: 30px;\" type=\"button\" value=\"WzB\">\n" +
@@ -97,8 +93,6 @@ public class MyScheduledTasks {
         //Variable to calculate date and time difference
         long diff = 0;
         long diffDays = 0;
-        // Variable specifying the amount document WZ
-        long numberOfWz = 0;
 
 
         //HH converts hour in 24 hours format (0-23), day calculation
@@ -207,92 +201,61 @@ public class MyScheduledTasks {
                     "<body>\n" +
                     "\n" +
                     "<div id=\"content\">\n" +
-                    "    <h1>Witaj " + traderAccounts.get(i).getName() + "!</h1>\n" +
+                    "    <h1>Witaj "+traderAccounts.get(i).getName()+"!</h1>\n" +
                     "    <p>Oto lista nieodebranych dokumentów WZ przez Twoich klientów.</p>\n" +
                     "\n" +
                     "    <table style=\"margin: 0 auto\">\n" +
                     "\n" +
                     "        <tr style=\"background-color: #23AD21; color:white;\">\n" +
+                    "            <th style=\"width: 30%; font-size: 16px;\">#</th>\n" +
                     "            <th style=\"width: 30%; font-size: 16px;\">Numer WZ</th>\n" +
                     "            <th style=\"width: 10%; font-size: 16px;\">Pod proces</th>\n" +
                     "            <th style=\"width: 30%; font-size: 16px;\">Klient</th>\n" +
                     "            <th style=\"width: 15%; font-size: 16px;\">Numer klienta</th>\n" +
                     "            <th style=\"width: 15%; font-size: 16px;\">Zwłoka</th>\n" +
                     "        </tr>";
-                    content2 = content;
-            if (documentsWZ.size() > 0) {
+
+            if(documentsWZ.size() > 0) {
                 for (int j = 0; j < documentsWZ.size(); j++) {
 
+
+                    ++counter;
 
                     diff = new Date().getTime() - documentsWZ.get(j).getDate().getTime();
                     diffDays = diff / (24 * 60 * 60 * 1000);
 
-                    if (diffDays > 10) {
-
-                        ++numberOfWz;
-
-                        if (numberOfWz <= 18) {
-                            content = content + startTable;
-                            line1 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getNumberWZ() + "</th>";
-                            line2 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getSubProcess() + "</th>";
-                            line3 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getClient() + "</th>";
-                            line5 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getClientNumber() + "</th>";
-                            line4 = "<th style=\"font-size: 16px; color: red;\">" + diffDays + " dni" + "</th>";
-                            content = content + line1 + line2 + line3 + line5 + line4 + endTable;
-                            howManyDocumentsToSend++;
-                            sendOneMessage = true;
-
-
-                        } else if (numberOfWz > 18) {
-                            content2 = content2 + startTable;
-
-                            line1 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getNumberWZ() + "</th>";
-                            line2 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getSubProcess() + "</th>";
-                            line3 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getClient() + "</th>";
-                            line5 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getClientNumber() + "</th>";
-                            line4 = "<th style=\"font-size: 16px; color: red;\">" + diffDays + " dni" + "</th>";
-                            content2 = content2 + line1 + line2 + line3 + line5 + line4 + endTable;
-                            howManyDocumentsToSend++;
-                            sendMultiPartMessage = true;
-                        }
-
+                    if(diffDays>10) {
+                        content = content + startTable;
+                        line6 = "<th style=' font-size: 16px;'>" + counter + "</th>";
+                        line1 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getNumberWZ() + "</th>";
+                        line2 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getSubProcess() + "</th>";
+                        line3 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getClient() + "</th>";
+                        line5 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getClientNumber() + "</th>";
+                        line4 = "<th style=\"font-size: 16px; color: red;\">" + diffDays + " dni" + "</th>";
+                        content = content + line1 + line2 + line3 + line5 + line4 + endTable;
+                        howManyDocumentsToSend ++;
+                        send = true;
                     }
 
                     diff = 0;
                     diffDays = 0;
                 }
-                if (sendOneMessage) {
+                if(send) {
                     content = content + endContent;
-                    mail.setSubject("Nieodebrane dokumenty WZ " + "(ilość:"+ howManyDocumentsToSend +" ) " + traderAccounts.get(i).getName() + " "
+                    mail.setSubject("Nieodebrane dokumenty WZ:"+howManyDocumentsToSend + " " +traderAccounts.get(i).getName() +" "
                             + traderAccounts.get(i).getSurname().toString());
                     mail.setContent(content);
                     String to = userAccountService.findByNameAndSurname(traderAccounts.get(i).getName(),
                             traderAccounts.get(i).getSurname()).getUsername();
-                    System.out.println("Wyslac do" + to);
-                    mail.setFrom("wzbims@gmail.com");
-                    mailService.mailSend("mlenda@bimsplus.com.pl", mail.getFrom(), mail.getSubject(), mail.getContent());
-
-                }
-
-                if (sendMultiPartMessage) {
-                    content2 = content2 + endContent;
-                    mail.setSubject("Nieodebrane dokumenty WZ częśc druga " + "(ilość:"+ howManyDocumentsToSend +" ) " + traderAccounts.get(i).getName() + " "
-                            + traderAccounts.get(i).getSurname().toString());
-                    mail.setContent(content2);
-                    String to = userAccountService.findByNameAndSurname(traderAccounts.get(i).getName(),
-                            traderAccounts.get(i).getSurname()).getUsername();
-                    System.out.println("Wyslac do" + to);
+                    System.out.println("Wyslac do"+to);
                     mail.setFrom("wzbims@gmail.com");
                     mailService.mailSend("mlenda@bimsplus.com.pl", mail.getFrom(), mail.getSubject(), mail.getContent());
                 }
                 documentsWZ.clear();
-                numberOfWz = 0;
-                sendOneMessage = false;
-                sendMultiPartMessage = false;
                 content = "";
-                content2 = "";
+                send = false;
                 howManyDocumentsToSend = 0;
-                Thread.sleep(10000);
+                counter = 0;
 
             }
         }
