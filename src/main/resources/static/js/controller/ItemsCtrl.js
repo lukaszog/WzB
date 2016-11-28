@@ -112,7 +112,7 @@ app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$
     $timeout(function () {
         $scope.showInfo = true;
         $scope.load = false;
-    }, 1500);
+    }, 900);
 
 
     $scope.reloadRoute = function () {

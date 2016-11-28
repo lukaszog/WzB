@@ -8,15 +8,15 @@
                     <thead>
                     <tr>
 
-                        <th style="background-color: #1C1D21" ts-criteria="NumberWZ|parseInt" ts-default>Numer WZ</th>
+                        <th style="background-color: #1C1D21">Numer WZ</th>
                         <th style="background-color: #1C1D21" ts-criteria="subProcess|parseInt">Podproces</th>
                         <th style="background-color: #1C1D21" ts-criteria="client|lowercase">Klient</th>
                         <th style="background-color: #1C1D21" ts-criteria="clientNumber|parseInt">Numer klienta</th>
                         <th style="background-color: #1C1D21" ts-criteria="traderName|lowercase">Handlowiec</th>
                         <th style="background-color: #1C1D21" ts-criteria="date|parseInt">Data zatwierdzenia</th>
-                        <th style="background-color: #1C1D21" ts-criteria="">Zwłoka</th>
-                        <th style="background-color: #1C1D21" ts-criteria="">Korekta</th>
-                        <th style="background-color: #1C1D21" ts-criteria="">ADMIN</th>
+                        <th style="background-color: #1C1D21" >Zwłoka</th>
+                        <th style="background-color: #1C1D21" >Korekta</th>
+                        <th style="background-color: #1C1D21" >ADMIN</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -27,7 +27,7 @@
                         <td>{{document.client}}</td>
                         <td>{{document.clientNumber}}</td>
                         <td>{{document.traderName}}</td>
-                        <td>{{document.date | date:'MM/dd/yyyy - h:mma'}}</td>
+                        <td>{{document.date | date:'MM/dd/yyyy'}}</td>
                         <td>
                             <timer start-time="document.date">{{days}} dni</timer>
                         </td>

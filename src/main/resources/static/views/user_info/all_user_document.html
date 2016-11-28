@@ -7,13 +7,13 @@
                     <thead>
                     <tr>
 
-                        <th ts-criteria="NumberWZ|parseInt" ts-default>Numer WZ</th>
+                        <th>Numer WZ</th>
                         <th ts-criteria="subProcess|parseInt">Podproces</th>
                         <th ts-criteria="client|lowercase">Klient</th>
                         <th ts-criteria="clientNumber|parseInt">Numer klienta</th>
                         <th ts-criteria="traderName|lowercase">Handlowiec</th>
-                        <th ts-criteria="date|date">Data zatwierdzenia</th>
-                        <th ts-criteria="date|date">Zwłoka</th>
+                        <th ts-criteria="date|parseInt">Data zatwierdzenia</th>
+                        <th>Zwłoka</th>
 
 
                     </tr>
@@ -25,7 +25,7 @@
                         <td>{{document.client}}</td>
                         <td>{{document.clientNumber}}</td>
                         <td>{{document.traderName}}</td>
-                        <td>{{document.date | date:'MM/dd/yyyy - h:mma'}}</td>
+                        <td>{{document.date | date:'MM/dd/yyyy'}}</td>
                         <td><timer start-time="document.date">{{days}} dni </timer></td>
                         </td>
                     </tr>

@@ -13,7 +13,7 @@ app.controller('UserAccount', function ($scope, $http, $rootScope, $location, $t
     $timeout(function () {
         $scope.showInfo = true;
         $scope.load = false;
-    }, 1500);
+    }, 900);
 
 
 

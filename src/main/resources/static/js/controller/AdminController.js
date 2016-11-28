@@ -14,7 +14,7 @@ app.controller('AdminController', function ($scope, $http, $rootScope, $route, $
     $timeout(function () {
         $scope.showInfo = true;
         $scope.load = false;
-    }, 1500);
+    }, 900);
 
     if ($scope.correct > 0) {
         $rootScope.alertForAdmin = true;

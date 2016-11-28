@@ -14,7 +14,7 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
     $timeout(function () {
         $scope.showInfo = true;
         $scope.load = false;
-    }, 1500);
+    }, 900);
 
     $scope.reloadRoute = function () {
         $route.reload();
