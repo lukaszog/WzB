@@ -231,7 +231,7 @@ public class MyScheduledTasks {
 
                         ++numberOfWz;
 
-                        if (numberOfWz <= 2) {
+                        if (numberOfWz <= 18) {
                             content = content + startTable;
                             line1 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getNumberWZ() + "</th>";
                             line2 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getSubProcess() + "</th>";
@@ -243,7 +243,7 @@ public class MyScheduledTasks {
                             sendOneMessage = true;
 
 
-                        } else if (numberOfWz > 2) {
+                        } else if (numberOfWz > 18) {
                             content2 = content2 + startTable;
 
                             line1 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getNumberWZ() + "</th>";
