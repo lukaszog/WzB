@@ -1,6 +1,7 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +17,6 @@ import pl.lenda.marcin.wzb.service.mail.MailService;
 import pl.lenda.marcin.wzb.service.trader.TraderService;
 import pl.lenda.marcin.wzb.service.user_account.UserAccountService;
 
-import javax.annotation.security.RolesAllowed;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.security.Principal;
@@ -92,12 +92,14 @@ public class AccountController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/find_notactive_account", method = RequestMethod.GET)
     public List<UserAccount> findUserNotActive() {
         return userAccountService.findNotActiveAccount();
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/active_account", method = RequestMethod.GET)
     public List<UserAccountDto> findAllActiveAccount() {
         List<UserAccountDto> listDto = new ArrayList();
@@ -120,6 +122,7 @@ public class AccountController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/make_active_account", method = RequestMethod.PATCH)
     public void makeAccountActive(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto) throws MessagingException {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
@@ -130,6 +133,7 @@ public class AccountController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/block_account", method = RequestMethod.PATCH)
     public void blockAccount(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto) {
         UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
@@ -138,7 +142,7 @@ public class AccountController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
-    @RolesAllowed("ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/give_admin", method = RequestMethod.POST)
     public boolean giveRoleAdmin(@RequestBody String username) {
 
@@ -148,7 +152,7 @@ public class AccountController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
-    @RolesAllowed("ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/give_user", method = RequestMethod.POST)
     public boolean giveRoleUser(@RequestBody String username) {
 
@@ -187,8 +191,7 @@ public class AccountController {
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/change_password", method = RequestMethod.POST)
-    public Map<String, Object> changePassword(@RequestBody ChangePasswordDto changePasswordDto,
-                                              BindingResult bindingResult) {
+    public Map<String, Object> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
         response.clear();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserAccount userAccount = userAccountService.findByUsername(authentication.getName());
@@ -210,19 +213,24 @@ public class AccountController {
         }
     }
 
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
     public void removeAccount(@RequestBody UserAccountActiveOrRemoveDto userAccountActiveOrRemoveDto){
        UserAccount userAccount = userAccountService.findByUsername(userAccountActiveOrRemoveDto.getUsername());
         userAccountService.removeAccount(userAccount);
     }
 
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/find_user", method = RequestMethod.POST)
     public UserAccount findUserAccount(@RequestBody FindUserAccountDto findUserAccountDto){
       UserAccount userAccount = userAccountService.findByUsername(findUserAccountDto.getUsername());
         return userAccount;
     }
 
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/edit_date", method = RequestMethod.POST)
+    @Secured("ROLE_ADMIN")
     public Map<String, Object> updateUserAccount(@RequestBody UpdateUserAccountDto updateUserAccountDto){
         response.clear();
         UserAccount userAccount = userAccountService.findByUsername(updateUserAccountDto.getUsername());

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,11 +25,13 @@ public class LoginController {
     @Autowired
     ConvertTo convertTo;
 
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(path = "/unauthorized", method = RequestMethod.GET)
     public ResponseEntity<Void> login() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(path = "/success", method = RequestMethod.GET)
     public ResponseEntity<UserAccountDto> success() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

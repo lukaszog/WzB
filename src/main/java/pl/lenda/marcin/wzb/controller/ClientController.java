@@ -1,13 +1,13 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.ClientFindDto;
 import pl.lenda.marcin.wzb.entity.ClientAccount;
 import pl.lenda.marcin.wzb.service.client_account.ClientAccountService;
 import pl.lenda.marcin.wzb.service.convert_class.ConvertTo;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,7 +28,7 @@ public class ClientController {
 
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
-    @RolesAllowed("ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/save_client", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -56,6 +56,7 @@ public class ClientController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/delete_client", method = RequestMethod.DELETE)
     public void deleteClient(@RequestBody ClientFindDto clientFindDto){
         ClientAccount clientAccount = clientAccountService.findByClientNameAndNumber(clientFindDto.getName(),
@@ -64,6 +65,7 @@ public class ClientController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/all_client", method = RequestMethod.GET)
     public List<ClientAccount> allClientAccount() {
         List<ClientAccount> listClient = new ArrayList<>();

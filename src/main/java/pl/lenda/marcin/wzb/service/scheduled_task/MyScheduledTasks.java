@@ -24,11 +24,10 @@ import java.util.List;
 @Component
 public class MyScheduledTasks {
 
-    private static final SimpleDateFormat dateFormat =
-            new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-    private final String setTo = "acymanowski@bimsplus.com.pl";
+
+
     private Mail mail = new Mail();
-    private Date date;
+
 
 
     @Autowired
@@ -106,7 +105,7 @@ public class MyScheduledTasks {
                     "\n" +
                     "<html>\n" +
                     "<head>\n" +
-                    "    <!--<link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">-->\n" +
+                    "    <link href=\"https://fonts.googleapis.com/css?family=Roboto\" rel=\"stylesheet\">\n" +
                     "    <meta charset=\"utf-8\">\n" +
                     "    <style>\n" +
                     "\n" +
@@ -207,12 +206,12 @@ public class MyScheduledTasks {
                     "    <table style=\"margin: 0 auto\">\n" +
                     "\n" +
                     "        <tr style=\"background-color: #23AD21; color:white;\">\n" +
-                    "            <th style=\"width: 30%; font-size: 16px;\">#</th>\n" +
-                    "            <th style=\"width: 30%; font-size: 16px;\">Numer WZ</th>\n" +
+                    "            <th style=\"width: 10%; font-size: 16px;\">#</th>\n" +
+                    "            <th style=\"width: 25%; font-size: 16px;\">Numer WZ</th>\n" +
                     "            <th style=\"width: 10%; font-size: 16px;\">Pod proces</th>\n" +
-                    "            <th style=\"width: 30%; font-size: 16px;\">Klient</th>\n" +
-                    "            <th style=\"width: 15%; font-size: 16px;\">Numer klienta</th>\n" +
-                    "            <th style=\"width: 15%; font-size: 16px;\">Zwłoka</th>\n" +
+                    "            <th style=\"width: 35%; font-size: 16px;\">Klient</th>\n" +
+                    "            <th style=\"width: 10%; font-size: 16px;\">Numer klienta</th>\n" +
+                    "            <th style=\"width: 10%; font-size: 16px;\">Zwłoka</th>\n" +
                     "        </tr>";
 
             if(documentsWZ.size() > 0) {
@@ -247,7 +246,7 @@ public class MyScheduledTasks {
                     mail.setContent(content);
                     String to = userAccountService.findByNameAndSurname(traderAccounts.get(i).getName(),
                             traderAccounts.get(i).getSurname()).getUsername();
-                    System.out.println("Wyslac do"+to);
+                    System.out.println("Wiadomosc ma zostac wyslana do: "+to);
                     mail.setFrom("wzbims@gmail.com");
                     mailService.mailSend("mlenda@bimsplus.com.pl", mail.getFrom(), mail.getSubject(), mail.getContent());
                 }

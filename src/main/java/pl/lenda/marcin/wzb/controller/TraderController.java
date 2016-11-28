@@ -1,6 +1,7 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import pl.lenda.marcin.wzb.dto.FindTraderAccount;
 import pl.lenda.marcin.wzb.dto.TraderAccountDto;
@@ -32,6 +33,7 @@ public class TraderController {
 
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/save_trader", method = RequestMethod.POST)
     public Map<String, Object> saveTrader(@RequestBody TraderAccountDto traderAccountDto){
         response.clear();
@@ -66,7 +68,8 @@ public class TraderController {
         return traderAccount;
     }
 
-    @RequestMapping(value = "/delete_trader", method = RequestMethod.DELETE)
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     public void deleteTraderAccount(@RequestBody TraderToDeleteDto traderToDeleteDto){
         TraderAccount traderAccount = traderService.findByTraderSurnameAndNumber(traderToDeleteDto.getSurname(),
                 traderToDeleteDto.getNumberTrader());

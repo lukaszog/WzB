@@ -16,7 +16,7 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
  * Created by Promar on 06.11.2016.
  */
 @Configuration
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired

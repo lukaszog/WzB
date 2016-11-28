@@ -176,9 +176,9 @@ public class MailService {
                 "\n" +
                 "        <tr style=\"background-color: #23AD21; color:white;\">\n" +
                 "            <th style='width: 30%; font-size: 16px;'>E-mail</th>\n" +
-                "            <th style='width: 30%; font-size: 16px;'>Imie</th>\n" +
+                "            <th style='width: 25%; font-size: 16px;'>Imie</th>\n" +
                 "            <th style='width: 30%; font-size: 16px;'>Nazwisko</th>\n" +
-                "            <th style='width: 30%; font-size: 16px;'>Numer pracownika</th>\n" +
+                "            <th style='width: 15%; font-size: 16px;'>Numer pracownika</th>\n" +
                 "        </tr>";
 
         line1 = "<th style=' font-size: 16px;'>" + userName + "</th>";

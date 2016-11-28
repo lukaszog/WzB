@@ -1,6 +1,7 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
@@ -47,6 +48,7 @@ public class DocumentWZController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/saveDocument")
     public
     @ResponseBody
@@ -65,6 +67,7 @@ public class DocumentWZController {
     }
 
     @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/deleteDocument", method = RequestMethod.DELETE)
     public void deleteDocument(@RequestBody DocumentWzToDeleteDto documentWzToDeleteDto) {
         DocumentWz documentWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(

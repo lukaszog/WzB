@@ -1,6 +1,7 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,11 +21,13 @@ public class HistoryController {
     @Autowired
     HistoryService historyService;
 
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/all_deleteE", method = RequestMethod.GET)
     public List<HistoryDeleteDocumentWz> showAllDocumentDelete(){
         return historyService.showAllDeleteDocument();
     }
 
+    @CrossOrigin(origins = "http://52.39.52.69:8080")
     @RequestMapping(value = "/all_corrects", method = RequestMethod.GET)
     public List<HistoryCorrectsDocument> showAllDocumentCorrects(){
         return historyService.showAllCorrectsDocument();
