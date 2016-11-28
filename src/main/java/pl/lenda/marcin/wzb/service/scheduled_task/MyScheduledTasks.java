@@ -232,7 +232,7 @@ public class MyScheduledTasks {
                         line3 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getClient() + "</th>";
                         line5 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getClientNumber() + "</th>";
                         line4 = "<th style=\"font-size: 16px; color: red;\">" + diffDays + " dni" + "</th>";
-                        content = content + line1 + line2 + line3 + line5 + line4 + endTable;
+                        content = content+ line6 + line1 + line2 + line3 + line5 + line4 + endTable;
                         howManyDocumentsToSend ++;
                         send = true;
                     }
