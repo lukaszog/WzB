@@ -219,7 +219,7 @@ public class MyScheduledTasks {
                     "            <th style=\"width: 15%; font-size: 16px;\">Numer klienta</th>\n" +
                     "            <th style=\"width: 15%; font-size: 16px;\">Zwłoka</th>\n" +
                     "        </tr>";
-
+                    content2 = content;
             if (documentsWZ.size() > 0) {
                 for (int j = 0; j < documentsWZ.size(); j++) {
 
@@ -231,7 +231,7 @@ public class MyScheduledTasks {
 
                         ++numberOfWz;
 
-                        if (numberOfWz < 20) {
+                        if (numberOfWz <= 2) {
                             content = content + startTable;
                             line1 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getNumberWZ() + "</th>";
                             line2 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getSubProcess() + "</th>";
@@ -242,9 +242,10 @@ public class MyScheduledTasks {
                             howManyDocumentsToSend++;
                             sendOneMessage = true;
 
-                        } else if (numberOfWz > 20) {
+
+                        } else if (numberOfWz > 2) {
                             content2 = content2 + startTable;
-                            content = content + startTable;
+
                             line1 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getNumberWZ() + "</th>";
                             line2 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getSubProcess() + "</th>";
                             line3 = "<th style=' font-size: 16px;'>" + documentsWZ.get(j).getClient() + "</th>";
@@ -271,21 +272,23 @@ public class MyScheduledTasks {
                     mail.setFrom("wzbims@gmail.com");
                     mailService.mailSend("mlenda@bimsplus.com.pl", mail.getFrom(), mail.getSubject(), mail.getContent());
 
-                    if (sendMultiPartMessage) {
-                        content2 = content2 + endContent;
-                        mail.setSubject("Nieodebrane dokumenty WZ częśc druga " + "(ilość:"+ howManyDocumentsToSend +" ) " + traderAccounts.get(i).getName() + " "
-                                + traderAccounts.get(i).getSurname().toString());
-                        mail.setContent(content);
-                        to = userAccountService.findByNameAndSurname(traderAccounts.get(i).getName(),
-                                traderAccounts.get(i).getSurname()).getUsername();
-                        System.out.println("Wyslac do" + to);
-                        mail.setFrom("wzbims@gmail.com");
-                        mailService.mailSend("mlenda@bimsplus.com.pl", mail.getFrom(), mail.getSubject(), mail.getContent());
-                    }
+                }
+
+                if (sendMultiPartMessage) {
+                    content2 = content2 + endContent;
+                    mail.setSubject("Nieodebrane dokumenty WZ częśc druga " + "(ilość:"+ howManyDocumentsToSend +" ) " + traderAccounts.get(i).getName() + " "
+                            + traderAccounts.get(i).getSurname().toString());
+                    mail.setContent(content2);
+                    String to = userAccountService.findByNameAndSurname(traderAccounts.get(i).getName(),
+                            traderAccounts.get(i).getSurname()).getUsername();
+                    System.out.println("Wyslac do" + to);
+                    mail.setFrom("wzbims@gmail.com");
+                    mailService.mailSend("mlenda@bimsplus.com.pl", mail.getFrom(), mail.getSubject(), mail.getContent());
                 }
                 documentsWZ.clear();
                 numberOfWz = 0;
                 sendOneMessage = false;
+                sendMultiPartMessage = false;
                 content = "";
                 content2 = "";
                 howManyDocumentsToSend = 0;
