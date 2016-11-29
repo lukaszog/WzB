@@ -12,6 +12,7 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
     $scope.load = true;
 
     $scope.names = [];
+    $scope.trader = [];
 
     //--------------------------------------------------------------------------------------
 
@@ -22,6 +23,19 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
         headers: {'Content-type': 'application/json'},
     }).success(function (data) {
         $scope.names = data;
+
+    }).error(function (data) {
+        console.log('Nie udało pobrać się użytkowników.');
+
+    });
+
+    $http({
+        method: 'GET',
+        url: HOST + '/all_trader',
+
+        headers: {'Content-type': 'application/json'},
+    }).success(function (data) {
+        $scope.trader = data;
 
     }).error(function (data) {
         console.log('Nie udało pobrać się użytkowników.');
@@ -95,6 +109,7 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
 
     $scope.findByClient = function () {
         var client = this.nameClient.title;
+        $scope.spin = false;
 
         documentWZ.findByClientName(client);
     };
@@ -105,7 +120,7 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
     };
 
     $scope.findByTrader = function () {
-        var traderName = $scope.form.nameTrader;
+        var traderName = this.nameTrader.title;
         documentWZ.findByTrader(traderName);
     }
 
