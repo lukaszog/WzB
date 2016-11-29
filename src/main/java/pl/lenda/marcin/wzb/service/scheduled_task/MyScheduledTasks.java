@@ -43,7 +43,7 @@ public class MyScheduledTasks {
         this.mailService = mailService;
     }
 
-    @Scheduled(fixedRate = 1000000)
+    @Scheduled(fixedRate = 36000000)
     public void sendMailToCustomers() throws MessagingException {
 
         List<UserAccount> userAccounts = userAccountService.findAllAccount();

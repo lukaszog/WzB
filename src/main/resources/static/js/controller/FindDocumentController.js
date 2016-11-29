@@ -2,7 +2,7 @@
  * Created by Promar on 12.10.2016.
  */
 
-app.controller('findDocument', function ($scope, $http, $rootScope, $route, $location, $timeout, documentWZ, ngDialog) {
+app.controller('findDocument', function ($scope, $http, $rootScope, $route, $location, $timeout, documentWZ, ngDialog, HOST) {
 
     $scope.form = {};
     $scope.empty = [];
@@ -10,6 +10,37 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
     $scope.editData = {};
     $scope.showInfo = false;
     $scope.load = true;
+
+    $scope.names = [];
+
+    //--------------------------------------------------------------------------------------
+
+    $http({
+        method: 'GET',
+        url: HOST + '/all_client',
+
+        headers: {'Content-type': 'application/json'},
+    }).success(function (data) {
+        $scope.names = data;
+
+    }).error(function (data) {
+        console.log('Nie udało pobrać się użytkowników.');
+
+    });
+
+    $scope.spin = false;
+
+    $scope.focusIn = function() {
+        $scope.spin = true;
+        $scope.message = 'Szukam ...';
+
+    };
+    $scope.focusOut = function() {
+        $scope.spin = false;
+        $scope.message = '';
+    };
+
+    //_-----------------------------------------------------------------------
 
     $timeout(function () {
         $scope.showInfo = true;
@@ -63,7 +94,8 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
     };
 
     $scope.findByClient = function () {
-        var client = $scope.form.nameClient;
+        var client = this.nameClient.title;
+
         documentWZ.findByClientName(client);
     };
 
