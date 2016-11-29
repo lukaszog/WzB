@@ -17,14 +17,14 @@ public class Reserved_ItemsController {
     @Autowired
     Reserved_ItemsService reserved_itemsService;
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/save_items", method = RequestMethod.POST)
     public void saveItems(@RequestBody Reserved_Items reserved_items){
         reserved_itemsService.saveItems(reserved_items);
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/findAll_items", method = RequestMethod.GET)
     public List<Reserved_Items> allItems(){
         return reserved_itemsService.findAll();

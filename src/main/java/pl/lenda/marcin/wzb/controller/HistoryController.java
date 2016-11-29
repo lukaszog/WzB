@@ -21,13 +21,13 @@ public class HistoryController {
     @Autowired
     HistoryService historyService;
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/all_deleteE", method = RequestMethod.GET)
     public List<HistoryDeleteDocumentWz> showAllDocumentDelete(){
         return historyService.showAllDeleteDocument();
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/all_corrects", method = RequestMethod.GET)
     public List<HistoryCorrectsDocument> showAllDocumentCorrects(){
         return historyService.showAllCorrectsDocument();

@@ -25,13 +25,13 @@ public class LoginController {
     @Autowired
     ConvertTo convertTo;
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(path = "/unauthorized", method = RequestMethod.GET)
     public ResponseEntity<Void> login() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @CrossOrigin(origins = "http://52.39.52.69:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(path = "/success", method = RequestMethod.GET)
     public ResponseEntity<UserAccountDto> success() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

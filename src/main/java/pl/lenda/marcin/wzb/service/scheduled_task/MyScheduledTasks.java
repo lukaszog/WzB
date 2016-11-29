@@ -71,7 +71,7 @@ public class MyScheduledTasks {
         long counter = 0;
         String endContent =  " </table>\n" +
                 "    <p style=\"font-size: 17px;\">Gdybyś miał zamiar zrobić korektę do któregoś z dokumentów poinformuj nas o tym na: <a\n" +
-                "            href=\"http://52.39.52.69:8080/#/login\">\n" +
+                "            href=\"http://wzb24.pl/#/login\">\n" +
                 "        <input style=\"width:150px; margin-top: 30px;\" type=\"button\" value=\"WzB\">\n" +
                 "    </a></p>\n" +
                 "\n" +
