@@ -19,7 +19,8 @@ var app = angular.module('myApp', [
             responseError: function (response) {
                 if (response.status === 401) {
                     //here I preserve login page
-                    if($location.absUrl() != 'http://wzb24.pl/#/after_register')
+                    if($location.absUrl() != 'http://wzb24.pl/#/after_register' &&
+                        $location.absUrl() != 'http://wzb24.pl/#/login')
                     $location.url('/main');
                     $rootScope.$broadcast('error');
                 }else if(response.status === 403){
