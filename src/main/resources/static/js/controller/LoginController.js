@@ -15,7 +15,7 @@ app.controller('LoginCtrl', ['$rootScope', '$http', '$location', '$route', '$sco
         $timeout(function () {
             $scope.showInfo = true;
             $scope.load = false;
-        }, 4000);
+        }, 1500);
 
         self.tab = function (route) {
             return $route.current && route === $route.current.controller;

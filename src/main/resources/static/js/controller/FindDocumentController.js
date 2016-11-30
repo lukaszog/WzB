@@ -2,7 +2,7 @@
  * Created by Promar on 12.10.2016.
  */
 
-app.controller('findDocument', function ($scope, $http, $rootScope, $route, $location, $timeout, documentWZ, ngDialog, HOST) {
+app.controller('findDocument', function ($scope, $http, $rootScope, $route, $location, $timeout, $interval, documentWZ, ngDialog, HOST) {
 
     $scope.form = {};
     $scope.empty = [];
@@ -13,8 +13,13 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
 
     $scope.names = [];
     $scope.trader = [];
+    $scope.clientSpin = false;
+    $scope.traderSpin = false;
+
 
     //--------------------------------------------------------------------------------------
+
+
 
     $http({
         method: 'GET',
@@ -42,17 +47,19 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
 
     });
 
-    $scope.spin = false;
+
 
     $scope.focusIn = function() {
-        $scope.spin = true;
-        $scope.message = 'Szukam ...';
+        $scope.clientSpin = true;
+        $scope.message = 'Sprawdzam ...';
 
     };
     $scope.focusOut = function() {
-        $scope.spin = false;
+        $scope.clientSpin = false;
         $scope.message = '';
     };
+
+
 
     //_-----------------------------------------------------------------------
 
@@ -108,10 +115,14 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
     };
 
     $scope.findByClient = function () {
-        var client = this.nameClient.title;
-        $scope.spin = false;
-
+       var client = '';
+        if(this.nameClient != null) {
+            client = this.nameClient.title;
+        }
+        $scope.clientSpin = false;
+        $scope.message = '';
         documentWZ.findByClientName(client);
+
     };
 
     $scope.findByClientNumber = function () {
@@ -120,7 +131,13 @@ app.controller('findDocument', function ($scope, $http, $rootScope, $route, $loc
     };
 
     $scope.findByTrader = function () {
-        var traderName = this.nameTrader.title;
+        var traderName = '';
+        if(this.nameTrader != null){
+            traderName = this.nameTrader.title;
+        }
+        $scope.clientSpin = false;
+        $scope.message = '';
+
         documentWZ.findByTrader(traderName);
     }
 

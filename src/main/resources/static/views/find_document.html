@@ -32,14 +32,10 @@
                         </div>
                         <div ng-switch-when="nameClient">
 
-
-                            <!--<input class="inputDocument" type="text" ng-model="form.nameClient"-->
-                            <!--placeholder="Nazwa klienta">-->
-
                             <angucomplete-alt id="ex1"
                                               focus-in="focusIn()"
                                               focus-out="focusOut()"
-                                              placeholder="Search names"
+                                              placeholder="Podaj nazwe klienta"
                                               pause="200"
                                               selected-object="nameClient"
                                               local-data="names"
@@ -47,23 +43,15 @@
                                               title-field="abbreviationName"
                                               minlength="3"
                                               input-class="inputDocument"
-                                              input-name="country8a"
+                                              input-name="test3"
                                               input-changed="inputChanged">
                             </angucomplete-alt>
 
                             <input class="submit" type="submit" value="Szukaj" ng-click="findByClient()">
                             <div>
-                                <img ng-show="spin" style="font-size: 10px; padding-top: 80px;" src="../images/icons/spin.svg">
+                                <img style="margin-top: 5px;" ng-show="clientSpin" style="font-size: 10px; padding-top: 80px;" src="../images/icons/spin.svg">
                                 <p ng-bind="message"></p>
                             </div>
-
-                            <!--<img style="font-size: 10px; padding-top: 80px;" src="../images/icons/spin.svg">-->
-
-
-
-
-
-
 
 
                         </div>
@@ -78,9 +66,24 @@
                         </div>
                         <div ng-switch-when="nameTrader">
 
-                            <input class="inputDocument" type="text" ng-model="form.nameTrader"
-                                   placeholder="Handlowiec">
+                            <angucomplete-alt id="ex2"
+                                              focus-in="focusIn()"
+                                              focus-out="focusOut()"
+                                              placeholder="Podaj nazwe handlowca"
+                                              pause="200"
+                                              selected-object="nameTrader"
+                                              local-data="trader"
+                                              search-fields="surname"
+                                              title-field="surname"
+                                              minlength="2"
+                                              input-class="inputDocument"
+                                              input-changed="inputChanged">
+                            </angucomplete-alt>
                             <input class="submit" type="submit" value="Szukaj" ng-click="findByTrader()">
+                            <div>
+                                <img style="margin-top: 5px;" ng-show="clientSpin" style="font-size: 10px; padding-top: 80px;" src="../images/icons/spin.svg">
+                                <p ng-bind="message"></p>
+                            </div>
 
                         </div>
                         <div ng-switch-when="nameTeam">
