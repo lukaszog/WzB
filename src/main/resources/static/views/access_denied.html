@@ -2,7 +2,10 @@
     <div class="slider-container">
         <div class="intro-text">
 
-            <img src="images/access_denied.png">
+            <img ng-show="load" style="font-size: 10px; padding-top: 80px;" src="../images/gears.svg">
+            <div ng-show="showInfo">
+                <img src="images/access_denied.png">
+            </div>
 
         </div>
     </div>

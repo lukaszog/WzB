@@ -65,7 +65,6 @@ public class ClientController {
     }
 
     @CrossOrigin(origins = "http://wzb24.pl")
-    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/all_client", method = RequestMethod.GET)
     public List<ClientAccount> allClientAccount() {
         List<ClientAccount> listClient = new ArrayList<>();

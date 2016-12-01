@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Document
 public class Reserved_Items {
 
+    private String id;
+
     private String numberPro;
 
     private String contentItem;
@@ -33,8 +35,9 @@ public class Reserved_Items {
     public Reserved_Items(){
     }
 
-    public Reserved_Items(String numberPro, String contentItem, String clientName, String traderName, String nameTeam,
+    public Reserved_Items(String id, String numberPro, String contentItem, String clientName, String traderName, String nameTeam,
                           String kbn, String provider, String businessSector, String dateAccepted, String priceItem) {
+        this.id = id;
         this.numberPro = numberPro;
         this.contentItem = contentItem;
         this.clientName = clientName;
@@ -45,6 +48,14 @@ public class Reserved_Items {
         this.businessSector = businessSector;
         this.dateAccepted = dateAccepted;
         this.priceItem = priceItem;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNumberPro() {

@@ -1,5 +1,6 @@
 package pl.lenda.marcin.wzb.entity;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,6 +11,9 @@ import java.util.Date;
  */
 @Document
 public class HistoryCorrectsDocument {
+
+    @Id
+    private String id;
 
     private String numberWZ;
 
@@ -27,7 +31,8 @@ public class HistoryCorrectsDocument {
     public HistoryCorrectsDocument(){
     }
 
-    public HistoryCorrectsDocument(String numberWZ, String subPro, String nameClient, String nameTrader, String user, Date date) {
+    public HistoryCorrectsDocument(String id, String numberWZ, String subPro, String nameClient, String nameTrader, String user, Date date) {
+        this.id = id;
         this.numberWZ = numberWZ;
         this.subPro = subPro;
         this.nameClient = nameClient;
@@ -82,5 +87,13 @@ public class HistoryCorrectsDocument {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
