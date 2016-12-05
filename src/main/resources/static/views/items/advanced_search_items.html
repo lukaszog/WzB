@@ -71,7 +71,7 @@
 
                     <table class="table" ts-wrapper>
                         <thead>
-                        <tr>
+                        <tr ng-show="editOff">
                             <th>#</th>
                             <th>Numer procesu</th>
                             <th>Opis towaru</th>
@@ -81,13 +81,15 @@
                             <th ts-criteria="kbn|lowercase">KBN</th>
                             <th ts-criteria="provider|lowercase">Dostawca</th>
                             <th ts-criteria="businessSector|lowercase">Dział</th>
-                            <th ts-criteria="dateAccepted|date">Data</th>
-                            <th ts-criteria="priceItem|parseInt">Cena (netto)</th>
+                            <th ts-criteria="dateAccepted|date">ZWŁOKA</th>
+                            <th>Szt.</th>
+                            <th ts-criteria="priceItem|parseFloat">Cena (netto)</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in listItems | filter:search" ts-repeat>
+                        <tr ng-show="editOff" ng-repeat="item in listItems | filter:search" ts-repeat
+                            ng-click="editData.items = item; showEdit();">
                             <td>{{$index +1}}</td>
                             <td>{{item.numberPro}}</td>
                             <td>{{item.contentItem}}</td>
@@ -97,8 +99,20 @@
                             <td>{{item.kbn}}</td>
                             <td>{{item.provider}}</td>
                             <td>{{item.businessSector}}</td>
-                            <td>{{item.dateAccepted | date:'MM/dd/yyyy'}}</td>
-                            <td>{{item.priceItem | currency}}</td>
+                            <td ng-if="item.delay<14" style="background: #18F73E">
+                                <timer start-time="item.dateAccepted">{{days}} dni</timer>
+                            </td>
+                            <td ng-if="item.delay>14" style="background: #FFF726">
+                                <timer start-time="item.dateAccepted">{{days}} dni</timer>
+                            </td>
+                            <td ng-if="item.delay>31" style="background: #FF7800">
+                                <timer start-time="item.dateAccepted">{{days}} dni</timer>
+                            </td>
+                            <td ng-if="item.delay>60" style="background: #FF0000">
+                                <timer start-time="item.dateAccepted">{{days}} dni</timer>
+                            </td>
+                            <td>{{item.pieces}}</td>
+                            <td>{{item.allPrice * item.pieces | currency}}</td>
                         </tr>
                         </tbody>
                     </table>

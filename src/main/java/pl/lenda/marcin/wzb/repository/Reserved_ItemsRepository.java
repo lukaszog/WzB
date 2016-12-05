@@ -13,4 +13,10 @@ import java.util.List;
 public interface Reserved_ItemsRepository extends MongoRepository<Reserved_Items, String> {
 
     List<Reserved_Items> findAll();
+
+    Reserved_Items findById(String id);
+
+    void delete(Reserved_Items reserved_items);
+
+    List<Reserved_Items> findByNameTeam(String nameTeam);
 }

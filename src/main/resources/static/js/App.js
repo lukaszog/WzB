@@ -5,7 +5,9 @@
 
 // Declare app level module which depends on views, and components
 var app = angular.module('myApp', [
-    'ngRoute', 'ngResource', 'ngDialog', 'tableSort', 'ngMaterial', 'ngMessages', 'timer', 'config', 'angucomplete-alt'
+    'ngRoute', 'ngResource', 'ngDialog', 'tableSort', 'ngMaterial', 'ngMessages', 'timer', 'config', 'angucomplete-alt',
+    'ng-fusioncharts'
+
 
 ])
     .factory('httpInterceptor', function ($q, $rootScope, $location) {
@@ -136,7 +138,7 @@ var app = angular.module('myApp', [
             })
             .when('/items', {
                 templateUrl: 'views/items/items_menu.html',
-                controller: 'ItemsOperation'
+                controller: 'Statistics'
             })
             .when('/save_item', {
                 templateUrl: 'views/items/add_items.html',
@@ -158,10 +160,24 @@ var app = angular.module('myApp', [
                 templateUrl: 'views/items/advanced_search_items.html',
                 controller: 'ItemsOperation'
             })
+            .when('/statistics', {
+                templateUrl: 'views/items/statistics.html',
+                controller: 'Statistics'
+            })
+            .when('/minimenu', {
+                templateUrl: 'views/items/ItemsMiniMenu.html',
+                controller: 'Statistics'
+            })
+            .when('/allTeam', {
+                templateUrl: 'views/items/allTeam.html',
+                controller: 'Statistics'
+            })
 
             .otherwise({redirectTo: '/'});
 
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         $httpProvider.interceptors.push('httpInterceptor');
+
+
 
     });

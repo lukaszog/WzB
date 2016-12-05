@@ -2,7 +2,6 @@ package pl.lenda.marcin.wzb.entity;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.Date;

@@ -11,11 +11,11 @@
                     <input style="font-size: 20px;" type="text" ng-model="search.$" placeholder="Wprowadź frazę.">
                 </div>
                 <a style="font-size: 18px;" href="#/advanced_search" ng-click="runService()" >Zawansowane wyszukiwanie.</a>
-                <div id="showDocument">
+                <div id="showItems">
 
                     <table class="table" ts-wrapper>
                         <thead>
-                        <tr>
+                        <tr ng-show="editOff">
                             <th>#</th>
                             <th>Numer procesu</th>
                             <th>Opis towaru</th>
@@ -25,13 +25,15 @@
                             <th ts-criteria="kbn|lowercase">KBN</th>
                             <th ts-criteria="provider|lowercase">Dostawca</th>
                             <th ts-criteria="businessSector|lowercase">Dział</th>
-                            <th ts-criteria="dateAccepted|date">Data</th>
-                            <th ts-criteria="priceItem|parseFloat">Cena (netto)</th>
+                            <th ts-criteria="dateAccepted|parseInt">ZWŁOKA</th>
+                            <th>Szt.</th>
+                            <th ts-criteria="allPrice|parseInt">Cena (netto)</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in listItems | filter:search" ts-repeat>
+                        <tr ng-show="editOff" ng-repeat="item in listItems | filter:search" ts-repeat
+                            ng-click="editData.items = item; showEdit();">
                             <td>{{$index +1}}</td>
                             <td>{{item.numberPro}}</td>
                             <td>{{item.contentItem}}</td>
@@ -41,18 +43,77 @@
                             <td>{{item.kbn}}</td>
                             <td>{{item.provider}}</td>
                             <td>{{item.businessSector}}</td>
-                            <td>{{item.dateAccepted | date:'MM/dd/yyyy'}}</td>
-                            <td>{{item.priceItem | currency}}</td>
+                            <td ng-if="item.delay<14" style="background: #18F73E">
+                               {{item.delay}}
+                            </td>
+                            <td ng-if="item.delay>14 && item.delay<31" style="background: #FFF726">
+                                {{item.delay}}
+                            </td>
+                            <td ng-if="item.delay>=31 && item.delay<60" style="background: #FF7800">
+                                {{item.delay}}
+                            </td>
+                            <td ng-if="item.delay>=60" style="background: #FF0000">
+                                {{item.delay}}
+                            </td>
+                            <td>{{item.pieces}}</td>
+                            <td>{{item.allPrice | currency}}</td>
                         </tr>
                         </tbody>
-                    </table>
-                </div>
 
+
+                        <thead>
+                        <tr ng-show="editOn">
+                            <th style="background: #3258A6;">#</th>
+                            <th style="background: #3258A6;">OPIS TOWARU</th>
+                            <th style="background: #3258A6;">HANDLOWIEC</th>
+                            <th style="background: #3258A6;">KBN</th>
+                            <th style="background: #3258A6;">PROCES</th>
+                            <th style="background: #3258A6;">CENA(szt.)</th>
+                            <th style="background: #3258A6;">STAN (szt.)</th>
+                            <th style="background: #3258A6; width: 128px;">ODPISZ (szt.)</th>
+                            <th style="background: #3258A6;">ZATWIERDŹ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-show="editOn">
+                            <!--ng-click="editData.documents = document; showToEdit();">-->
+                            <td>{{$index +1}}</td>
+                            <td>{{editItem.contentItem}}</td>
+                            <td>{{editItem.traderName}}</td>
+                            <td>{{editItem.kbn}}</td>
+                            <td>{{editItem.numberPro}}</td>
+                            <td>{{editItem.priceItem | currency}}</td>
+                            <td>{{editItem.pieces}}</td>
+                            <td ng-show="offEditNumber" ng-click="editItemPieces()">{{startPieces}}</td>
+                            <td ng-show="editNumber">
+                                <input style="width:50px;" type="text" ng-model="modelPieces.op" placeholder="1">
+                                <a class="smallConfirm" ng-click="save()"> <md-icon md-svg-src='images/icons/confirmSmall.svg'></md-icon></a>
+                                <a class="smallDelete" ng-click="return()"> <md-icon  md-svg-src='images/icons/deleteSmall.svg'></md-icon></a>
+
+                            </td>
+                            <td><input
+                                    style="background-color:#13BA10; clear: both; width:95px;" class="adminSubmit"
+                                    type="submit" value="OK"
+                                    ng-click="saveOnServer();"></td>
+
+                       </tr>
+                        </tbody>
+                    </table>
+
+
+                    <script type="text/ng-template" id="updatePieces">
+                        <h1 style="font-size: 23px;">{{successChangePieces}}</h1>
+                        <p style="font-size: 18px; color: #ffffff;">{{successChangePieces2}}</p>
+
+                        <input style="background-color: #13BA10;" class="submitSuccess" type="submit" value="Ok"
+                               ng-click="reloadRoute(); closeThisDialog(0);">
+                    </script>
+                </div>
             </div>
+        </div>
+
 
 
         </div>
-
     </div>
-</div>
 </div>

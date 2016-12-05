@@ -26,4 +26,25 @@ public class Reserved_ItemsServiceImplementation implements Reserved_ItemsServic
     public void saveItems(Reserved_Items reserved_items) {
         reserved_itemsRepository.save(reserved_items);
     }
+
+    @Override
+    public boolean updateItems(Reserved_Items reserved_items) {
+        reserved_itemsRepository.save(reserved_items);
+        return true;
+    }
+
+    @Override
+    public Reserved_Items findItem(String id) {
+        return reserved_itemsRepository.findById(id);
+    }
+
+    @Override
+    public List<Reserved_Items> findByNameTeam(String nameTeam) {
+        return reserved_itemsRepository.findByNameTeam(nameTeam);
+    }
+
+    @Override
+    public void delete(Reserved_Items reserved_items) {
+        reserved_itemsRepository.delete(reserved_items);
+    }
 }

@@ -237,8 +237,8 @@ app.service('documentWZ', function ($rootScope, $http, ngDialog, HOST) {
         }).success(function (data) {
             $rootScope.documents = [];
             ngDialog.open({
-                template: 'successDeleteDocument',
-                controller: 'findDocument',
+                template: 'deleteCorrect',
+                controller: 'AdminController',
                 className: 'ngdialog-theme-default'
             });
 

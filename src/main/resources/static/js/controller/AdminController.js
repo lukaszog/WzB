@@ -45,10 +45,24 @@ app.controller('AdminController', function ($scope, $http, $rootScope, $route, $
         console.log('Nie udało się ');
     });
 
+    $rootScope.documents = [];
+    $http({
+        method: 'GET',
+        url: HOST + '/find_correct',
 
-    $scope.findAllCorrect = function () {
-        documentWZ.correctWZAll();
-    };
+        headers: {'Content-type': 'application/json'},
+    }).success(function (data) {
+        $rootScope.documents = data;
+
+
+    }).error(function (data) {
+        ngDialog.open({
+            template: 'errorFindDocument',
+            controller: 'findDocument',
+            className: 'ngdialog-theme-default'
+        });
+
+    });
 
     $scope.clickToDelete = function () {
         $rootScope.numberWZtoDelete = $scope.editData.documents.numberWZ;
@@ -64,6 +78,7 @@ app.controller('AdminController', function ($scope, $http, $rootScope, $route, $
 
     $scope.deleteDocument = function () {
         documentWZ.deleteDocument($scope.numberWZtoDelete, $scope.subProDelete);
+
     };
 
 });

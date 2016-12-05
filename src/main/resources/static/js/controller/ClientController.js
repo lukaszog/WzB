@@ -8,7 +8,7 @@ app.controller('ClientOperation', ['$scope', '$rootScope', '$http','$route', 'Cl
     $scope.clients = [];
     $scope.editData = {};
     $scope.names = ["STA", "STB", "STC",
-        "STE"];
+        "STE", "STX"];
 
     $http({
         method: 'GET',
@@ -41,8 +41,10 @@ app.controller('ClientOperation', ['$scope', '$rootScope', '$http','$route', 'Cl
             nameTeam = 'STB';
         } else if ($scope.nameTeam == 'STC') {
             nameTeam = 'STC';
-        } else {
+        } else if ($scope.nameTeam == 'STE') {
             nameTeam = 'STE';
+        }else{
+            nameTeam = 'STX'
         }
 
         ClientService.addClient(nameClient, numberClient, nameTeam, abbreviationNameClient);

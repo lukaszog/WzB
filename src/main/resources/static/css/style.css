@@ -651,14 +651,14 @@ FindDocument
     width: 300px;
 }
 
-table, th, td {
+#showDocument table, th, td {
     border: 3px solid white;
     border-collapse: collapse;
     padding: 15px;
     text-align: center;
     border-spacing: 5px;
 }
-td:hover
+#showDocument td:hover
 {
     background-color: #9FB1BF;
 }
@@ -669,6 +669,41 @@ td:hover
     padding: 15px;
     text-align: center;
     border-spacing: 5px;
+}
+
+/*--------------------
+Items
+--------------------*/
+
+#showItems
+{
+    margin-top: 70px;
+    font-size: 17px;
+    background-color: #445878;
+}
+
+#showItems tr:first-child {
+    background-color: #31353D;
+
+}
+
+#showItems  table, th, td {
+    border: 3px solid white;
+    border-collapse: collapse;
+    padding: 15px;
+    text-align: center;
+    border-spacing: 5px;
+}
+#showItems tr:first-child:hover {
+   background: #31353D;
+
+}
+
+#showItems tr:hover {
+    background: #fec503;
+}
+#showItems tr:checked{
+    background: yellow;
 }
 
 /*--------------------
@@ -1009,4 +1044,29 @@ md-icon svg {
 
     margin-bottom: 25px;
 }
+
+.smallConfirm md-icon
+{
+    color: #ffffff !important ;
+    cursor: hand;
+}
+
+.smallDelete md-icon:hover
+{
+    color: #ffffff !important ;
+    cursor: hand;
+}
+
+.smallConfirm md-icon:hover
+{
+    color: #13BA10 !important ;
+    cursor: hand;
+}
+
+.smallDelete md-icon:hover
+{
+    color: #e74c3c !important ;
+    cursor: hand;
+}
+
 

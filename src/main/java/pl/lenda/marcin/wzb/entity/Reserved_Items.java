@@ -1,7 +1,9 @@
 package pl.lenda.marcin.wzb.entity;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 /**
  * Created by Promar on 26.11.2016.
@@ -9,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Document
 public class Reserved_Items {
 
+    @Id
     private String id;
 
     private String numberPro;
@@ -28,16 +31,21 @@ public class Reserved_Items {
     private String businessSector;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private String dateAccepted;
+    private Date dateAccepted;
+
+    private String pieces;
+
+    private String delay;
+
+    private String allPrice;
 
     private String priceItem;
 
     public Reserved_Items(){
     }
 
-    public Reserved_Items(String id, String numberPro, String contentItem, String clientName, String traderName, String nameTeam,
-                          String kbn, String provider, String businessSector, String dateAccepted, String priceItem) {
-        this.id = id;
+    public Reserved_Items(String numberPro, String contentItem, String clientName, String traderName, String nameTeam,
+                          String kbn, String provider, String businessSector, Date dateAccepted, String pieces, String delay, String allPrice, String priceItem) {
         this.numberPro = numberPro;
         this.contentItem = contentItem;
         this.clientName = clientName;
@@ -47,15 +55,10 @@ public class Reserved_Items {
         this.provider = provider;
         this.businessSector = businessSector;
         this.dateAccepted = dateAccepted;
+        this.pieces = pieces;
+        this.delay = delay;
+        this.allPrice = allPrice;
         this.priceItem = priceItem;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getNumberPro() {
@@ -114,20 +117,12 @@ public class Reserved_Items {
         this.businessSector = businessSector;
     }
 
-    public String getDateAccepted() {
+    public Date getDateAccepted() {
         return dateAccepted;
     }
 
-    public void setDateAccepted(String dateAccepted) {
+    public void setDateAccepted(Date dateAccepted) {
         this.dateAccepted = dateAccepted;
-    }
-
-    public String getPriceItem() {
-        return priceItem;
-    }
-
-    public void setPriceItem(String priceItem) {
-        this.priceItem = priceItem;
     }
 
     public String getKbn() {
@@ -136,5 +131,45 @@ public class Reserved_Items {
 
     public void setKbn(String kbn) {
         this.kbn = kbn;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(String pieces) {
+        this.pieces = pieces;
+    }
+
+    public String getDelay() {
+        return delay;
+    }
+
+    public void setDelay(String delay) {
+        this.delay = delay;
+    }
+
+    public String getAllPrice() {
+        return allPrice;
+    }
+
+    public void setAllPrice(String allPrice) {
+        this.allPrice = allPrice;
+    }
+
+    public String getPriceItem() {
+        return priceItem;
+    }
+
+    public void setPriceItem(String priceItem) {
+        this.priceItem = priceItem;
     }
 }

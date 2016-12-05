@@ -10,6 +10,7 @@
     <link rel="icon" href="favicon.ico">
     <title>WzB</title>
 
+    <script src="bower_components/angular/angular.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Kreon|Roboto+Condensed" rel="stylesheet">
@@ -23,8 +24,12 @@
     <link href="bower_components/ng-dialog/css/ngDialog-theme-default.css" rel="stylesheet">
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
     <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+
+
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
+
 
     <script type="text/javascript">
         function onclickHandler() {
@@ -38,6 +43,7 @@
             display: none !important;
         }
     </style>
+    <script src="js/App.js"></script>
 </head>
 
 
@@ -73,7 +79,7 @@
                     <a class="page-scroll" href="#/account">Moje konto <md-icon md-svg-src='images/icons/my_account.svg'></md-icon></a>
                 </li>
                 <li ng-show="authenticated">
-                    <a class="page-scroll" href="#/all_items">RF <md-icon md-svg-src='images/icons/rf.svg'></md-icon></a>
+                    <a class="page-scroll" href="#/under_construction">RF <md-icon md-svg-src='images/icons/rf.svg'></md-icon></a>
                 </li>
                 <li ng-show="userRoles">
                     <a class="page-scroll" href="#/admin">Administracja <md-icon md-svg-src='images/icons/admin.svg'></md-icon></a>
@@ -135,7 +141,8 @@
 <!-- Bootstrap core JavaScript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="bower_components/angular/angular.min.js"></script>
+
+<script src="bower_components/bower_components/fusioncharts/fusioncharts.js"></script>
 <script src="https://code.angularjs.org/1.4.0-beta.5/i18n/angular-locale_pl-pl.js">
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
@@ -162,7 +169,11 @@
 <script src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
 <script src="bower_components/bower_components/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
 
-
+<script src="bower_components/bower_components/fusioncharts/angular-fusioncharts.js"></script>
+<script src="bower_components/bower_components/fusioncharts/themes/fusioncharts.theme.ocean.js"></script>
+<script src="bower_components/bower_components/fusioncharts/themes/fusioncharts.theme.carbon.js"></script>
+<script src="bower_components/bower_components/fusioncharts/themes/fusioncharts.theme.fint.js"></script>
+<script src="bower_components/bower_components/fusioncharts/themes/fusioncharts.theme.zune.js"></script>
 
 
 <script src="js/App.js"></script>
@@ -180,6 +191,7 @@
 <script src="js/controller/ItemsCtrl.js"></script>
 
 
+
 <script src="js/controller/LoginController.js"></script>
 <script src="js/controller/RegisterController.js"></script>
 <script src="js/service/ClientService.js"></script>
@@ -189,6 +201,8 @@
 <script src="js/directive/ConfirmDelete.js"></script>
 <script src="js/service/DocumentService.js"></script>
 <script src="js/service/ItemsService.js"></script>
+<script src="js/controller/StatisticsCtrl.js"></script>
+
 <script src="js/config.js"></script>
 
 

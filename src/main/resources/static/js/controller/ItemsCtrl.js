@@ -1,7 +1,7 @@
 /**
  * Created by Promar on 26.11.2016.
  */
-app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$route', '$timeout', 'ItemsService', 'HOST', function ($scope, $rootScope, $http, $window, $route, $timeout, ItemsService, HOST) {
+app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$route', '$timeout', 'ItemsService', 'HOST', 'ngDialog', function ($scope, $rootScope, $http, $window, $route, $timeout, ItemsService, HOST, ngDialog) {
 
     $scope.form = {};
     $scope.listItems = '';
@@ -112,7 +112,7 @@ app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$
     $timeout(function () {
         $scope.showInfo = true;
         $scope.load = false;
-    }, 900);
+    }, 1000);
 
 
     $scope.reloadRoute = function () {
@@ -148,6 +148,8 @@ app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$
                 "provider": $scope.form.provider,
                 "businessSector": $scope.form.businessSector,
                 "dateAccepted": $scope.form.date,
+                "pieces":$scope.form.pieces,
+                "allPrice": $scope.form.priceItem,
                 "priceItem": $scope.form.priceItem
             },
             headers: {'Content-type': 'application/json'}
@@ -160,6 +162,119 @@ app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$
         });
     };
 
+    //******************************************************************************************************************
+
+    $scope.editData = [];
+    $scope.editItem = [];
+    $scope.editOff = true;
+    $scope.editOn = false;
+
+    $scope.showEdit = function () {
+        $scope.editOff = false;
+        $scope.editOn = true;
 
 
+
+
+        $scope.id = $scope.editData.items.id;
+
+        $http({
+            method: 'POST',
+            url: HOST + '/findItemBy_ID',
+            data:{
+                "id": $scope.id
+            },
+            headers: {'Content-type': 'application/json'}
+        })
+            .success(function (data) {
+                $scope.editItem = data;
+
+
+            }).error(function (data) {
+            $rootScope.listClient = 'Nie udało się pobrać listy handlowców.'
+        });
+
+
+    };
+
+    $scope.offEditNumber = true;
+    $scope.editNumber = false;
+    $scope.modelPieces = [];
+    $scope.startPieces = 0;
+
+    $scope.editItemPieces = function () {
+        $scope.offEditNumber = false;
+        $scope.editNumber = true;
+    };
+
+    $scope.save = function () {
+        $scope.offEditNumber = true;
+        $scope.editNumber = false;
+        $scope.startPieces =  $scope.modelPieces.op;
+    };
+
+    $scope.return = function () {
+        $scope.offEditNumber = true;
+        $scope.editNumber = false;
+    };
+
+    $scope.saveOnServer = function () {
+
+        if($scope.modelPieces.op == $scope.editData.items.pieces){
+
+            $http({
+                method: 'DELETE',
+                url: HOST + '/delete_items',
+                data: {
+                    "id": $scope.editData.items.id
+
+                },
+                headers: {'Content-type': 'application/json'}
+            })
+                .success(function (data) {
+
+                        $rootScope.successChangePieces = 'Odpisałeś towar z procesu: ' + $scope.editData.items.numberPro;
+                        $rootScope.successChangePieces2 = 'KBN: '+ $scope.editData.items.kbn +'  Ilość: wszystkie dostępne sztuki.'
+                        ngDialog.open({
+                            template: 'updatePieces',
+                            controller: 'ItemsOperation',
+                            className: 'ngdialog-theme-default'
+                        });
+
+                    }
+                ).error(function (data) {
+                console.log('nie dodano');
+            });
+
+
+        }else{
+
+            $http({
+                method: 'POST',
+                url: HOST + '/update_items',
+                data: {
+                    "id": $scope.editData.items.id,
+                    "pieces": $scope.modelPieces.op
+
+                },
+                headers: {'Content-type': 'application/json'}
+            })
+                .success(function (data) {
+
+                    $rootScope.successChangePieces = 'Odpisałeś towar z procesu: ' + $scope.editData.items.numberPro;
+                    $rootScope.successChangePieces2 = 'KBN: '+ $scope.editData.items.kbn +'  Ilość: '+ $scope.modelPieces.op + ' sztuk.'
+                    ngDialog.open({
+                        template: 'updatePieces',
+                        controller: 'ItemsOperation',
+                        className: 'ngdialog-theme-default'
+                    });
+
+                    }
+                ).error(function (data) {
+                console.log('nie dodano');
+            });
+        }
+
+    };
+        $scope.number = 1;
 }]);

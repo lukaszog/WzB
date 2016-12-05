@@ -12,4 +12,12 @@ public interface Reserved_ItemsService {
     List<Reserved_Items> findAll();
 
     void saveItems(Reserved_Items reserved_items);
+
+    boolean updateItems(Reserved_Items reserved_items);
+
+    Reserved_Items findItem (String id);
+
+    List<Reserved_Items> findByNameTeam(String nameTeam);
+
+    void delete(Reserved_Items reserved_items);
 }
