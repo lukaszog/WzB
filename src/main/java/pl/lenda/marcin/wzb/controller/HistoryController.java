@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pl.lenda.marcin.wzb.entity.HistoryCorrectsDocument;
 import pl.lenda.marcin.wzb.entity.HistoryDeleteDocumentWz;
+import pl.lenda.marcin.wzb.entity.HistoryLoggedAppIn;
+import pl.lenda.marcin.wzb.service.history.HistoryLoggedInService;
 import pl.lenda.marcin.wzb.service.history.HistoryService;
 
 import java.util.List;
@@ -20,6 +22,8 @@ public class HistoryController {
 
     @Autowired
     HistoryService historyService;
+    @Autowired
+    HistoryLoggedInService historyLoggedInService;
 
     @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/all_deleteE", method = RequestMethod.GET)
@@ -31,5 +35,11 @@ public class HistoryController {
     @RequestMapping(value = "/all_corrects", method = RequestMethod.GET)
     public List<HistoryCorrectsDocument> showAllDocumentCorrects(){
         return historyService.showAllCorrectsDocument();
+    }
+
+    @CrossOrigin(origins = "http://wzb24.pl")
+    @RequestMapping(value = "/all_logged", method = RequestMethod.GET)
+    public List<HistoryLoggedAppIn> showAllLoggedUser(){
+        return historyLoggedInService.findAll();
     }
 }

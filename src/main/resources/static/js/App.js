@@ -3,7 +3,7 @@
  */
 'use strict';
 
-// Declare app level module which depends on views, and components
+
 var app = angular.module('myApp', [
     'ngRoute', 'ngResource', 'ngDialog', 'tableSort', 'ngMaterial', 'ngMessages', 'timer', 'config', 'angucomplete-alt',
     'ng-fusioncharts'
@@ -23,8 +23,10 @@ var app = angular.module('myApp', [
                     //here I preserve login page
                     if($location.absUrl() != 'http://wzb24.pl/#/after_register' &&
                         $location.absUrl() != 'http://wzb24.pl/#/login')
-                    $location.url('/main');
-                    $rootScope.$broadcast('error');
+                        $rootScope.authenticated = false;
+                        $rootScope.userRoles = false;
+                        $location.url('/login');
+                        $rootScope.$broadcast('error');
                 }else if(response.status === 403){
                     $location.url('/access_denied');
                 }
@@ -136,6 +138,10 @@ var app = angular.module('myApp', [
                 templateUrl: 'views/admin/history/all_corrects_document.html',
                 controller: 'HistoryCtrl'
             })
+            .when('/all_logged_user', {
+                templateUrl: 'views/admin/history/all_logged_in_user.html',
+                controller: 'HistoryCtrl'
+            })
             .when('/items', {
                 templateUrl: 'views/items/items_menu.html',
                 controller: 'Statistics'
@@ -177,7 +183,5 @@ var app = angular.module('myApp', [
 
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         $httpProvider.interceptors.push('httpInterceptor');
-
-
 
     });

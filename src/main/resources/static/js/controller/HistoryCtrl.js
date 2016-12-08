@@ -7,6 +7,7 @@ app.controller('HistoryCtrl', ['$scope', '$http',
 
     $scope.deleteDocument = [];
     $scope.correctsDocument = [];
+    $scope.loggedInUser = [];
 
         $http({
             method: 'GET',
@@ -24,6 +25,17 @@ app.controller('HistoryCtrl', ['$scope', '$http',
             url: '/all_corrects'
         }).success(function (data) {
             $scope.correctsDocument = data;
+
+        }).error(function (data) {
+            console.log('Nie udało się pobrać WZ');
+
+        });
+
+        $http({
+            method: 'GET',
+            url: '/all_logged'
+        }).success(function (data) {
+            $scope.loggedInUser = data;
 
         }).error(function (data) {
             console.log('Nie udało się pobrać WZ');

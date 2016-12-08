@@ -70,6 +70,7 @@ public class TraderController {
 
     @CrossOrigin(origins = "http://wzb24.pl")
     @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/delete_trader", method = RequestMethod.DELETE)
     public void deleteTraderAccount(@RequestBody TraderToDeleteDto traderToDeleteDto){
         TraderAccount traderAccount = traderService.findByTraderSurnameAndNumber(traderToDeleteDto.getSurname(),
                 traderToDeleteDto.getNumberTrader());
