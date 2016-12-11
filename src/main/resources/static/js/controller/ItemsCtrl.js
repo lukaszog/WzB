@@ -136,22 +136,8 @@ app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$
     };
     $scope.addItems = function () {
         $http({
-            method: 'POST',
+            method: 'GET',
             url: HOST + '/save_items',
-            data: {
-                "numberPro": $scope.form.numberPro,
-                "contentItem": $scope.form.contentItem,
-                "clientName": $scope.form.clientName,
-                "traderName": $scope.form.traderName,
-                "nameTeam": $scope.form.nameTeam,
-                "kbn": $scope.form.kbn,
-                "provider": $scope.form.provider,
-                "businessSector": $scope.form.businessSector,
-                "dateAccepted": $scope.form.date,
-                "pieces":$scope.form.pieces,
-                "allPrice": $scope.form.priceItem,
-                "priceItem": $scope.form.priceItem
-            },
             headers: {'Content-type': 'application/json'}
         })
             .success(function (data) {

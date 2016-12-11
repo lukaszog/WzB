@@ -16,7 +16,13 @@ public class Reserved_Items {
 
     private String numberPro;
 
+    private String subPro;
+
+    private String creator;
+
     private String contentItem;
+
+    private String detailsContentItem;
 
     private String clientName;
 
@@ -24,7 +30,11 @@ public class Reserved_Items {
 
     private String nameTeam;
 
+    private String nameTeamCDS;
+
     private String kbn;
+
+    private String numberFactory;
 
     private String provider;
 
@@ -44,14 +54,19 @@ public class Reserved_Items {
     public Reserved_Items(){
     }
 
-    public Reserved_Items(String numberPro, String contentItem, String clientName, String traderName, String nameTeam,
-                          String kbn, String provider, String businessSector, Date dateAccepted, String pieces, String delay, String allPrice, String priceItem) {
+    public Reserved_Items(String numberPro, String subPro, String creator, String contentItem, String detailsContentItem, String clientName, String traderName, String nameTeam,
+                          String nameTeamCDS, String kbn, String numberFactory, String provider, String businessSector, Date dateAccepted, String pieces, String delay, String allPrice, String priceItem) {
         this.numberPro = numberPro;
+        this.subPro = subPro;
+        this.creator = creator;
         this.contentItem = contentItem;
+        this.detailsContentItem = detailsContentItem;
         this.clientName = clientName;
         this.traderName = traderName;
         this.nameTeam = nameTeam;
+        this.nameTeamCDS = nameTeamCDS;
         this.kbn = kbn;
+        this.numberFactory = numberFactory;
         this.provider = provider;
         this.businessSector = businessSector;
         this.dateAccepted = dateAccepted;
@@ -171,5 +186,45 @@ public class Reserved_Items {
 
     public void setPriceItem(String priceItem) {
         this.priceItem = priceItem;
+    }
+
+    public String getSubPro() {
+        return subPro;
+    }
+
+    public void setSubPro(String subPro) {
+        this.subPro = subPro;
+    }
+
+    public String getDetailsContentItem() {
+        return detailsContentItem;
+    }
+
+    public void setDetailsContentItem(String detailsContentItem) {
+        this.detailsContentItem = detailsContentItem;
+    }
+
+    public String getNameTeamCDS() {
+        return nameTeamCDS;
+    }
+
+    public void setNameTeamCDS(String nameTeamCDS) {
+        this.nameTeamCDS = nameTeamCDS;
+    }
+
+    public String getNumberFactory() {
+        return numberFactory;
+    }
+
+    public void setNumberFactory(String numberFactory) {
+        this.numberFactory = numberFactory;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 }

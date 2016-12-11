@@ -3,12 +3,18 @@ package pl.lenda.marcin.wzb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.lenda.marcin.wzb.dto.Reserved_ItemsFindByID;
 import pl.lenda.marcin.wzb.dto.Reserved_ItemsFindStatistics;
 import pl.lenda.marcin.wzb.entity.Reserved_Items;
 import pl.lenda.marcin.wzb.entity.StatisticsItems;
 import pl.lenda.marcin.wzb.service.reserved_items.Reserved_ItemsService;
+import pl.lenda.marcin.wzb.service.upload.UploadFile;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -20,23 +26,134 @@ public class Reserved_ItemsController {
 
     @Autowired
     Reserved_ItemsService reserved_itemsService;
+    @Autowired
+    UploadFile uploadFile;
 
-    @CrossOrigin(origins = "http://wzb24.pl")
-    @Secured("ROLE_ADMIN")
-    @RequestMapping(value = "/save_items", method = RequestMethod.POST)
-    public void saveItems(@RequestBody Reserved_Items reserved_items) {
-        long diff = 0;
-        long diffDay = 0;
-        System.out.println("czas " + reserved_items.getDateAccepted().getTime());
-        diff = new Date().getTime() - reserved_items.getDateAccepted().getTime();
-        diffDay = diff / (24 * 60 * 60 * 1000);
-        reserved_items.setDelay(String.valueOf(diffDay));
-        reserved_items.setAllPrice(String.valueOf(Integer.parseInt(reserved_items.getPieces()) *
-        Integer.parseInt(reserved_items.getPriceItem())));
-        reserved_itemsService.saveItems(reserved_items);
+    @CrossOrigin(origins = "http://localhost:8080")
+    @RequestMapping(value="/upload", method=RequestMethod.POST)
+    public @ResponseBody
+    void handleFileUpload(MultipartFile file){
+        System.out.println("HandleFileUpload");
+        uploadFile.uploadPhoto(file);
     }
 
-    @CrossOrigin(origins = "http://wzb24.pl")
+    @CrossOrigin(origins = "http://localhost:8080")
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/save_items", method = RequestMethod.GET)
+    public void saveItems() {
+
+
+        String csvFile = "C:\\Users\\Promar\\Desktop\\last_correct.csv";
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ";";
+        boolean firstLine = true;
+
+        try {
+
+            br = new BufferedReader(new FileReader(csvFile));
+            while ((line = br.readLine()) != null) {
+
+                if (firstLine) {
+                    firstLine = false;
+                    continue;
+                }
+                // use comma as separator
+                String[] items = line.split(cvsSplitBy);
+
+                if (items[2].equals(String.valueOf(0))) {
+                    items[2] = "Brak";
+                }
+
+                if (items[3].equals(String.valueOf(0))) {
+                    items[3] = "Brak";
+                }
+
+                if (items[4].equals(String.valueOf(0))) {
+                    items[4] = "Brak";
+                }
+
+                if (items[5].equals(String.valueOf(0))) {
+                    items[5] = "Brak";
+                }
+
+                if (items[6].equals(String.valueOf(0))) {
+                    items[6] = "Brak";
+                }
+
+                if (items[7].equals(String.valueOf(0))) {
+                    items[7] = "Brak";
+                }
+
+                if (items[8].equals(String.valueOf(0))) {
+                    items[8] = "Brak";
+                }
+
+                if (items[9].equals(String.valueOf(0))) {
+                    items[9] = "Brak";
+                }
+
+                if (items[10].equals(String.valueOf(0))) {
+                    items[10] = "Brak";
+                }
+
+
+                if (items[11].equals(String.valueOf(0))) {
+                    items[11] = "Brak";
+                }
+
+                if (items[12].equals(String.valueOf(0))) {
+                    items[12] = "Brak";
+                }
+
+                if (items[13].equals(String.valueOf(0))) {
+                    items[13] = "Brak";
+                }
+
+                if (items[14].equals(String.valueOf(0))) {
+                    items[14] = "Brak";
+                }
+
+                if (items[15].equals(String.valueOf(0))) {
+                    items[15] = "Brak";
+                }
+
+                Reserved_Items reserved_items = new Reserved_Items();
+                reserved_items.setKbn(items[2]);
+                reserved_items.setContentItem(items[3]);
+                reserved_items.setDetailsContentItem(items[5]);
+                reserved_items.setNumberFactory(items[4]);
+                reserved_items.setPieces(items[6]);
+                reserved_items.setNumberPro(items[10]);
+                reserved_items.setProvider(items[9]);
+                reserved_items.setSubPro(items[11]);
+                reserved_items.setNameTeam(items[13]);
+                reserved_items.setNameTeamCDS(items[14]);
+                reserved_items.setCreator(items[15]);
+                reserved_items.setDateAccepted(new Date());
+
+                reserved_itemsService.saveItems(reserved_items);
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/update_items", method = RequestMethod.POST)
     public boolean updateItems(@RequestBody Reserved_ItemsFindByID reserved_itemsFindByID) {
         Reserved_Items reserved_items = reserved_itemsService.findItem(reserved_itemsFindByID.getId());
@@ -49,26 +166,26 @@ public class Reserved_ItemsController {
         return true;
     }
 
-    @CrossOrigin(origins = "http://wzb24.pl")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/findAll_items", method = RequestMethod.GET)
     public List<Reserved_Items> allItems() {
         return reserved_itemsService.findAll();
     }
 
-    @CrossOrigin(origins = "http://wzb24.pl")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/delete_items", method = RequestMethod.DELETE)
     public void deleteItems(@RequestBody Reserved_ItemsFindByID reserved_itemsFindByID) {
         Reserved_Items reserved_items = reserved_itemsService.findItem(reserved_itemsFindByID.getId());
         reserved_itemsService.delete(reserved_items);
     }
 
-    @CrossOrigin(origins = "http://wzb24.pl")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/findItemBy_ID", method = RequestMethod.POST)
     public Reserved_Items allItems(@RequestBody Reserved_ItemsFindByID reserved_itemsFindByID) {
         return reserved_itemsService.findItem(reserved_itemsFindByID.getId());
     }
 
-    @CrossOrigin(origins = "http://wzb24.pl")
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping(value = "/statistics", method = RequestMethod.POST)
     public StatisticsItems TeamStatistics(@RequestBody Reserved_ItemsFindStatistics reserved_itemsFindStatistics) {
         List<Reserved_Items> listReserved_items = reserved_itemsService.findByNameTeam(reserved_itemsFindStatistics.getNameTeam());

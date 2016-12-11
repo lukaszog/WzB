@@ -6,7 +6,7 @@
 
 var app = angular.module('myApp', [
     'ngRoute', 'ngResource', 'ngDialog', 'tableSort', 'ngMaterial', 'ngMessages', 'timer', 'config', 'angucomplete-alt',
-    'ng-fusioncharts'
+    'ng-fusioncharts', 'angularFileUpload'
 
 
 ])
@@ -21,8 +21,8 @@ var app = angular.module('myApp', [
             responseError: function (response) {
                 if (response.status === 401) {
                     //here I preserve login page
-                    if ($location.absUrl() != 'http://wzb24.pl/#/after_register' &&
-                        $location.absUrl() != 'http://wzb24.pl/#/login') {
+                    if ($location.absUrl() != 'http://localhost:8080/#/after_register' &&
+                        $location.absUrl() != 'http://localhost:8080/#/login') {
                         $rootScope.authenticated = false;
                         $rootScope.userRoles = false;
                         $location.url('/main');
@@ -179,10 +179,17 @@ var app = angular.module('myApp', [
                 templateUrl: 'views/items/allTeam.html',
                 controller: 'Statistics'
             })
+            .when('/update_items', {
+                templateUrl: 'views/items/update_items.html',
+                controller: 'UploadController'
+            })
 
             .otherwise({redirectTo: '/'});
 
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         $httpProvider.interceptors.push('httpInterceptor');
+
+
+
 
     });

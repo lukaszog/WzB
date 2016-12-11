@@ -13,36 +13,33 @@
                 <a style="font-size: 18px;" href="#/advanced_search" ng-click="runService()" >Zawansowane wyszukiwanie.</a>
                 <div id="showItems">
 
-                    <table class="table" ts-wrapper>
+                    <table class="table" ts-wrapper style="width: 100%; font-size: 14px;">
                         <thead>
                         <tr ng-show="editOff">
                             <th>#</th>
-                            <th>Numer procesu</th>
+                            <th>KBN</th>
+                            <th>Nazwa towaru</th>
                             <th>Opis towaru</th>
-                            <th style="text-align: center;" ts-criteria="clientName|lowercase">Klient</th>
-                            <th style="text-align: center;" ts-criteria="traderName|lowercase">Handlowiec</th>
-                            <th ts-criteria="nameTeam|lowercase">TOK</th>
-                            <th ts-criteria="kbn|lowercase">KBN</th>
-                            <th ts-criteria="provider|lowercase">Dostawca</th>
-                            <th ts-criteria="businessSector|lowercase">Dział</th>
-                            <th ts-criteria="dateAccepted|parseInt">ZWŁOKA</th>
-                            <th>Szt.</th>
-                            <th ts-criteria="allPrice|parseInt">Cena (netto)</th>
-
+                            <th>Stan dost.</th>
+                            <th style="text-align: center;" ts-criteria="clientName|lowercase">DOST.</th>
+                            <th style="text-align: center;" ts-criteria="clientName|lowercase">TOK</th>
+                            <th style="text-align: center;" ts-criteria="traderName|lowercase">CDS</th>
+                            <th ts-criteria="nameTeam|lowercase">Tworzący</th>
+                            <th ts-criteria="dateAccepted|parseInt">Ost. rezerw.</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-show="editOff" ng-repeat="item in listItems | filter:search" ts-repeat
                             ng-click="editData.items = item; showEdit();">
                             <td>{{$index +1}}</td>
-                            <td>{{item.numberPro}}</td>
-                            <td>{{item.contentItem}}</td>
-                            <td>{{item.clientName}}</td>
-                            <td>{{item.traderName}}</td>
-                            <td>{{item.nameTeam}}</td>
                             <td>{{item.kbn}}</td>
+                            <td>{{item.contentItem}}</td>
+                            <td>{{item.detailsContentItem}}</td>
+                            <td>{{item.pieces}}</td>
                             <td>{{item.provider}}</td>
-                            <td>{{item.businessSector}}</td>
+                            <td>{{item.nameTeam}}</td>
+                            <td>{{item.nameTeamCDS}}</td>
+                            <td>{{item.creator}}</td>
                             <td ng-if="item.delay<14" style="background: #18F73E">
                                {{item.delay}}
                             </td>
@@ -55,8 +52,7 @@
                             <td ng-if="item.delay>=60" style="background: #FF0000">
                                 {{item.delay}}
                             </td>
-                            <td>{{item.pieces}}</td>
-                            <td>{{item.allPrice | currency}}</td>
+
                         </tr>
                         </tbody>
 
@@ -65,10 +61,11 @@
                         <tr ng-show="editOn">
                             <th style="background: #3258A6;">#</th>
                             <th style="background: #3258A6;">OPIS TOWARU</th>
-                            <th style="background: #3258A6;">HANDLOWIEC</th>
-                            <th style="background: #3258A6;">KBN</th>
                             <th style="background: #3258A6;">PROCES</th>
-                            <th style="background: #3258A6;">CENA(szt.)</th>
+                            <th style="background: #3258A6;">/</th>
+                            <th style="background: #3258A6;">NR. FABR.</th>
+                            <th style="background: #3258A6;">KBN</th>
+                            <th style="background: #3258A6;">TOK</th>
                             <th style="background: #3258A6;">STAN (szt.)</th>
                             <th style="background: #3258A6; width: 128px;">ODPISZ (szt.)</th>
                             <th style="background: #3258A6;">ZATWIERDŹ</th>
@@ -79,10 +76,11 @@
                             <!--ng-click="editData.documents = document; showToEdit();">-->
                             <td>{{$index +1}}</td>
                             <td>{{editItem.contentItem}}</td>
-                            <td>{{editItem.traderName}}</td>
-                            <td>{{editItem.kbn}}</td>
                             <td>{{editItem.numberPro}}</td>
-                            <td>{{editItem.priceItem | currency}}</td>
+                            <td>{{editItem.subPro}}</td>
+                            <td>{{editItem.numberFactory}}</td>
+                            <td>{{editItem.kbn}}</td>
+                            <td>{{editItem.nameTeam}}</td>
                             <td>{{editItem.pieces}}</td>
                             <td ng-show="offEditNumber" ng-click="editItemPieces()">{{startPieces}}</td>
                             <td ng-show="editNumber">

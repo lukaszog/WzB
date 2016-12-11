@@ -8,6 +8,14 @@ app.controller('Statistics', ['$scope', '$http', '$timeout', '$rootScope',
 
     $rootScope.text = 'Rezerwacja fizyczne ';
 
+    $scope.test4 = function () {
+
+    var file = $scope.param.file;
+    console.log(file);
+
+    };
+
+
     $scope.statistics = '';
     $scope.last30Days = '';
     $scope.last60Days = '';
@@ -154,9 +162,37 @@ app.controller('Statistics', ['$scope', '$http', '$timeout', '$rootScope',
         $scope.myDataSource.data[4].value = $rootScope.lastYear;
     };
 
-
-
-
-
+        app.directive('file', function(){
+            return {
+                scope: {
+                    file: '='
+                },
+                link: function(scope, el, attrs){
+                    el.bind('change', function(event){
+                        var files = event.target.files;
+                        var file = files[0];
+                        scope.file = file ? file.name : undefined;
+                        scope.$apply();
+                    });
+                }
+            };
+        });
 
 }]);
+
+
+app.directive('file', function(){
+    return {
+        scope: {
+            file: '='
+        },
+        link: function(scope, el, attrs){
+            el.bind('change', function(event){
+                var files = event.target.files;
+                var file = files[0];
+                scope.file = file ? file.name : undefined;
+                scope.$apply();
+            });
+        }
+    };
+});
