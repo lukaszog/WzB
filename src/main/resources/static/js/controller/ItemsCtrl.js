@@ -17,6 +17,9 @@ app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$
     $scope.filterNumberPro = false;
     $scope.filterKBN = false;
     $scope.filterBusinessSector = false;
+    $rootScope.itemsLength = 0 ;
+    $rootScope.text = new Date();
+
 
     $scope.showNumber = function() {
         $scope.filterNumberPro = true;
@@ -126,6 +129,7 @@ app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$
     })
         .success(function (data) {
             $scope.listItems = data;
+            $rootScope.itemsLength = data.length;
 
         }).error(function (data) {
         $rootScope.listClient = 'Nie udało się pobrać listy handlowców.'
@@ -134,19 +138,7 @@ app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$
     $scope.runService = function () {
         ItemsService.findAllItems();
     };
-    $scope.addItems = function () {
-        $http({
-            method: 'GET',
-            url: HOST + '/save_items',
-            headers: {'Content-type': 'application/json'}
-        })
-            .success(function (data) {
-                    console.log('dodano');
-                }
-            ).error(function (data) {
-            console.log('nie dodano');
-        });
-    };
+
 
     //******************************************************************************************************************
 
@@ -205,6 +197,11 @@ app.controller('ItemsOperation', ['$scope', '$rootScope', '$http', '$window', '$
     };
 
     $scope.saveOnServer = function () {
+
+        $scope.modelPieces.op+='.000';
+
+        console.log('op'+$scope.modelPieces.op);
+        console.log('2'+$scope.editData.items.pieces);
 
         if($scope.modelPieces.op == $scope.editData.items.pieces){
 

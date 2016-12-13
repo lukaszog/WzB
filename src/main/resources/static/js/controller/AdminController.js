@@ -16,6 +16,10 @@ app.controller('AdminController', function ($scope, $http, $rootScope, $route, $
         $scope.load = false;
     }, 900);
 
+    $scope.reloadRoute = function () {
+        $route.reload();
+    };
+
     if ($scope.correct > 0) {
         $rootScope.alertForAdmin = true;
     }

@@ -57,7 +57,7 @@ public class DocumentWZController {
         return itemSearchRepository.searchItems(value);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/saveDocument")
     public
@@ -77,7 +77,7 @@ public class DocumentWZController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/deleteDocument", method = RequestMethod.DELETE)
     public void deleteDocument(@RequestBody DocumentWzToDeleteDto documentWzToDeleteDto) {
@@ -98,7 +98,7 @@ public class DocumentWZController {
         documentWzServiceImplementation.removeDocumentWz(documentWz);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/findByNumber", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -109,7 +109,7 @@ public class DocumentWZController {
         return convertTo.convertDocumentToDto(byNumberWz);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/findByClient", method = RequestMethod.POST)
     public List<DocumentWzDto> findByClient(@RequestBody DocumentWzAbbreviationNameDto documentWzAbbreviationNameDto) {
         List<DocumentWz> listDocumentWZ;
@@ -122,7 +122,7 @@ public class DocumentWZController {
         return listDocumentWzDto;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/findByClientNumber", method = RequestMethod.POST)
     public List<DocumentWzDto> findByClientNumber(@RequestBody FindClientNumber findClientNumber) {
         List<DocumentWz> listDocumentWZ;
@@ -135,7 +135,7 @@ public class DocumentWZController {
         return listDocumentWzDto;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/findByTraderName", method = RequestMethod.POST)
     public List<DocumentWzDto> findByTraderName(@RequestBody String traderName) {
         List<DocumentWz> listDocumentWZ;
@@ -148,7 +148,7 @@ public class DocumentWZController {
         return listDocumentWzDto;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/showAllDocuments", method = RequestMethod.GET)
     public List<DocumentWzDto> findAll() {
         List<DocumentWzDto> listDocumentWzDto = new ArrayList<>();
@@ -161,7 +161,7 @@ public class DocumentWZController {
         return listDocumentWzDto;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/by_correct", method = RequestMethod.PATCH)
     public void correctBy(@RequestBody FindByNumberWzDto findByNumberWzDto){
         DocumentWz byNumberWz = documentWzServiceImplementation.findByNumberWZAndSubProcess(
@@ -182,13 +182,13 @@ public class DocumentWZController {
         documentWzServiceImplementation.createDocumentWz(byNumberWz);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/find_correct", method = RequestMethod.GET)
     public List<DocumentWz> findCorrectionDocument(){
         return documentWzServiceImplementation.listByCorrectionDocuments();
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/find_nameteam", method = RequestMethod.POST)
     public @ResponseBody List<DocumentWz> findByNameTeam(@RequestBody String nameTeam){
         return documentWzServiceImplementation.findByNameTeam(nameTeam);

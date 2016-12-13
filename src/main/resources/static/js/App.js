@@ -21,8 +21,8 @@ var app = angular.module('myApp', [
             responseError: function (response) {
                 if (response.status === 401) {
                     //here I preserve login page
-                    if ($location.absUrl() != 'http://localhost:8080/#/after_register' &&
-                        $location.absUrl() != 'http://localhost:8080/#/login') {
+                    if ($location.absUrl() != 'http://wzb24.pl/#/after_register' &&
+                        $location.absUrl() != 'http://wzb24.pl/#/login') {
                         $rootScope.authenticated = false;
                         $rootScope.userRoles = false;
                         $location.url('/main');
@@ -188,8 +188,6 @@ var app = angular.module('myApp', [
 
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         $httpProvider.interceptors.push('httpInterceptor');
-
-
 
 
     });

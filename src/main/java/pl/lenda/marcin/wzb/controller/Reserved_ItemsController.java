@@ -1,6 +1,7 @@
 package pl.lenda.marcin.wzb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,22 +29,26 @@ public class Reserved_ItemsController {
     Reserved_ItemsService reserved_itemsService;
     @Autowired
     UploadFile uploadFile;
+    @Autowired
+    MongoTemplate mongoTemplate;
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody
     void handleFileUpload(MultipartFile file){
         System.out.println("HandleFileUpload");
         uploadFile.uploadPhoto(file);
+
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/save_items", method = RequestMethod.GET)
     public void saveItems() {
 
+        mongoTemplate.dropCollection("reserved_Items");
 
-        String csvFile = "C:\\Users\\Promar\\Desktop\\last_correct.csv";
+        String csvFile = "/home/ubuntu/WzB/src/main/resources/upload/last_correct.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
@@ -150,42 +155,39 @@ public class Reserved_ItemsController {
             }
         }
 
-
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/update_items", method = RequestMethod.POST)
     public boolean updateItems(@RequestBody Reserved_ItemsFindByID reserved_itemsFindByID) {
         Reserved_Items reserved_items = reserved_itemsService.findItem(reserved_itemsFindByID.getId());
-        int piecesSum = Integer.parseInt(reserved_items.getPieces()) - Integer.parseUnsignedInt(reserved_itemsFindByID.getPieces());
-        int sum = Integer.parseInt(reserved_items.getAllPrice()) -
-                (Integer.parseInt(reserved_items.getPriceItem()) * Integer.parseInt(reserved_itemsFindByID.getPieces()));
+        double piecesSum = Double.parseDouble(reserved_items.getPieces()) - Double.parseDouble(reserved_itemsFindByID.getPieces());
+
         reserved_items.setPieces(String.valueOf(piecesSum));
-        reserved_items.setAllPrice(String.valueOf(sum));
         reserved_itemsService.saveItems(reserved_items);
         return true;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/findAll_items", method = RequestMethod.GET)
     public List<Reserved_Items> allItems() {
         return reserved_itemsService.findAll();
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/delete_items", method = RequestMethod.DELETE)
     public void deleteItems(@RequestBody Reserved_ItemsFindByID reserved_itemsFindByID) {
         Reserved_Items reserved_items = reserved_itemsService.findItem(reserved_itemsFindByID.getId());
         reserved_itemsService.delete(reserved_items);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/findItemBy_ID", method = RequestMethod.POST)
     public Reserved_Items allItems(@RequestBody Reserved_ItemsFindByID reserved_itemsFindByID) {
         return reserved_itemsService.findItem(reserved_itemsFindByID.getId());
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/statistics", method = RequestMethod.POST)
     public StatisticsItems TeamStatistics(@RequestBody Reserved_ItemsFindStatistics reserved_itemsFindStatistics) {
         List<Reserved_Items> listReserved_items = reserved_itemsService.findByNameTeam(reserved_itemsFindStatistics.getNameTeam());

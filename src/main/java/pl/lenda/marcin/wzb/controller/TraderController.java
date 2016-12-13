@@ -32,7 +32,7 @@ public class TraderController {
     private TraderAccountRepository traderAccountRepository;
 
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/save_trader", method = RequestMethod.POST)
     public Map<String, Object> saveTrader(@RequestBody TraderAccountDto traderAccountDto){
@@ -53,14 +53,14 @@ public class TraderController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/all_trader", method = RequestMethod.GET)
     public List<TraderAccount> findAllTrader(){
         List listTrader = new ArrayList();
         return listTrader = traderService.findAllTrader();
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/find_trader", method = RequestMethod.POST)
     public TraderAccount findTrader(@RequestBody FindTraderAccount findTraderAccount){
         TraderAccount traderAccount = traderService.findByTraderSurnameAndNumber(
@@ -68,7 +68,7 @@ public class TraderController {
         return traderAccount;
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/delete_trader", method = RequestMethod.DELETE)
     public void deleteTraderAccount(@RequestBody TraderToDeleteDto traderToDeleteDto){

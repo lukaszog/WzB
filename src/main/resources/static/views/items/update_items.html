@@ -7,15 +7,18 @@
                 <!--<input style="margin: 0 auto; height: 30px;" type="file" data-file="param.file"/>-->
             <!--</div>-->
 
-            <div class="col-md-12" style="float: left;">
-                <h3>Wybierz plik</h3>
-                <input type="file" nv-file-select="" uploader="uploader" />
-            </div>
 
-            <div class="col-md-12" style="margin-bottom: 40px" id="showItems">
 
-                <h3>Upload queue</h3>
-                <p>Queue length: {{ uploader.queue.length }}</p>
+            <div class="col-md-12" style="margin-bottom: 40px" id="showItems" style="background-color: #333;">
+
+
+                <h3 style="color:#ffffff;">Wybierz pliki</h3>
+                <p style="color:#ffffff;"> Ladowanie: {{ uploader.queue.length }}</p>
+
+                <div class="col-md-12">
+
+                    <input type="file" nv-file-select="" uploader="uploader" />
+                </div>
 
                 <table class="table">
                     <thead>
@@ -48,8 +51,8 @@
                             <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
                                 <span class="glyphicon glyphicon-ban-circle"></span> Cancel
                             </button>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                <span class="glyphicon glyphicon-trash"></span> Remove
+                            <button type="button" class="btn btn-success btn-xs" ng-click="update()">
+                                <span class="glyphicon glyphicon-upload"></span> Aktualizuj
                             </button>
                         </td>
                     </tr>
@@ -57,24 +60,22 @@
                 </table>
 
                 <div>
-                    <div>
-                        Queue progress:
+                    <div ng-controller="ItemsOperation">
+                        Ladowanie:
                         <div class="progress" style="">
                             <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                        <span class="glyphicon glyphicon-upload"></span> Upload all
-                    </button>
-                    <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
-                    </button>
-                    <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                        <span class="glyphicon glyphicon-trash"></span> Remove all
-                    </button>
+
                 </div>
 
             </div>
+
+            <script type="text/ng-template" id="updateSuccess">
+                <h1 style="font-size: 25px;">Baza RF została zaktualizowana!</h1>
+                <input style="width: 408px; margin-top: 5px;" class="submitConfirmDialog" type="submit" value="Ok"
+                       ng-click="reloadRoute(); closeThisDialog(0);">
+            </script>
         </div>
     </div>
 </div>

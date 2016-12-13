@@ -27,7 +27,7 @@ public class ClientController {
     private ConvertTo convertTo;
 
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/save_client", method = RequestMethod.POST)
     public
@@ -55,7 +55,7 @@ public class ClientController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/delete_client", method = RequestMethod.DELETE)
     public void deleteClient(@RequestBody ClientFindDto clientFindDto){
@@ -64,7 +64,7 @@ public class ClientController {
         clientAccountService.deleteAccountClient(clientAccount);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://wzb24.pl")
     @RequestMapping(value = "/all_client", method = RequestMethod.GET)
     public List<ClientAccount> allClientAccount() {
         List<ClientAccount> listClient = new ArrayList<>();
