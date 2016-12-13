@@ -48,7 +48,7 @@ public class Reserved_ItemsController {
 
         mongoTemplate.dropCollection("reserved_Items");
 
-        String csvFile = "/home/ubuntu/WzB/src/main/resources/upload/last_correct.csv";
+        String csvFile = "/home/ubuntu/WzB/src/main/resources/static/upload/last_correct.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ";";
